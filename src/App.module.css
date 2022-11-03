@@ -1,0 +1,21 @@
+.app {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .content {
+    display: flex;   
+  
+  }
+  
+  *::-webkit-scrollbar {
+    width: 8px;
+    background: #2f2f37;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background: rgb(160, 133, 173);
+  }
+  
+
+  

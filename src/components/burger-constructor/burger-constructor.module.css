@@ -1,0 +1,143 @@
+
+.container {
+    /* BurgerConstructor */
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  
+    position: absolute;
+    width: 600px;
+    height: 912px;
+    left: 1020px;
+    top: 128px;
+  
+    /* interface/accent */
+  
+    border: 2px solid #4C4CFF;
+  }
+    
+  .orderedItems {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  
+  }
+    
+  
+  .itemBun {
+      width: 540px;
+      height: 80px;
+      transform: translate(40px, 0%); 
+      padding: 8px;
+      
+      /* interface/accent */
+      
+      border: 1px dashed #4C4CFF;
+      
+  }
+  
+  .scroll {
+    display: flex;
+    flex-direction: column;
+  
+  
+    list-style: none;
+    max-height: 464px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    padding-top: 40px;
+  
+    /* interface/accent */
+  
+    border: 1px dashed #4C4CFF;
+  }
+    
+  .item {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 8px;
+    margin: 2px;
+  
+       /* interface/accent */
+      
+    border: 1px dashed #4C4CFF;
+    width: 568px;
+    height: 80px;
+       
+   /* Inside auto layout */
+       
+    flex: none;
+    flex-grow: 0;
+  }
+    
+  .info {
+    display: flex;
+  
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px;
+    gap: 40px;  
+    position: absolute;
+    width: 568px;
+    height: 64px;
+    left: 16px;
+    top: 796px;
+  }
+    
+  .price {
+    width: 75px;
+    height: 36px;
+    
+    font-family: 'Iceland';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 36px;
+    /* identical to box height, or 75% */
+    
+    display: flex;
+    align-items: center;
+  
+    /* text/primary-light (standart text) */
+    
+    color: #F2F2F3;
+    transform: translate(-45%, 0%); 
+  
+  }
+  
+  .button {
+    /* Auto layout */
+  
+      display: flex;
+   
+      justify-content: center;
+      align-items: center;
+      padding: 20px 40px;
+  
+      width: 215px;
+      height: 64px;
+  
+  }
+    
+  .currency {
+    align-items: center;
+    transform: translate(-45%, 0%);
+  
+    /* Subtract */
+  
+    left: 4.17%;
+    right: 4.17%;
+    top: 4.17%;
+    bottom: 4.17%;
+  
+  }
+  
+  

@@ -1,0 +1,139 @@
+.ingredientsMenu {
+    /* BurgerIngredients */
+     position: absolute;
+     width: 600px;
+     height: 912px;
+     left: 380px;
+     top: 128px;
+   
+     /* interface/bg */
+   
+     background: #131316;
+     /* interface/accent */
+   
+     border: 2px solid #4C4CFF;
+   }
+   
+   .tabMenu {
+     /* Auto layout */
+   
+   display: flex;
+   flex-direction: row;
+   align-items: flex-start;
+   padding: 0px;
+   
+   position: absolute;
+   width: 600px;
+   height: 56px;
+   left: 0px;
+   top: 100px;
+   
+   
+   }
+   
+   
+   
+   .description {
+   
+     display: flex;
+     flex-wrap: wrap;
+   
+     padding: 0;
+   
+   
+     
+     height: 48px;
+     left: 0%;
+     right: 0%;
+     bottom: 0px;
+   
+     /* desktop/text */
+   
+     font-family: 'JetBrains Mono';
+     font-style: normal;
+     font-weight: 400;
+     font-size: 16px;
+   
+     /* or 150% */
+   
+     text-align: center;
+   
+     /* text/primary-light (standart text) */
+   
+     color: #F2F2F3;
+   }
+    
+   .ingredients {
+     position: absolute;
+     width: 600px;
+     height: 756px;
+     left: 0px;
+     top: 156px;
+     overflow-y: scroll;
+   
+     border-radius: 0px;
+   }
+   
+   .buns{
+     /* Auto layout */
+   
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: flex-start;
+     padding: 0px 16px;
+     gap: 24px;
+   
+     position: absolute;
+     width: 600px;
+     height: 208px;
+     left: 0px;
+     top: 16px;
+   }
+   
+   .sauses {
+     /* Auto layout */
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: flex-start;
+     padding: 0px 16px;
+     gap: 24px;
+   
+     position: absolute;
+     width: 600px;
+     height: 472px;
+     left: 0px;
+     top: 396px;
+   }
+   
+   .mains {
+     /* Auto layout */
+   
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: flex-start;
+   padding: 0px 16px;
+   gap: 24px;
+   
+   position: absolute;
+   width: 600px;
+   height: 1184px;
+   left: 0px;
+   top: 962px;
+   }
+   
+   .headline {
+   
+     width: 600px;
+     height: 30px;
+     left: 0px;
+     
+     /* interface/bg */
+     
+     background: #131316;
+     /* interface/accent */
+     
+     border: 1px dashed #4C4CFF;
+   }
