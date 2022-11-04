@@ -1,5 +1,8 @@
 .header {
-    box-sizing: border-box;
+    display: -ms-grid;
+    margin: 0 auto;
+    width: 1280px;
+
 
     height: 88px;
     left: 2%;
@@ -8,10 +11,8 @@
 
     /* interface/modal-bg */
 
-    background: #1C1C21;
-    /* interface/accent */
 
-    border: 2px solid #4C4CFF;
+
     /* card/x-large */
 
     box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
@@ -21,21 +22,19 @@
 
 .nav {
     display: flex;
-    align-items: center;
-
     margin: 0 auto;    
 }
 
 .menu_left {
     display: flex;
-    gap: 8px; 
-    margin-left: 290px; 
+    align-items: flex-start;
+    transform: translateX(-10%);
+    gap: 8px;
 }
 
 .menu_right {
-    margin-left: 565px; 
-
     display: flex;
+    margin-left: 15%;
 }
 
 .menu_item {
@@ -63,30 +62,26 @@
     /* interface/modal-bg */
 
     background: #1c1c21;
-    /* interface/accent */
-
-    border: 1px dashed #4C4CFF;
-    border-radius: 40px;
-    
 }
+
 
 
 
 .logo{
-    position: absolute;
-    width: 289.15px;
-    height: 40px;
+    display: flex;
+    align-self: center;
+    
+
+    max-width: 289.15px;
+    max-height: 40px;
     left: 495px;
     top: 8px;
-
-    transform: translate(123%, 35%);
+    border-radius: 40px;
 
     /* interface/modal-bg */
 
     background: #1C1C21;
-    /* interface/accent */
-
-    border: 1px dashed #4C4CFF;
 }
+
 
   

@@ -7,22 +7,6 @@ import PropTypes from 'prop-types';
 
 const BurgerConstructor = (props) => {
 
-    class CurrencyIcons extends React.Component{
-        render(){
-            return(
-                <ul className={BurgerConstructorStyles.currency}>
-                    {this.props.icon}
-                </ul>
-            )
-        }
-    }
-
-    CurrencyIcons.propTypes = {
-        icon: PropTypes.string
-      };
-
-    
-
     return (
         <section className={`${BurgerConstructorStyles.container}  `}>
 
@@ -65,10 +49,12 @@ const BurgerConstructor = (props) => {
           </ul>
 
           <section className={BurgerConstructorStyles.info}>
-            <section className={BurgerConstructorStyles.price}>
+            <nav className={BurgerConstructorStyles.price}>
               <span className={'text text_type_digits-medium'}>5760</span>
-              <CurrencyIcons  icon={<CurrencyIcon type="primary"  />}  alt="Валюта"  />
-          </section>
+              < span className={BurgerConstructorStyles.currency}>
+              <CurrencyIcon />
+              </ span>
+          </nav>
 
             <Button  type="primary" size="large" onClick={props.toggleModal}>
               Оформить заказ

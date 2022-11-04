@@ -7,6 +7,10 @@
     display: flex;   
   
   }
+  .page{
+    margin: 0 auto;
+    max-width: 1280px
+  }
   
   *::-webkit-scrollbar {
     width: 8px;

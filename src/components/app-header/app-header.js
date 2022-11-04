@@ -22,12 +22,12 @@ const AppHeader = () => {
           
             <ul className={styles.menu_left}>
                     
-                    <li className={styles.menu_item}>
-						<BurgerIcon type="primary"  />
-						<p className="text text_type_main-default">Конструктор</p>
-					</li>
+                <li className={styles.menu_item}>
+					<BurgerIcon type="primary"  />
+					<p className="text text_type_main-default">Конструктор</p>
+				</li>
 
-                    <MenuItem  icon={<ListIcon type="secondary" />}  className="text text_type_main-default text_color_inactive"   text='Лента заказов'   />
+                <MenuItem  icon={<ListIcon type="secondary" />}  className="text text_type_main-default text_color_inactive"   text='Лента заказов'   />
 
 			</ul>
 
