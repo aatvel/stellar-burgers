@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 
 const BurgerConstructor = (props) => {
-  console.log('dfgthjkl;;;;;;;;;;;;;;;')
+console.log(props)
     return (
       
         <section className={`${BurgerConstructorStyles.container}  `}>
@@ -24,9 +24,9 @@ const BurgerConstructor = (props) => {
             </li>
               
             <ul className={BurgerConstructorStyles.scroll}>
-                {orderedItemes.map(element => {
-                    return(
-                      <li key={element._id} className={BurgerConstructorStyles.item}>
+                {orderedItemes.map((element, index )=> {
+                  return(
+                      <li key={index} className={BurgerConstructorStyles.item}>
                         <DragIcon type="primary" />
                         <ConstructorElement
                             text={element.name}
@@ -57,7 +57,7 @@ const BurgerConstructor = (props) => {
               </ span>
           </nav>
 
-            <Button  type="primary" size="large" onClick={props.toggleModal}>
+            <Button htmlType='button' type="primary" size="large" onClick={props.toggleModal}>
               Оформить заказ
             </Button>
 

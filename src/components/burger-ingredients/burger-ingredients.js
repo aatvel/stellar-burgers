@@ -47,13 +47,13 @@ const BurgerIngredients = (props) => {
   <nav className={BurgerIngredientsStyles.ingredients}>
     
         <nav className={BurgerIngredientsStyles.buns}>
-           <MenuItem value='bun' text='Булочки' function={buns.map(element => <Ingredient id={element._id} data={element}/>)} />
+           <MenuItem  value='bun' text='Булочки' function={buns.map(element => <Ingredient key={element._id} id={element._id} data={element}/>)} />
         </nav>
         <nav className={BurgerIngredientsStyles.sauses}>
-            <MenuItem value='sauce' text='Соусы' function={sauces.map(element => <Ingredient id={element._id} data={element}/>)} />
+            <MenuItem value='sauce' text='Соусы' function={sauces.map(element => <Ingredient key={element._id} id={element._id} data={element}/>)} />
         </nav>
         <nav className={BurgerIngredientsStyles.mains}>
-            <MenuItem value='main' text='Начинки' function={mains.map(element => <Ingredient id={element._id} data={element}/>)} />          
+            <MenuItem value='main' text='Начинки' function={mains.map(element => <Ingredient key={element._id} id={element._id} data={element}/>)} />          
         </nav>
   </nav>
       </section>
@@ -64,7 +64,7 @@ const BurgerIngredients = (props) => {
   MenuItem.propTypes = {
       id: PropTypes.number,
       text: PropTypes.string,
-      function:PropTypes.func
+      function:PropTypes.array
   };
   
 export default BurgerIngredients;
