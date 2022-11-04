@@ -1,40 +1,40 @@
 .container {
     /* BurgerConstructor */
   
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    transform: translateX(10%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transform: translateX(10%);
   
    
-    width: 600px;
-    height: 912px;
-    left: 1020px;
-    top: 128px;
+  width: 600px;
+  height: 912px;
+  left: 1020px;
+  top: 128px;
 
-  }
+}
     
   .orderedItems {
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
   
-  }
+}
     
   
   .itemBun {
-      width: 540px;
-      height: 80px;
-      transform: translate(40px, 0%); 
-      padding: 8px;
-      align-items: center;
-      column-gap: 8px;
+  width: 540px;
+  height: 80px;
+  transform: translate(40px, 0%); 
+  padding: 8px;
+  align-items: center;
+  column-gap: 8px;
       
-  }
+}
   
   .scroll {
-    display: flex;
+  display: flex;
     flex-direction: column;
     
     list-style: none;
