@@ -24,7 +24,7 @@ const BurgerIngredients = (props) => {
     const sauces = props.data.filter(item => item.type === 'sauce');
     const mains = props.data.filter(item => item.type === 'main');
 
-    console.log('dfgthjkl;;;;;;;;;;;;;;;')
+    
 
     return (
      <section className={`${BurgerIngredientsStyles.ingredientsMenu} `}>
