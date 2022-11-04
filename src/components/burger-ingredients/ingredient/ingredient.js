@@ -30,4 +30,4 @@ Ingredient.propTypes = {
   }),
 };
 
-export default Ingredient;
+export {Ingredient};
