@@ -1,22 +1,21 @@
 .ingredient {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: 208px;
-    max-width: 272px;
-    position: relative;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 208px;
+  max-width: 272px;
+  position: relative;
 }
 
 .price {
-    display: flex;
+  display: flex;
 }
 
 .currency {
-    align-items: center;;
-    width: 24px;
-    height: 24px;
-    
-    transform: translate(8px,0%);
-} 
+  align-items: center;
+  width: 24px;
+  height: 24px;
 
+  transform: translate(8px, 0%);
+}

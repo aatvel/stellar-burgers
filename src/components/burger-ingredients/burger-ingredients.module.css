@@ -1,73 +1,64 @@
 .ingredientsMenu {
-    /* BurgerIngredients */
-    display: flex;
-    flex-direction: column;
-     width: 600px;
-     height: 912px;
-     left: 380px;
-     top: 128px;
+  /* BurgerIngredients */
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 912px;
+  left: 380px;
+  top: 128px;
 
-   
-     /* interface/bg */
-   
-     background: #131316;
+  /* interface/bg */
 
+  background: #131316;
 }
-   
-.tabMenu { 
-   display: flex;
-   flex-direction: row;
-   align-items: flex-start;
-   padding: 0px;
-   
 
-   width: 600px;
-   height: 56px;
-   left: 0px;
-   top: 100px;
+.tabMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+
+  width: 600px;
+  height: 56px;
+  left: 0px;
+  top: 100px;
 }
-   
-   
-   
-.description {   
-display: flex;
-flex-wrap: wrap;
-   
- padding: 0;
-   
-   
-     
- height: 48px;
- left: 0%;
+
+.description {
+  display: flex;
+  flex-wrap: wrap;
+
+  padding: 0;
+
+  height: 48px;
+  left: 0%;
   right: 0%;
- bottom: 0px;
-   
- /* desktop/text */
-   
-  font-family: 'JetBrains Mono';
+  bottom: 0px;
+
+  /* desktop/text */
+
+  font-family: "JetBrains Mono";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-   
+
   /* or 150% */
-   
+
   text-align: center;
 }
-    
-.ingredients {
 
+.ingredients {
   width: 600px;
   height: 756px;
   left: 0px;
   top: 156px;
   overflow-y: scroll;
   overflow-x: hidden;
-   
+
   border-radius: 0px;
 }
-   
-.buns{
 
+.buns {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -80,41 +71,37 @@ flex-wrap: wrap;
   left: 0px;
   top: 16px;
 }
-   
+
 .sauses {
-     /* Auto layout */
+  /* Auto layout */
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
   padding: 80px 16px;
   gap: 24px;
-   
 
   width: 600px;
   height: 472px;
   left: 0px;
   top: 396px;
 }
-   
-.mains {
 
+.mains {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
   padding: 0px 16px;
   gap: 24px;
-   
 
   width: 600px;
   height: 1184px;
   left: 0px;
   top: 962px;
 }
-   
+
 .headline {
-   
   width: 600px;
   height: 30px;
   left: 0px;

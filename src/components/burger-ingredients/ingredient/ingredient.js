@@ -2,7 +2,9 @@ import React from "react";
 import IngredientsStyles from "./ingredient.module.css";
 import PropTypes from "prop-types";
 
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+
 
 const Ingredient = (props) => {
   return (
@@ -21,13 +23,8 @@ const Ingredient = (props) => {
   );
 };
 
-Ingredient.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    price: PropTypes.number,
-    image: PropTypes.string,
-  }),
-};
 
-export {Ingredient};
+
+
+
+export { Ingredient };

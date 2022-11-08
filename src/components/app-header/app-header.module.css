@@ -1,87 +1,76 @@
 .header {
-    display: -ms-grid;
-    margin: 0 auto;
-    width: 1280px;
+  display: -ms-grid;
+  margin: 0 auto;
+  width: 1280px;
 
+  height: 88px;
+  left: 2%;
+  right: 2%;
+  top: 40px;
 
-    height: 88px;
-    left: 2%;
-    right: 2%;
-    top: 40px;
+  /* interface/modal-bg */
 
-    /* interface/modal-bg */
+  /* card/x-large */
 
-
-
-    /* card/x-large */
-
-    box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
-    
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04),
+    0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
 }
 
-
 .nav {
-    display: flex;
-    margin: 0 auto;    
+  display: flex;
+  margin: 0 auto;
 }
 
 .menu_left {
-    display: flex;
-    align-items: flex-start;
-    transform: translateX(-10%);
-    gap: 8px;
+  display: flex;
+  align-items: flex-start;
+  transform: translateX(-10%);
+  gap: 8px;
 }
 
 .menu_right {
-    display: flex;
-    margin-left: 15%;
+  display: flex;
+  margin-left: 15%;
 }
 
 .menu_item {
-    display: flex;
-    border-radius: 40px;
-    cursor: pointer;
-    background: rgba(27, 27, 31, 0.418);
+  display: flex;
+  border-radius: 40px;
+  cursor: pointer;
+  background: rgba(27, 27, 31, 0.418);
 
-    /* navigation link/inactive */
+  /* navigation link/inactive */
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 
-    /* Auto layout */
-    flex-direction: row;
-    align-items: center;
-    padding: 16px 20px;
-    gap: 8px;
+  /* Auto layout */
+  flex-direction: row;
+  align-items: center;
+  padding: 16px 20px;
+  gap: 8px;
 
-  
-    width: 227px;
-    height: 56px;
-    left: 1073px;
-    top: 0px;
+  width: 227px;
+  height: 56px;
+  left: 1073px;
+  top: 0px;
 
-    /* interface/modal-bg */
+  /* interface/modal-bg */
 
-    background: #1c1c21;
+  background: #1c1c21;
 }
 
+.logo {
+  display: flex;
+  align-self: center;
 
+  max-width: 289.15px;
+  max-height: 40px;
+  left: 495px;
+  top: 8px;
+  border-radius: 40px;
 
+  /* interface/modal-bg */
 
-.logo{
-    display: flex;
-    align-self: center;
-    
-
-    max-width: 289.15px;
-    max-height: 40px;
-    left: 495px;
-    top: 8px;
-    border-radius: 40px;
-
-    /* interface/modal-bg */
-
-    background: #1C1C21;
+  background: #1c1c21;
 }
-
-
-  
