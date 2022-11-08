@@ -1,0 +1,27 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.values {
+  width: 100%;
+  margin-bottom: 0;
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.value {
+  min-width: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.image {
+  width: 480px;
+  height: 240px;
+  width: 100%;
+}
