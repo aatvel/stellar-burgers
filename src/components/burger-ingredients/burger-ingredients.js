@@ -3,12 +3,12 @@ import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import { Ingredient } from "./ingredient/ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-
+import { ingredientType } from "../../utils/types";
 
 class MenuItem extends React.Component {
   render() {
     return (
-      <section className={"margin-top: 40px"} id={this.props.id}>
+      <section className={"margin-top: 40px"} >
         <h2 className={BurgerIngredientsStyles.headline}>{this.props.text}</h2>
         <ul className={BurgerIngredientsStyles.description}>
           {this.props.function}
@@ -18,9 +18,7 @@ class MenuItem extends React.Component {
   }
 }
 
-
 export default function BurgerIngredients(props) {
-
   const [current, setCurrent] = React.useState("bun");
   const buns = props.data.filter((item) => item.type === "bun");
   const sauces = props.data.filter((item) => item.type === "sauce");
@@ -48,7 +46,7 @@ export default function BurgerIngredients(props) {
             value="bun"
             text="Булочки"
             function={buns.map((element) => (
-              <Ingredient key={element._id} id={element._id} data={element} />
+              <Ingredient key={element._id} data={element} />
             ))}
           />
         </nav>
@@ -57,7 +55,7 @@ export default function BurgerIngredients(props) {
             value="sauce"
             text="Соусы"
             function={sauces.map((element) => (
-              <Ingredient key={element._id} id={element._id} data={element} />
+              <Ingredient key={element._id}  data={element} />
             ))}
           />
         </nav>
@@ -66,18 +64,17 @@ export default function BurgerIngredients(props) {
             value="main"
             text="Начинки"
             function={mains.map((element) => (
-              <Ingredient key={element._id} id={element._id} data={element} />
+              <Ingredient key={element._id}  data={element} />
             ))}
           />
         </nav>
       </nav>
     </section>
   );
-};
+}
 
 MenuItem.propTypes = {
-  id: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   function: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(ingredientType),
 };
-

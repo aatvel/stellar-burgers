@@ -22,7 +22,6 @@ class MenuItem extends React.Component {
 }
 
 export default function AppHeader() {
-    
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
@@ -52,5 +51,5 @@ export default function AppHeader() {
       </nav>
     </header>
   );
-};
+}
 

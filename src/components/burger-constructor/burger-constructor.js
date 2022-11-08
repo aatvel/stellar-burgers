@@ -7,13 +7,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
 import orderedItemes from "../../utils/order";
+import { ingredientType } from "../../utils/types";
 import PropTypes from "prop-types";
 
-
-
 export default function BurgerConstructor(props) {
-
-
   return (
     <section className={`${BurgerConstructorStyles.container}  `}>
       <ul className={BurgerConstructorStyles.orderedItems}>
@@ -72,4 +69,8 @@ export default function BurgerConstructor(props) {
       </section>
     </section>
   );
+}
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(ingredientType).isRequired,
 };
