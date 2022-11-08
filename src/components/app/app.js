@@ -7,7 +7,7 @@ import { getIngredients } from "../../utils/api-ingredients.js";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-const url = `https://norma.nomoreparties.space/api/ingredients`;
+
 
 function PreLoader() {
   return (
@@ -25,7 +25,7 @@ function App() {
   const [ingredient, setIngredient] = React.useState();
 
   React.useEffect(() => {
-    getIngredients(url)
+    getIngredients()
       .then(setIngredients)
       .catch(() => alert("Во время загрузки что-то пошло не так"))
       .finally(() => setIngredientsLoading(false));
