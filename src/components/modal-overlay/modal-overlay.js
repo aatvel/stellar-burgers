@@ -10,4 +10,4 @@ ModalOverlay.propTypes = {
   toggleModal: PropTypes.func.isRequired,
 };
 
-export default ModalOverlay;
+export  {ModalOverlay};
