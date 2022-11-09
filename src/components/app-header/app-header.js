@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Button,
   BurgerIcon,
@@ -52,3 +53,8 @@ export default function AppHeader() {
     </header>
   );
 }
+
+MenuItem.propTypes = {
+  icon: PropTypes.object.isRequired,
+  text: PropTypes.string.isRequired,
+};

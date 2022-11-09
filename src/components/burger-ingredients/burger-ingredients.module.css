@@ -24,7 +24,6 @@
   top: 100px;
 }
 
-
 .ingredients {
   width: 600px;
   height: 756px;
@@ -36,12 +35,8 @@
   gap: 24px;
   display: flex;
   flex-direction: column;
-  align-items: stretch
-  
+  align-items: stretch;
 }
-
-
-
 
 .headline {
   width: 600px;

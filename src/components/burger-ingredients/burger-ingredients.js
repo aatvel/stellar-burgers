@@ -4,7 +4,7 @@ import Ingredient from "./ingredient/ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
-import {IngredientCategory} from '../ingredients-category/ingredients-category'
+import { IngredientCategory } from "../ingredients-category/ingredients-category";
 
 export default function BurgerIngredients({
   data,
@@ -48,32 +48,29 @@ export default function BurgerIngredients({
       </div>
 
       <span className={BurgerIngredientsStyles.ingredients}>
+        <IngredientCategory
+          titleId="bun"
+          title="Булочки"
+          ingredients={buns}
+          toggleModal={toggleModal}
+          setIngredient={setIngredient}
+        />
 
-          <IngredientCategory
-            titleId="bun"
-            title="Булочки"
-            ingredients={buns}
-            toggleModal={toggleModal}
-            setIngredient={setIngredient}
-          />
+        <IngredientCategory
+          titleId="sauce"
+          title="Соусы"
+          ingredients={sauces}
+          toggleModal={toggleModal}
+          setIngredient={setIngredient}
+        />
 
-
-          <IngredientCategory
-            titleId="sauce"
-            title="Соусы"
-            ingredients={sauces}
-              toggleModal={toggleModal}
-              setIngredient={setIngredient}
-          />
-
-
-          <IngredientCategory
-            titleId="main"
-            title="Начинки"
-            ingredients={mains}
-            toggleModal={toggleModal}
-            setIngredient={setIngredient}
-          />
+        <IngredientCategory
+          titleId="main"
+          title="Начинки"
+          ingredients={mains}
+          toggleModal={toggleModal}
+          setIngredient={setIngredient}
+        />
       </span>
     </section>
   );
