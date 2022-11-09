@@ -2,15 +2,19 @@ import React from "react";
 import IngredientsStyles from "./ingredient.module.css";
 import PropTypes from "prop-types";
 
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  CurrencyIcon,
+  Counter,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Ingredient = (props) => {
+const Ingredient = (props, count) => {
   const handleClick = () => {
     props.toggleModal();
     props.setIngredient(props.data);
   };
   return (
     <li className={IngredientsStyles.ingredient} onClick={handleClick}>
+      {count && <Counter count={1} size="default" extraClass="m-1" />}
       <img className="ml-4 mr-4" src={props.data.image} alt={props.data.name} />
       <div className={`${IngredientsStyles.price} mt-2 mb-2`}>
         <span className="text text_type_digits-default">
