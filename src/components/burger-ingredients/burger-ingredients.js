@@ -5,7 +5,6 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import {IngredientCategory} from '../ingredients-category/ingredients-category'
-import Modal from "../modal/modal";
 
 class MenuItem extends React.Component {
   render() {
@@ -27,11 +26,11 @@ export default function BurgerIngredients({
 }) {
   const [current, setCurrent] = React.useState("bun");
 
-
   const onTabClick = (tab) => {
     setCurrent(tab);
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
+    console.log(element)
   };
   const buns = React.useMemo(
     () => data.filter((item) => item.type === "bun"),
@@ -65,31 +64,33 @@ export default function BurgerIngredients({
       <nav className={BurgerIngredientsStyles.ingredients}>
         <nav className={BurgerIngredientsStyles.buns}>
           <IngredientCategory
-            titleId="buns"
+            titleId="bun"
             title="Булочки"
             ingredients={buns}
-
+            toggleModal={toggleModal}
+            setIngredient={setIngredient}
           />
         </nav>
         <nav className={BurgerIngredientsStyles.sauses}>
           <IngredientCategory
-            titleId="sauces"
+            titleId="sauce"
             title="Соусы"
             ingredients={sauces}
-
+              toggleModal={toggleModal}
+              setIngredient={setIngredient}
           />
         </nav>
         <nav className={BurgerIngredientsStyles.mains}>
           <IngredientCategory
-            titleId="mains"
+            titleId="main"
             title="Начинки"
             ingredients={mains}
-
+            toggleModal={toggleModal}
+            setIngredient={setIngredient}
           />
         </nav>
       </nav>
     </section>
-   
   );
 }
 

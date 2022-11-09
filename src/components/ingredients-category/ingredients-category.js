@@ -7,19 +7,21 @@ const IngredientCategory = ({
     title,
     titleId,
     ingredients,
-    onIngredientClick
+    toggleModal,
+    setIngredient
 }) => {
     return(
         <>
         <h3 className="text text_type_main-medium" id={titleId}>{title}</h3>
-        <div className="categoryStyles.items">
+        <div className={categoryStyles.items}>
             {ingredients.map((ingredient) => {
                 return(
                     <Ingredient
                         ingredientData={ingredient}
                         key={ingredient._id}
-                        count={1}
-                        onClick={onIngredientClick}
+                        count={1}                        
+                        toggleModal={toggleModal}
+                        setIngredient={setIngredient}
                     />
                 )
             })}

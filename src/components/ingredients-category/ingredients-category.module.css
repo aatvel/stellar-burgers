@@ -1,9 +1,11 @@
 .items{
     display: flex;
-    flex-direction: column;
-    width: 600px;
+
+
+    overflow-x:hidden;
+
+    width: 300px;;
     height: 912px;
     left: 380px;
     top: 128px;
-
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import IngredientsStyles from "./ingredient.module.css";
 import PropTypes from "prop-types";
+import { ingredientType } from "../../../utils/types";
 
 import {
   CurrencyIcon,
@@ -28,6 +29,12 @@ const Ingredient = (props) => {
       <p className="text text text_type_main-default">{props.ingredientData.name}</p>
     </li>
   );
+};
+
+Ingredient.propTypes = {
+  ingredientData: ingredientType.isRequired,
+  toggleModal: PropTypes.func,
+  setIngredient: PropTypes.func
 };
 
 export default React.memo(Ingredient);
