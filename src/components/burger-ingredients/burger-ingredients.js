@@ -17,7 +17,6 @@ export default function BurgerIngredients({
     setCurrent(tab);
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
-    console.log(element)
   };
   const buns = React.useMemo(
     () => data.filter((item) => item.type === "bun"),
@@ -48,8 +47,8 @@ export default function BurgerIngredients({
         </Tab>
       </div>
 
-      <nav className={BurgerIngredientsStyles.ingredients}>
-        <nav className={BurgerIngredientsStyles.buns}>
+      <span className={BurgerIngredientsStyles.ingredients}>
+
           <IngredientCategory
             titleId="bun"
             title="Булочки"
@@ -57,8 +56,8 @@ export default function BurgerIngredients({
             toggleModal={toggleModal}
             setIngredient={setIngredient}
           />
-        </nav>
-        <nav className={BurgerIngredientsStyles.sauses}>
+
+
           <IngredientCategory
             titleId="sauce"
             title="Соусы"
@@ -66,8 +65,8 @@ export default function BurgerIngredients({
               toggleModal={toggleModal}
               setIngredient={setIngredient}
           />
-        </nav>
-        <nav className={BurgerIngredientsStyles.mains}>
+
+
           <IngredientCategory
             titleId="main"
             title="Начинки"
@@ -75,8 +74,7 @@ export default function BurgerIngredients({
             toggleModal={toggleModal}
             setIngredient={setIngredient}
           />
-        </nav>
-      </nav>
+      </span>
     </section>
   );
 }

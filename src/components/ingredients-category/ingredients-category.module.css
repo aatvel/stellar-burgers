@@ -1,6 +1,7 @@
 .items{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     left: 380px;
     top: 128px;
 }
