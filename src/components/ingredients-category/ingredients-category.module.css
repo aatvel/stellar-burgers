@@ -1,0 +1,9 @@
+.items{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 912px;
+    left: 380px;
+    top: 128px;
+
+}

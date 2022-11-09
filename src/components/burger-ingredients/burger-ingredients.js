@@ -4,6 +4,8 @@ import Ingredient from "./ingredient/ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
+import {IngredientCategory} from '../ingredients-category/ingredients-category'
+import Modal from "../modal/modal";
 
 class MenuItem extends React.Component {
   render() {
@@ -24,6 +26,7 @@ export default function BurgerIngredients({
   setIngredient,
 }) {
   const [current, setCurrent] = React.useState("bun");
+
 
   const onTabClick = (tab) => {
     setCurrent(tab);
@@ -61,49 +64,32 @@ export default function BurgerIngredients({
 
       <nav className={BurgerIngredientsStyles.ingredients}>
         <nav className={BurgerIngredientsStyles.buns}>
-          <MenuItem
-            value="bun"
-            text="Булочки"
-            function={buns.map((element) => (
-              <Ingredient
-                key={element._id}
-                data={element}
-                toggleModal={toggleModal}
-                setIngredient={setIngredient}
-              />
-            ))}
+          <IngredientCategory
+            titleId="buns"
+            title="Булочки"
+            ingredients={buns}
+
           />
         </nav>
         <nav className={BurgerIngredientsStyles.sauses}>
-          <MenuItem
-            value="sauce"
-            text="Соусы"
-            function={sauces.map((element) => (
-              <Ingredient
-                key={element._id}
-                data={element}
-                toggleModal={toggleModal}
-                setIngredient={setIngredient}
-              />
-            ))}
+          <IngredientCategory
+            titleId="sauces"
+            title="Соусы"
+            ingredients={sauces}
+
           />
         </nav>
         <nav className={BurgerIngredientsStyles.mains}>
-          <MenuItem
-            value="main"
-            text="Начинки"
-            function={mains.map((element) => (
-              <Ingredient
-                key={element._id}
-                data={element}
-                toggleModal={toggleModal}
-                setIngredient={setIngredient}
-              />
-            ))}
+          <IngredientCategory
+            titleId="mains"
+            title="Начинки"
+            ingredients={mains}
+
           />
         </nav>
       </nav>
     </section>
+   
   );
 }
 
