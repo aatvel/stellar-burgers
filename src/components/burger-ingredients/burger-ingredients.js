@@ -6,19 +6,6 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import {IngredientCategory} from '../ingredients-category/ingredients-category'
 
-class MenuItem extends React.Component {
-  render() {
-    return (
-      <section className={"margin-top: 40px"}>
-        <h2 className={BurgerIngredientsStyles.headline}>{this.props.text}</h2>
-        <ul className={BurgerIngredientsStyles.description}>
-          {this.props.function}
-        </ul>
-      </section>
-    );
-  }
-}
-
 export default function BurgerIngredients({
   data,
   toggleModal,
