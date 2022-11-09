@@ -60,14 +60,13 @@
 
 .buns {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding: 0px 16px;
   gap: 24px;
 
   width: 600px;
-  height: 208px;
   left: 0px;
   top: 16px;
 }
@@ -75,30 +74,29 @@
 .sauses {
   /* Auto layout */
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding: 80px 16px;
   gap: 24px;
 
   width: 600px;
-  height: 472px;
+
   left: 0px;
-  top: 396px;
 }
 
 .mains {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding: 0px 16px;
   gap: 24px;
 
   width: 600px;
-  height: 1184px;
+
   left: 0px;
-  top: 962px;
+
 }
 
 .headline {

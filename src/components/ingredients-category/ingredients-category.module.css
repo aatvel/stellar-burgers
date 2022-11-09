@@ -1,11 +1,6 @@
 .items{
     display: flex;
-
-
-    overflow-x:hidden;
-
-    width: 300px;;
-    height: 912px;
+    flex-direction: column;
     left: 380px;
     top: 128px;
 }
