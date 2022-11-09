@@ -12,4 +12,3 @@ export const getIngredients = () => {
       return Promise.reject(data);
     });
 };
-

@@ -2,15 +2,13 @@ import React from "react";
 import IngredientsStyles from "./ingredient.module.css";
 import PropTypes from "prop-types";
 
-import {
-  CurrencyIcon
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const Ingredient = (props) => {
   const handleClick = () => {
     props.toggleModal();
     props.setIngredient(props.data);
-  }
+  };
   return (
     <li className={IngredientsStyles.ingredient} onClick={handleClick}>
       <img className="ml-4 mr-4" src={props.data.image} alt={props.data.name} />

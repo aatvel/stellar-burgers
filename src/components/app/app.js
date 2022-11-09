@@ -8,7 +8,6 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
 
-
 function PreLoader() {
   return (
     <div>
@@ -47,7 +46,11 @@ function App() {
       ) : (
         <>
           <main className={appStyles.content}>
-            <BurgerIngredients data={ingredients} toggleModal={toggleModal} setIngredient={setIngredient} />
+            <BurgerIngredients
+              data={ingredients}
+              toggleModal={toggleModal}
+              setIngredient={setIngredient}
+            />
 
             <BurgerConstructor
               data={ingredients}
@@ -58,7 +61,7 @@ function App() {
       )}
       {modal && (
         <Modal title="Детали ингредиента" toggleModal={toggleModal}>
-          <IngredientDetails ingredient={ingredient}  />
+          <IngredientDetails ingredient={ingredient} />
         </Modal>
       )}
       {orderModal && (

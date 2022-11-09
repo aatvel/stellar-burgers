@@ -18,7 +18,11 @@ class MenuItem extends React.Component {
   }
 }
 
-export default function BurgerIngredients({ data, toggleModal, setIngredient }) {
+export default function BurgerIngredients({
+  data,
+  toggleModal,
+  setIngredient,
+}) {
   const [current, setCurrent] = React.useState("bun");
 
   const onTabClick = (tab) => {
@@ -44,13 +48,13 @@ export default function BurgerIngredients({ data, toggleModal, setIngredient }) 
       <h1 className="text text_type_main-large mb-5 pt-10">Соберите бургер</h1>
 
       <div className={BurgerIngredientsStyles.tabMenu}>
-        <Tab value="bun" active={current === "bun"} onClick={onTabClick} >
+        <Tab value="bun" active={current === "bun"} onClick={onTabClick}>
           Булочки
         </Tab>
-        <Tab value="sauce" active={current === "sauce"} onClick={onTabClick}  >
+        <Tab value="sauce" active={current === "sauce"} onClick={onTabClick}>
           Соусы
         </Tab>
-        <Tab value="main" active={current === "main"} onClick={onTabClick} >
+        <Tab value="main" active={current === "main"} onClick={onTabClick}>
           Начинки
         </Tab>
       </div>
@@ -61,7 +65,12 @@ export default function BurgerIngredients({ data, toggleModal, setIngredient }) 
             value="bun"
             text="Булочки"
             function={buns.map((element) => (
-              <Ingredient key={element._id} data={element} toggleModal={toggleModal} setIngredient={setIngredient} />
+              <Ingredient
+                key={element._id}
+                data={element}
+                toggleModal={toggleModal}
+                setIngredient={setIngredient}
+              />
             ))}
           />
         </nav>
@@ -70,7 +79,12 @@ export default function BurgerIngredients({ data, toggleModal, setIngredient }) 
             value="sauce"
             text="Соусы"
             function={sauces.map((element) => (
-              <Ingredient key={element._id} data={element} toggleModal={toggleModal} setIngredient={setIngredient} />
+              <Ingredient
+                key={element._id}
+                data={element}
+                toggleModal={toggleModal}
+                setIngredient={setIngredient}
+              />
             ))}
           />
         </nav>
@@ -79,7 +93,12 @@ export default function BurgerIngredients({ data, toggleModal, setIngredient }) 
             value="main"
             text="Начинки"
             function={mains.map((element) => (
-              <Ingredient key={element._id} data={element} toggleModal={toggleModal} setIngredient={setIngredient} />
+              <Ingredient
+                key={element._id}
+                data={element}
+                toggleModal={toggleModal}
+                setIngredient={setIngredient}
+              />
             ))}
           />
         </nav>
@@ -91,5 +110,5 @@ export default function BurgerIngredients({ data, toggleModal, setIngredient }) 
 BurgerIngredients.propTypes = {
   data: PropTypes.arrayOf(ingredientType),
   toggleModal: PropTypes.func,
-  setIngredient: PropTypes.func
+  setIngredient: PropTypes.func,
 };

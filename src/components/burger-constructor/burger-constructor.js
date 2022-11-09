@@ -10,7 +10,7 @@ import orderedItemes from "../../utils/order";
 import { ingredientType } from "../../utils/types";
 import PropTypes from "prop-types";
 
- const BurgerConstructor = (props) => {
+const BurgerConstructor = (props) => {
   return (
     <section className={`${BurgerConstructorStyles.container}  `}>
       <ul className={BurgerConstructorStyles.orderedItems}>
@@ -69,10 +69,10 @@ import PropTypes from "prop-types";
       </section>
     </section>
   );
-}
+};
 
 BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(ingredientType).isRequired,
 };
 
-export default BurgerConstructor
+export default BurgerConstructor;
