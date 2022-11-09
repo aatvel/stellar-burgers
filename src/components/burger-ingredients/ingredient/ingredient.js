@@ -16,7 +16,7 @@ const Ingredient = (props) => {
   };
   return (
     <li className={IngredientsStyles.ingredient} onClick={handleClick}>
-      {count && <Counter count={1} size="default" extraClass="m-1" />}
+      {count && <Counter count={count} size="default" extraClass="m-1" />}
       <img className="ml-4 mr-4" src={props.ingredientData.image} alt={props.ingredientData.name} />
       <div className={`${IngredientsStyles.price} mt-2 mb-2`}>
         <span className="text text_type_digits-default">
