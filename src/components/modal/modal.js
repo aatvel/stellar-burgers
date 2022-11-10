@@ -48,4 +48,5 @@ Modal.propTypes = {
   children: PropTypes.element.isRequired,
   title: PropTypes.string,
 };
-export default Modal;
+
+export default React.memo(Modal);

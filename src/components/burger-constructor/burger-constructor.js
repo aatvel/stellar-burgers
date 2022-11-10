@@ -76,4 +76,5 @@ BurgerConstructor.propTypes = {
   toggleModal: PropTypes.func.isRequired,
 };
 
-export default BurgerConstructor;
+export default React.memo(BurgerConstructor);
+
