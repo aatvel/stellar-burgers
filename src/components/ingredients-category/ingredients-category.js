@@ -34,8 +34,10 @@ const IngredientCategory = ({
   );
 };
 IngredientCategory.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType),
+  ingredients: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
   title: PropTypes.string.isRequired,
-  titleId: PropTypes.string.isRequired
+  titleId: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  setIngredient: PropTypes.func.isRequired,
 };
 export { IngredientCategory };

@@ -12,9 +12,9 @@ import PropTypes from "prop-types";
 
 const BurgerConstructor = (props) => {
   return (
-    <section className={`${BurgerConstructorStyles.container}  `}>
-      <ul className={BurgerConstructorStyles.orderedItems}>
-        <li className={BurgerConstructorStyles.itemBun}>
+    <div className={`${BurgerConstructorStyles.container}  `}>
+      <section className={BurgerConstructorStyles.orderedItems}>
+        <span className={BurgerConstructorStyles.itemBun}>
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -22,7 +22,7 @@ const BurgerConstructor = (props) => {
             price={props.data[0].price}
             thumbnail={props.data[0].image_mobile}
           />
-        </li>
+        </span>
 
         <ul className={BurgerConstructorStyles.scroll}>
           {orderedItemes.map((element, index) => {
@@ -39,7 +39,7 @@ const BurgerConstructor = (props) => {
           })}
         </ul>
 
-        <li className={`${BurgerConstructorStyles.itemBun} `}>
+        <span className={`${BurgerConstructorStyles.itemBun} `}>
           <ConstructorElement
             type="bottom"
             isLocked={true}
@@ -47,16 +47,16 @@ const BurgerConstructor = (props) => {
             price={props.data[0].price}
             thumbnail={props.data[0].image_mobile}
           />
-        </li>
-      </ul>
+        </span>
+      </section>
 
       <section className={BurgerConstructorStyles.info}>
-        <nav className={BurgerConstructorStyles.price}>
+        <span className={BurgerConstructorStyles.price}>
           <span className={"text text_type_digits-medium"}>5760</span>
           <span className={BurgerConstructorStyles.currency}>
             <CurrencyIcon />
           </span>
-        </nav>
+        </span>
 
         <Button
           htmlType="button"
@@ -67,13 +67,13 @@ const BurgerConstructor = (props) => {
           Оформить заказ
         </Button>
       </section>
-    </section>
+    </div>
   );
 };
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientType).isRequired,
-  toggleModal: PropTypes.func,
+  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;

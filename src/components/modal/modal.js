@@ -27,7 +27,7 @@ const Modal = ({ title, toggleModal, children }) => {
           </h2>
 
           <button
-            className={"{modalStyles.closeButton}"}
+            className={modalStyles.closeButton}
             type="button"
             onClick={toggleModal}
           >
@@ -44,8 +44,8 @@ const Modal = ({ title, toggleModal, children }) => {
 };
 
 Modal.propTypes = {
-  handleEsc: PropTypes.func,
-  children: PropTypes.element,
+  toggleModal: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
   title: PropTypes.string,
 };
 export default Modal;

@@ -39,8 +39,8 @@ const Ingredient = (props) => {
 
 Ingredient.propTypes = {
   ingredientData: ingredientType.isRequired,
-  toggleModal: PropTypes.func,
-  setIngredient: PropTypes.func,
+  toggleModal: PropTypes.func.isRequired,
+  setIngredient: PropTypes.func.isRequired,
   count: PropTypes.number.isRequired,
 };
 

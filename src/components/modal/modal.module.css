@@ -7,7 +7,6 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border-radius: 40px;
   background-color: #1c1c21;
   z-index: 2;
   min-width: 720px;
@@ -27,12 +26,12 @@
 }
 
 .closeButton {
-  width: 24px;
-  height: 24px;
+  background-color: inherit;
+  border: none;
 }
 
 .closeButton:hover {
-  opacity: 0.8;
+  opacity: 0.4;
   cursor: pointer;
 }
 

@@ -77,7 +77,7 @@ export default function BurgerIngredients({
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType),
-  toggleModal: PropTypes.func,
-  setIngredient: PropTypes.func,
+  data: PropTypes.arrayOf(ingredientType.isRequired),
+  toggleModal: PropTypes.func.isRequired,
+  setIngredient: PropTypes.func.isRequired,
 };

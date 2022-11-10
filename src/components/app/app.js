@@ -8,18 +8,18 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
 
+
+
 function PreLoader() {
   return (
-    <div>
       <h2>Loading...</h2>
-    </div>
   );
 }
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
   const [ingredientsLoading, setIngredientsLoading] = React.useState(true);
-  const [modal, setModal] = React.useState(false);
+  const [ingredientModal, setIngredientModal] = React.useState(false);
   const [orderModal, setOrderModal] = React.useState(false);
   const [ingredient, setIngredient] = React.useState();
 
@@ -31,7 +31,7 @@ function App() {
   }, []);
 
   const toggleModal = () => {
-    setModal(!modal);
+    setIngredientModal(!ingredientModal);
   };
 
   const toggleOrderModal = () => {
@@ -44,7 +44,7 @@ function App() {
       {ingredientsLoading ? (
         <PreLoader />
       ) : (
-        <>
+       
           <main className={appStyles.content}>
             <BurgerIngredients
               data={ingredients}
@@ -57,9 +57,9 @@ function App() {
               toggleModal={toggleOrderModal}
             />
           </main>
-        </>
+      
       )}
-      {modal && (
+      {ingredientModal && (
         <Modal title="Детали ингредиента" toggleModal={toggleModal}>
           <IngredientDetails ingredient={ingredient} />
         </Modal>
@@ -72,5 +72,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
