@@ -1,0 +1,8 @@
+.items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  left: 380px;
+  top: 128px;
+  gap: 24px;
+}

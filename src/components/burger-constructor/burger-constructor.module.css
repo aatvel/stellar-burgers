@@ -1,0 +1,121 @@
+.container {
+  /* BurgerConstructor */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transform: translateX(10%);
+
+  width: 600px;
+  height: 912px;
+  left: 1020px;
+  top: 128px;
+}
+
+.orderedItems {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.itemBun {
+  width: 540px;
+  height: 80px;
+  transform: translate(40px, 0%);
+  padding: 8px;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.scroll {
+  display: flex;
+  flex-direction: column;
+
+  list-style: none;
+  max-height: 464px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  padding-left: 0;
+  row-gap: 16px;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  padding-top: 40px;
+}
+
+.item {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 8px;
+
+  width: 568px;
+  height: 80px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  flex-grow: 0;
+}
+
+.info {
+  display: flex;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  padding: 0px;
+  gap: 40px;
+  width: 568px;
+  height: 64px;
+  left: 16px;
+  top: 796px;
+}
+
+.price {
+  width: 75px;
+  height: 36px;
+
+  font-family: "Iceland";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 36px;
+  /* identical to box height, or 75% */
+
+  display: flex;
+  align-items: center;
+
+  /* text/primary-light (standart text) */
+
+  color: #f2f2f3;
+  transform: translate(-45%, 0%);
+}
+
+.button {
+  /* Auto layout */
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+
+  width: 215px;
+  height: 64px;
+}
+
+.currency {
+  align-items: center;
+  transform: translate(30%, 0%);
+
+  /* Subtract */
+
+  left: 4.17%;
+  right: 4.17%;
+  top: 4.17%;
+  bottom: 4.17%;
+}

@@ -1,0 +1,40 @@
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #1c1c21;
+  z-index: 2;
+  min-width: 720px;
+  min-height: 300px;
+  box-sizing: border-box;
+}
+
+.title {
+  margin-right: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.closeButton {
+  background-color: inherit;
+  border: none;
+}
+
+.closeButton:hover {
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+.closeButton:active {
+  transform: scale(0.9);
+}
