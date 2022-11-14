@@ -7,13 +7,10 @@ import { getIngredients } from "../../utils/api-ingredients.js";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-
-
+import { OrderContext } from "../../services/order-context";
 
 function PreLoader() {
-  return (
-      <h2>Loading...</h2>
-  );
+  return <h2>Loading...</h2>;
 }
 
 function App() {
@@ -22,6 +19,7 @@ function App() {
   const [ingredientModal, setIngredientModal] = React.useState(false);
   const [orderModal, setOrderModal] = React.useState(false);
   const [ingredient, setIngredient] = React.useState();
+  const [order, setOrder] = React.useState();
 
   React.useEffect(() => {
     getIngredients()
@@ -38,26 +36,30 @@ function App() {
     setOrderModal(!orderModal);
   };
 
+  const setOrderNumber = (orderNumber) => {
+    setOrder(orderNumber)
+  }
+
+
   return (
     <div className={appStyles.page}>
       <AppHeader />
       {ingredientsLoading ? (
         <PreLoader />
       ) : (
-       
-          <main className={appStyles.content}>
-            <BurgerIngredients
-              data={ingredients}
-              toggleModal={toggleModal}
-              setIngredient={setIngredient}
-            />
-
-            <BurgerConstructor
-              data={ingredients}
+        <main className={appStyles.content}>
+          <BurgerIngredients
+            data={ingredients}
+            toggleModal={toggleModal}
+            setIngredient={setIngredient}
+          />
+          <OrderContext.Provider value={ingredients}>
+            <BurgerConstructor        
               toggleModal={toggleOrderModal}
+              setOrderNumber={setOrderNumber}
             />
-          </main>
-      
+          </OrderContext.Provider>
+        </main>
       )}
       {ingredientModal && (
         <Modal title="Детали ингредиента" toggleModal={toggleModal}>
@@ -66,12 +68,11 @@ function App() {
       )}
       {orderModal && (
         <Modal toggleModal={toggleOrderModal}>
-          <OrderDetails />
+          <OrderDetails orderNumber={order} />
         </Modal>
       )}
     </div>
   );
 }
-
 
 export default App;

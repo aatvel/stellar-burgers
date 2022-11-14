@@ -9,8 +9,45 @@ import BurgerConstructorStyles from "./burger-constructor.module.css";
 import orderedItemes from "../../utils/order";
 import { ingredientType } from "../../utils/types";
 import PropTypes from "prop-types";
+import { OrderContext } from "../../services/order-context";
 
 const BurgerConstructor = (props) => {
+  const ingredientsOrder = React.useContext(OrderContext)
+
+  const buns = React.useMemo(
+    () => ingredientsOrder.filter((item) => item.type === "bun"),
+    [ingredientsOrder]
+  );
+
+  let orderId = []
+  let totalPrice = 0;
+  ingredientsOrder.map((element) => {if (element.type !== 'bun'){
+    totalPrice += element.price
+    orderId.push(element._id)
+  }})
+
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ingredients: [buns[0]._id, ...orderId, buns[0]._id],
+    }),
+  };
+
+ const {setOrderNumber} = props
+ const handleSubmitOrder = () => {
+
+  fetch("https://norma.nomoreparties.space/api/orders", requestOptions)
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setOrderNumber(result.order.number);
+      });
+ }
+
   return (
     <div className={`${BurgerConstructorStyles.container}  `}>
       <section className={BurgerConstructorStyles.orderedItems}>
@@ -18,14 +55,15 @@ const BurgerConstructor = (props) => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={props.data[0].price}
-            thumbnail={props.data[0].image_mobile}
+            text={buns[0].name + " (верх)"}
+            price={buns[0].price}
+            thumbnail={buns[0].image_mobile}
           />
         </span>
 
         <ul className={BurgerConstructorStyles.scroll}>
-          {orderedItemes.map((element, index) => {
+          {ingredientsOrder.map((element, index) => {
+            if(element.type !== 'bun'){
             return (
               <li key={index} className={BurgerConstructorStyles.item}>
                 <DragIcon type="primary" />
@@ -35,7 +73,7 @@ const BurgerConstructor = (props) => {
                   thumbnail={element.image_mobile}
                 />
               </li>
-            );
+            )}
           })}
         </ul>
 
@@ -43,16 +81,16 @@ const BurgerConstructor = (props) => {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={props.data[0].price}
-            thumbnail={props.data[0].image_mobile}
+            text={buns[0].name + " (низ)"}
+            price={buns[0].price}
+            thumbnail={buns[0].image_mobile}
           />
         </span>
       </section>
 
       <section className={BurgerConstructorStyles.info}>
         <span className={BurgerConstructorStyles.price}>
-          <span className={"text text_type_digits-medium"}>5760</span>
+          <span className={"text text_type_digits-medium"}>{totalPrice + buns[0].price * 2}</span>
           <span className={BurgerConstructorStyles.currency}>
             <CurrencyIcon />
           </span>
@@ -62,7 +100,10 @@ const BurgerConstructor = (props) => {
           htmlType="button"
           type="primary"
           size="large"
-          onClick={props.toggleModal}
+          onClick={() => {
+            props.toggleModal()
+            handleSubmitOrder()
+          }}
         >
           Оформить заказ
         </Button>
@@ -72,8 +113,8 @@ const BurgerConstructor = (props) => {
 };
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
   toggleModal: PropTypes.func.isRequired,
+  setOrderNumber: PropTypes.func.isRequired
 };
 
 export default React.memo(BurgerConstructor);

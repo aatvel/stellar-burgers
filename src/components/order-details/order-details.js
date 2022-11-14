@@ -1,11 +1,13 @@
 import stylesOrderDetails from "./order-details.module.css";
 import tickImg from "../../images/tick.png";
+import PropTypes from "prop-types";
 
-const OrderDetails = () => {
+const OrderDetails = ({orderNumber}) => {
+
   return (
     <div className={`${stylesOrderDetails.content} pt-9`}>
       <h2 className={`${stylesOrderDetails.title} text text_type_digits-large`}>
-        034536
+        {orderNumber}
       </h2>
       <p className={`text text_type_main-medium mt-8`}>идентификатор заказа</p>
       <img className={`${stylesOrderDetails.image} mt-15`} src={tickImg} />
@@ -21,4 +23,7 @@ const OrderDetails = () => {
   );
 };
 
+OrderDetails.propTypes = {
+  odrerNumber: PropTypes.number
+}
 export default OrderDetails;

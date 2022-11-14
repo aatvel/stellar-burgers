@@ -7,7 +7,6 @@
   transform: translateX(10%);
 
   width: 600px;
-  height: 912px;
   left: 1020px;
   top: 128px;
 }
@@ -24,13 +23,15 @@
   height: 80px;
   transform: translate(40px, 0%);
   padding: 8px;
+  margin-top: 20x;
   align-items: center;
   column-gap: 8px;
+  margin-bottom: 10px;
 }
 
 .scroll {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
   list-style: none;
   max-height: 464px;
@@ -42,8 +43,8 @@
   justify-content: center;
   align-items: center;
   padding: 0px;
-  gap: 10px;
   padding-top: 40px;
+  flex-wrap: wrap;
 }
 
 .item {
