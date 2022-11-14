@@ -7,10 +7,13 @@ import { getIngredients } from "../../utils/api-ingredients.js";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
-import { DataContext, ChosenItemsContext } from "../services/data-context";
+
+
 
 function PreLoader() {
-  return <h2>Loading...</h2>;
+  return (
+      <h2>Loading...</h2>
+  );
 }
 
 function App() {
@@ -35,37 +38,26 @@ function App() {
     setOrderModal(!orderModal);
   };
 
-  const [state, setState] = React.useState({
-    data: [],
-    order: null,
-  });
-
-  const [chosenItems, setChosenItems] = React.useState([]);
-  React.useEffect(() => {
-    getIngredients(setState, state);
-  }, []);
-
   return (
     <div className={appStyles.page}>
-       <DataContext.Provider value={{state, setState}}>
-                <ChosenItemsContext.Provider value={{chosenItems, setChosenItems}}>
-
       <AppHeader />
       {ingredientsLoading ? (
         <PreLoader />
       ) : (
-        <main className={appStyles.content}>
-          <BurgerIngredients
-            data={ingredients}
-            toggleModal={toggleModal}
-            setIngredient={setIngredient}
-          />
+       
+          <main className={appStyles.content}>
+            <BurgerIngredients
+              data={ingredients}
+              toggleModal={toggleModal}
+              setIngredient={setIngredient}
+            />
 
-          <BurgerConstructor
-            data={ingredients}
-            toggleModal={toggleOrderModal}
-          />
-        </main>
+            <BurgerConstructor
+              data={ingredients}
+              toggleModal={toggleOrderModal}
+            />
+          </main>
+      
       )}
       {ingredientModal && (
         <Modal title="Детали ингредиента" toggleModal={toggleModal}>
@@ -77,10 +69,9 @@ function App() {
           <OrderDetails />
         </Modal>
       )}
- </ChosenItemsContext.Provider>
-            </DataContext.Provider>
     </div>
   );
 }
+
 
 export default App;

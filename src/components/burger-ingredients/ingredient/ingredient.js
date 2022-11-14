@@ -40,8 +40,8 @@ const Ingredient = (props) => {
 Ingredient.propTypes = {
   ingredientData: ingredientType.isRequired,
   toggleModal: PropTypes.func.isRequired,
-  // setIngredient: PropTypes.func.isRequired,
-  // count: PropTypes.number.isRequired,
+  setIngredient: PropTypes.func.isRequired,
+  count: PropTypes.number.isRequired,
 };
 
 export default React.memo(Ingredient);
