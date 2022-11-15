@@ -3,13 +3,11 @@
   margin: 0 auto;
   width: 146%;
 
-  transform: translateX(-15.7%);
+
 
   height: 88px;
   margin-top: 40px;
   overflow: hidden;
-
-  /* interface/modal-bg */
 
   /* interface/modal-bg */
 
@@ -24,7 +22,7 @@
 .nav {
   display: flex;
   margin: 0 auto;
-  transform: translateX(15.7%);
+
 }
 
 .menu_left {

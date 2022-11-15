@@ -11,6 +11,7 @@ import { ingredientType } from "../../utils/types";
 import PropTypes from "prop-types";
 import { OrderContext } from "../../services/order-context";
 import { checkResponse } from "../../utils/api-ingredients";
+import {BURGER_API_URL} from '../../utils/consts'
 
 const BurgerConstructor = (props) => {
   const ingredientsOrder = React.useContext(OrderContext);
@@ -47,7 +48,7 @@ const BurgerConstructor = (props) => {
       }),
     };
 
-    fetch("https://norma.nomoreparties.space/api/orders", requestOptions)
+    fetch('${BURGER_API_URL}/orders', requestOptions)
       .then(checkResponse)
       .then((result) => {
         setOrderNumber(result.order.number);
