@@ -1,15 +1,19 @@
 .header {
   display: -ms-grid;
   margin: 0 auto;
-  width: 1280px;
+  width: 146%;
+
+  transform: translateX(-15.7%);
 
   height: 88px;
-  left: 2%;
-  right: 2%;
-  top: 40px;
+  margin-top: 40px;
+  overflow: hidden;
 
   /* interface/modal-bg */
 
+  /* interface/modal-bg */
+
+  background: #1c1c21;
   /* card/x-large */
 
   box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04),
@@ -20,6 +24,7 @@
 .nav {
   display: flex;
   margin: 0 auto;
+  transform: translateX(15.7%);
 }
 
 .menu_left {
@@ -31,14 +36,13 @@
 
 .menu_right {
   display: flex;
-  margin-left: 15%;
+  margin-left: 13%;
 }
 
 .menu_item {
   display: flex;
   border-radius: 40px;
   cursor: pointer;
-  background: rgba(27, 27, 31, 0.418);
 
   /* navigation link/inactive */
 
@@ -54,10 +58,6 @@
   height: 56px;
   left: 1073px;
   top: 0px;
-
-  /* interface/modal-bg */
-
-  background: #1c1c21;
 }
 
 .logo {
@@ -69,8 +69,4 @@
   left: 495px;
   top: 8px;
   border-radius: 40px;
-
-  /* interface/modal-bg */
-
-  background: #1c1c21;
 }

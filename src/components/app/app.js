@@ -8,10 +8,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
 import { OrderContext } from "../../services/order-context";
-
-function PreLoader() {
-  return <h2>Loading...</h2>;
-}
+import { PreLoader } from "./preloader";
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -37,9 +34,8 @@ function App() {
   };
 
   const setOrderNumber = (orderNumber) => {
-    setOrder(orderNumber)
-  }
-
+    setOrder(orderNumber);
+  };
 
   return (
     <div className={appStyles.page}>
@@ -54,7 +50,7 @@ function App() {
             setIngredient={setIngredient}
           />
           <OrderContext.Provider value={ingredients}>
-            <BurgerConstructor        
+            <BurgerConstructor
               toggleModal={toggleOrderModal}
               setOrderNumber={setOrderNumber}
             />

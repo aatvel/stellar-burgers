@@ -10,43 +10,49 @@ import orderedItemes from "../../utils/order";
 import { ingredientType } from "../../utils/types";
 import PropTypes from "prop-types";
 import { OrderContext } from "../../services/order-context";
+import { checkResponse } from "../../utils/api-ingredients";
 
 const BurgerConstructor = (props) => {
-  const ingredientsOrder = React.useContext(OrderContext)
+  const ingredientsOrder = React.useContext(OrderContext);
 
   const buns = React.useMemo(
     () => ingredientsOrder.filter((item) => item.type === "bun"),
     [ingredientsOrder]
   );
 
-  let orderId = []
-  let totalPrice = 0;
-  ingredientsOrder.map((element) => {if (element.type !== 'bun'){
-    totalPrice += element.price
-    orderId.push(element._id)
-  }})
+  const notBunIngredients = ingredientsOrder.filter(
+    (item) => item.type !== "bun"
+  );
 
+  const orderId = [];
 
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      ingredients: [buns[0]._id, ...orderId, buns[0]._id],
-    }),
-  };
+  notBunIngredients.forEach((element) => {
+    orderId.push(element._id);
+  });
 
- const {setOrderNumber} = props
- const handleSubmitOrder = () => {
+  const totalPrice = notBunIngredients.reduce((acc, curr) => {
+    return acc + curr.price;
+  }, 0);
 
-  fetch("https://norma.nomoreparties.space/api/orders", requestOptions)
-      .then((res) => res.json())
+  const { setOrderNumber } = props;
+
+  const handleSubmitOrder = () => {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ingredients: [buns[0]._id, ...orderId, buns[0]._id],
+      }),
+    };
+
+    fetch("https://norma.nomoreparties.space/api/orders", requestOptions)
+      .then(checkResponse)
       .then((result) => {
-        console.log(result);
         setOrderNumber(result.order.number);
       });
- }
+  };
 
   return (
     <div className={`${BurgerConstructorStyles.container}  `}>
@@ -62,8 +68,7 @@ const BurgerConstructor = (props) => {
         </span>
 
         <ul className={BurgerConstructorStyles.scroll}>
-          {ingredientsOrder.map((element, index) => {
-            if(element.type !== 'bun'){
+          {notBunIngredients.map((element, index) => {
             return (
               <li key={index} className={BurgerConstructorStyles.item}>
                 <DragIcon type="primary" />
@@ -73,7 +78,7 @@ const BurgerConstructor = (props) => {
                   thumbnail={element.image_mobile}
                 />
               </li>
-            )}
+            );
           })}
         </ul>
 
@@ -90,7 +95,9 @@ const BurgerConstructor = (props) => {
 
       <section className={BurgerConstructorStyles.info}>
         <span className={BurgerConstructorStyles.price}>
-          <span className={"text text_type_digits-medium"}>{totalPrice + buns[0].price * 2}</span>
+          <span className={"text text_type_digits-medium"}>
+            {totalPrice + buns[0].price * 2}
+          </span>
           <span className={BurgerConstructorStyles.currency}>
             <CurrencyIcon />
           </span>
@@ -101,8 +108,8 @@ const BurgerConstructor = (props) => {
           type="primary"
           size="large"
           onClick={() => {
-            props.toggleModal()
-            handleSubmitOrder()
+            handleSubmitOrder();
+            props.toggleModal();
           }}
         >
           Оформить заказ
@@ -114,8 +121,7 @@ const BurgerConstructor = (props) => {
 
 BurgerConstructor.propTypes = {
   toggleModal: PropTypes.func.isRequired,
-  setOrderNumber: PropTypes.func.isRequired
+  setOrderNumber: PropTypes.func.isRequired,
 };
 
 export default React.memo(BurgerConstructor);
-
