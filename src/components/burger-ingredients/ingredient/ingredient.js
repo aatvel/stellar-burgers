@@ -16,13 +16,16 @@ const Ingredient = (props) => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
+    dispatch(showDetails(ingredientData))
     console.log(ingredientData)
     if(ingredientData.type === 'bun'){dispatch(setBun(ingredientData))} 
-    else {dispatch(setMainsAndSauces(ingredientData))}
-
-    dispatch(showDetails(ingredientData))
+    else {dispatch(setMainsAndSauces(ingredientData))}    
   };
 
+  // Не поняла почему в консоли выдаёт ошибку
+  // TypeError: state.mainsAndSauces is not iterable
+  // понимаю, что много чего недоделано, но не смогла решить проблему
+  
 
   return (
     <li className={IngredientsStyles.ingredient} onClick={handleClick}>

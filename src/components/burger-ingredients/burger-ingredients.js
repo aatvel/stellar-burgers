@@ -26,7 +26,7 @@ export default function BurgerIngredients({}) {
       .then((data) => dispatch(loadIngredientsSuccess(data)))
       .catch(() => dispatch(loadingIngredientsError()));    
     // .finally(() => setIngredientsLoading(false));
-  }, []);
+  }, [dispatch]);
 
   const onTabClick = (tab) => {
     setCurrent(tab);

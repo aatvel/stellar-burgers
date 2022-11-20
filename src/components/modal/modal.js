@@ -9,14 +9,13 @@ import { closeDetails } from "../../services/ingredient-details/details-actions"
 
 const Modal = ({ title, children }) => {
   const dispatch = useDispatch();
-  const {showModal } = useSelector((state) => state.details);
+  const { showModal } = useSelector((state) => state.details);
 
   const handleClick = () => {
-    dispatch(closeDetails())
-  }
+    dispatch(closeDetails());
+  };
   const modalRoot = document.getElementById("modals");
 
-  
   React.useEffect(() => {
     const handleEsc = (e) => {
       e.key === "Escape" && dispatch(closeDetails());
@@ -28,28 +27,32 @@ const Modal = ({ title, children }) => {
     };
   }, [modalRoot]);
 
-  
-
   return createPortal(
     <>
-      <div className={`${modalStyles.container} pt-15 pr-10 pl-10 pb-15`}>
-        <div className={modalStyles.header}>
-          <h2 className={`${modalStyles.title} text text_type_main-large`}>
-            {title}
-          </h2>
+      {showModal && (
+         <>
+        <div className={`${modalStyles.container} pt-15 pr-10 pl-10 pb-15`}>
+          <div className={modalStyles.header}>
+            <h2 className={`${modalStyles.title} text text_type_main-large`}>
+              {title}
+            </h2>
 
-          <button
-            className={modalStyles.closeButton}
-            type="button"
-            onClick={() => handleClick()}
-          >
-            <CloseIcon type="secondary" />
-          </button>
+            <button
+              className={modalStyles.closeButton}
+              type="button"
+              onClick={() => handleClick()}
+            >
+              <CloseIcon type="secondary" />
+            </button>
+          </div>
+
+          <div className={modalStyles.text}>{children}</div>
         </div>
+        <ModalOverlay toggleModal={() => handleClick()} showModal={showModal} />
+        </>
+      )}
 
-        <div className={modalStyles.text}>{children}</div>
-      </div>
-      <ModalOverlay toggleModal={() => handleClick()} />
+      
     </>,
     modalRoot
   );

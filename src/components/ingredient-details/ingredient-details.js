@@ -55,8 +55,8 @@ const {ingredient} = useSelector((state) => state.details)
   );
 };
 
-IngredientDetails.propTypes = {
-  ingredient: ingredientType.isRequired,
-};
+// IngredientDetails.propTypes = {
+//   ingredient: ingredientType.isRequired,
+// };
 
 export default React.memo(IngredientDetails);

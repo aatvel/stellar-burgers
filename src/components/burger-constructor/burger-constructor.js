@@ -17,7 +17,7 @@ import {BURGER_API_URL} from '../../utils/consts'
 const BurgerConstructor = (props) => {
   const dispatch = useDispatch();
   const {buns, mainsAndSauces} = useSelector((state) => state.constructor)
-
+console.log(mainsAndSauces, buns)
   // const handleSubmitOrder = () => {
   //   const requestOptions = {
   //     method: "POST",

@@ -11,6 +11,6 @@ export const detailsReducer = (state = initialState, {type, payload}) => {
         case SHOW_DETAILS:  {return {showModal: true, ingredient: payload}}
         case CLOSE_DETAILS: {return {showModal: false, ingredient: null}}
 
-        default: {return initialState}
+        default: {return state}
     }
 } 
