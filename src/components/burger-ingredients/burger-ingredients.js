@@ -1,35 +1,45 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import Ingredient from "./ingredient/ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import { IngredientCategory } from "../ingredients-category/ingredients-category";
+import { getIngredients } from "../../utils/api-ingredients";
+import { loadingIngredientsError, loadIngredientsStart, loadIngredientsSuccess } from "../../services/ingredients/ingredients-actions";
+
 
 export default function BurgerIngredients({
-  data,
-  toggleModal,
-  setIngredient,
 }) {
   const [current, setCurrent] = React.useState("bun");
+const dispatch = useDispatch()
+const {data} = useSelector((state) => state.ingredients)
+  React.useEffect(() => {
+    dispatch(loadIngredientsStart())
+    getIngredients()
+      .then(dispatch(loadIngredientsSuccess))
+      .catch(() => dispatch(loadingIngredientsError()))
+      // .finally(() => setIngredientsLoading(false));
+  }, []);
 
   const onTabClick = (tab) => {
     setCurrent(tab);
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
-  const buns = React.useMemo(
-    () => data.filter((item) => item.type === "bun"),
-    [data]
-  );
-  const sauces = React.useMemo(
-    () => data.filter((item) => item.type === "sauce"),
-    [data]
-  );
-  const mains = React.useMemo(
-    () => data.filter((item) => item.type === "main"),
-    [data]
-  );
+  // const buns = React.useMemo(
+  //   () => data.filter((item) => item.type === "bun"),
+  //   [data]
+  // );
+  // const sauces = React.useMemo(
+  //   () => data.filter((item) => item.type === "sauce"),
+  //   [data]
+  // );
+  // const mains = React.useMemo(
+  //   () => data.filter((item) => item.type === "main"),
+  //   [data]
+  // );
 
   return (
     <section className={`${BurgerIngredientsStyles.ingredientsMenu} `}>
@@ -52,11 +62,11 @@ export default function BurgerIngredients({
           titleId="bun"
           title="Булочки"
           ingredients={buns}
-          toggleModal={toggleModal}
-          setIngredient={setIngredient}
+          // toggleModal={toggleModal}
+          // setIngredient={setIngredient}
         />
 
-        <IngredientCategory
+        {/* <IngredientCategory
           titleId="sauce"
           title="Соусы"
           ingredients={sauces}
@@ -70,7 +80,7 @@ export default function BurgerIngredients({
           ingredients={mains}
           toggleModal={toggleModal}
           setIngredient={setIngredient}
-        />
+        /> */}
       </span>
     </section>
   );

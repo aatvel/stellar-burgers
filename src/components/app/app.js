@@ -11,53 +11,27 @@ import { OrderContext } from "../../services/order-context";
 import { PreLoader } from "./preloader";
 
 function App() {
-  const [ingredients, setIngredients] = React.useState([]);
-  const [ingredientsLoading, setIngredientsLoading] = React.useState(true);
-  const [ingredientModal, setIngredientModal] = React.useState(false);
-  const [orderModal, setOrderModal] = React.useState(false);
-  const [ingredient, setIngredient] = React.useState();
-  const [order, setOrder] = React.useState();
 
-  React.useEffect(() => {
-    getIngredients()
-      .then(setIngredients)
-      .catch(() => alert("Во время загрузки что-то пошло не так"))
-      .finally(() => setIngredientsLoading(false));
-  }, []);
-
-  const toggleModal = () => {
-    setIngredientModal(!ingredientModal);
-  };
-
-  const toggleOrderModal = () => {
-    setOrderModal(!orderModal);
-  };
-
-  const setOrderNumber = (orderNumber) => {
-    setOrder(orderNumber);
-  };
 
   return (
     <div className={appStyles.page}>
       <AppHeader />
-      {ingredientsLoading ? (
-        <PreLoader />
-      ) : (
+
         <main className={appStyles.content}>
           <BurgerIngredients
-            data={ingredients}
-            toggleModal={toggleModal}
-            setIngredient={setIngredient}
+            // data={ingredients}
+            // toggleModal={toggleModal}
+            // setIngredient={setIngredient}
           />
-          <OrderContext.Provider value={ingredients}>
-            <BurgerConstructor
+          
+            {/* <BurgerConstructor
               toggleModal={toggleOrderModal}
               setOrderNumber={setOrderNumber}
-            />
-          </OrderContext.Provider>
+            /> */}
+
         </main>
-      )}
-      {ingredientModal && (
+
+      {/* {ingredientModal && (
         <Modal title="Детали ингредиента" toggleModal={toggleModal}>
           <IngredientDetails ingredient={ingredient} />
         </Modal>
@@ -66,7 +40,7 @@ function App() {
         <Modal toggleModal={toggleOrderModal}>
           <OrderDetails orderNumber={order} />
         </Modal>
-      )}
+      )} */}
     </div>
   );
 }

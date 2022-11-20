@@ -48,7 +48,7 @@ const BurgerConstructor = (props) => {
       }),
     };
 
-    fetch('${BURGER_API_URL}/orders', requestOptions)
+    fetch(`${BURGER_API_URL}/orders`, requestOptions)
       .then(checkResponse)
       .then((result) => {
         setOrderNumber(result.order.number);
