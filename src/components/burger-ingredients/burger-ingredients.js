@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import Ingredient from "./ingredient/ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -7,20 +7,25 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import { IngredientCategory } from "../ingredients-category/ingredients-category";
 import { getIngredients } from "../../utils/api-ingredients";
-import { loadingIngredientsError, loadIngredientsStart, loadIngredientsSuccess } from "../../services/ingredients/ingredients-actions";
+import {
+  loadingIngredientsError,
+  loadIngredientsStart,
+  loadIngredientsSuccess,
+} from "../../services/ingredients/ingredients-actions";
+import { PreLoader } from "../app/preloader";
 
 
-export default function BurgerIngredients({
-}) {
+
+export default function BurgerIngredients({}) {
   const [current, setCurrent] = React.useState("bun");
-const dispatch = useDispatch()
-const {data} = useSelector((state) => state.ingredients)
+  const dispatch = useDispatch();
+  const { data, loading } = useSelector((state) => state.ingredients);
   React.useEffect(() => {
-    dispatch(loadIngredientsStart())
+    dispatch(loadIngredientsStart());
     getIngredients()
-      .then(dispatch(loadIngredientsSuccess))
-      .catch(() => dispatch(loadingIngredientsError()))
-      // .finally(() => setIngredientsLoading(false));
+      .then((data) => dispatch(loadIngredientsSuccess(data)))
+      .catch(() => dispatch(loadingIngredientsError()));    
+    // .finally(() => setIngredientsLoading(false));
   }, []);
 
   const onTabClick = (tab) => {
@@ -28,18 +33,19 @@ const {data} = useSelector((state) => state.ingredients)
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
-  // const buns = React.useMemo(
-  //   () => data.filter((item) => item.type === "bun"),
-  //   [data]
-  // );
-  // const sauces = React.useMemo(
-  //   () => data.filter((item) => item.type === "sauce"),
-  //   [data]
-  // );
-  // const mains = React.useMemo(
-  //   () => data.filter((item) => item.type === "main"),
-  //   [data]
-  // );
+
+  const buns = React.useMemo(
+    () => data.filter((item) => item.type === "bun"),
+    [data]
+  );
+  const sauces = React.useMemo(
+    () => data.filter((item) => item.type === "sauce"),
+    [data]
+  );
+  const mains = React.useMemo(
+    () => data.filter((item) => item.type === "main"),
+    [data]
+  );
 
   return (
     <section className={`${BurgerIngredientsStyles.ingredientsMenu} `}>
@@ -57,6 +63,8 @@ const {data} = useSelector((state) => state.ingredients)
         </Tab>
       </div>
 
+      {loading ? (<PreLoader/>) :
+
       <span className={BurgerIngredientsStyles.ingredients}>
         <IngredientCategory
           titleId="bun"
@@ -66,28 +74,26 @@ const {data} = useSelector((state) => state.ingredients)
           // setIngredient={setIngredient}
         />
 
-        {/* <IngredientCategory
+        <IngredientCategory
           titleId="sauce"
           title="Соусы"
           ingredients={sauces}
-          toggleModal={toggleModal}
-          setIngredient={setIngredient}
+          // toggleModal={toggleModal}
+          // setIngredient={setIngredient}
         />
 
         <IngredientCategory
           titleId="main"
           title="Начинки"
           ingredients={mains}
-          toggleModal={toggleModal}
-          setIngredient={setIngredient}
-        /> */}
-      </span>
+          // toggleModal={toggleModal}
+          // setIngredient={setIngredient}
+        />
+      </span>}
     </section>
   );
 }
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired),
-  toggleModal: PropTypes.func.isRequired,
-  setIngredient: PropTypes.func.isRequired,
-};
+// BurgerIngredients.propTypes = {
+//   data: PropTypes.arrayOf(ingredientType.isRequired)
+// };

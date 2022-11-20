@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   CurrencyIcon,
   ConstructorElement,
@@ -14,46 +15,26 @@ import { checkResponse } from "../../utils/api-ingredients";
 import {BURGER_API_URL} from '../../utils/consts'
 
 const BurgerConstructor = (props) => {
-  const ingredientsOrder = React.useContext(OrderContext);
+  const dispatch = useDispatch();
+  const {buns, mainsAndSauces} = useSelector((state) => state.constructor)
 
-  const buns = React.useMemo(
-    () => ingredientsOrder.filter((item) => item.type === "bun"),
-    [ingredientsOrder]
-  );
+  // const handleSubmitOrder = () => {
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       ingredients: [buns[0]._id, ...orderId, buns[0]._id],
+  //     }),
+  //   };
 
-  const notBunIngredients = ingredientsOrder.filter(
-    (item) => item.type !== "bun"
-  );
-
-  const orderId = [];
-
-  notBunIngredients.forEach((element) => {
-    orderId.push(element._id);
-  });
-
-  const totalPrice = notBunIngredients.reduce((acc, curr) => {
-    return acc + curr.price;
-  }, 0);
-
-  const { setOrderNumber } = props;
-
-  const handleSubmitOrder = () => {
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ingredients: [buns[0]._id, ...orderId, buns[0]._id],
-      }),
-    };
-
-    fetch(`${BURGER_API_URL}/orders`, requestOptions)
-      .then(checkResponse)
-      .then((result) => {
-        setOrderNumber(result.order.number);
-      });
-  };
+  //   fetch(`${BURGER_API_URL}/orders`, requestOptions)
+  //     .then(checkResponse)
+  //     .then((result) => {
+  //       setOrderNumber(result.order.number);
+  //     });
+  // };
 
   return (
     <div className={`${BurgerConstructorStyles.container}  `}>
@@ -62,14 +43,14 @@ const BurgerConstructor = (props) => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={buns[0].name + " (верх)"}
-            price={buns[0].price}
-            thumbnail={buns[0].image_mobile}
+            text={buns && buns.name + " (верх)"}
+            price={buns && buns.price}
+            thumbnail={buns && buns.image_mobile}
           />
         </span>
 
         <ul className={BurgerConstructorStyles.scroll}>
-          {notBunIngredients.map((element, index) => {
+          {mainsAndSauces && mainsAndSauces.map((element, index) => {
             return (
               <li key={index} className={BurgerConstructorStyles.item}>
                 <DragIcon type="primary" />
@@ -87,9 +68,9 @@ const BurgerConstructor = (props) => {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={buns[0].name + " (низ)"}
-            price={buns[0].price}
-            thumbnail={buns[0].image_mobile}
+            text={buns && buns.name + " (низ)"}
+            price={buns && buns.price}
+            thumbnail={buns && buns.image_mobile}
           />
         </span>
       </section>
@@ -97,7 +78,7 @@ const BurgerConstructor = (props) => {
       <section className={BurgerConstructorStyles.info}>
         <span className={BurgerConstructorStyles.price}>
           <span className={"text text_type_digits-medium"}>
-            {totalPrice + buns[0].price * 2}
+            {/* {totalPrice + buns[0].price * 2} */}
           </span>
           <span className={BurgerConstructorStyles.currency}>
             <CurrencyIcon />
@@ -109,8 +90,8 @@ const BurgerConstructor = (props) => {
           type="primary"
           size="large"
           onClick={() => {
-            handleSubmitOrder();
-            props.toggleModal();
+            // handleSubmitOrder();
+            // props.toggleModal();
           }}
         >
           Оформить заказ
@@ -120,9 +101,9 @@ const BurgerConstructor = (props) => {
   );
 };
 
-BurgerConstructor.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
-  setOrderNumber: PropTypes.func.isRequired,
-};
+// BurgerConstructor.propTypes = {
+//   toggleModal: PropTypes.func.isRequired,
+//   setOrderNumber: PropTypes.func.isRequired,
+// };
 
 export default React.memo(BurgerConstructor);

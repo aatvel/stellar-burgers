@@ -24,10 +24,10 @@ function App() {
             // setIngredient={setIngredient}
           />
           
-            {/* <BurgerConstructor
-              toggleModal={toggleOrderModal}
-              setOrderNumber={setOrderNumber}
-            /> */}
+            <BurgerConstructor
+              // toggleModal={toggleOrderModal}
+              // setOrderNumber={setOrderNumber}
+            />
 
         </main>
 

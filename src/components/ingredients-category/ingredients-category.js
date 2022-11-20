@@ -8,10 +8,11 @@ import { ingredientType } from "../../utils/types";
 const IngredientCategory = ({
   title,
   titleId,
-  ingredients,
-  toggleModal,
-  setIngredient,
+  ingredients
+
 }) => {
+
+
   return (
     <>
       <h3 className="text text_type_main-medium" id={titleId}>
@@ -24,8 +25,6 @@ const IngredientCategory = ({
               ingredientData={ingredient}
               key={ingredient._id}
               count={1}
-              toggleModal={toggleModal}
-              setIngredient={setIngredient}
             />
           );
         })}
@@ -33,11 +32,11 @@ const IngredientCategory = ({
     </>
   );
 };
-IngredientCategory.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-  title: PropTypes.string.isRequired,
-  titleId: PropTypes.string.isRequired,
-  toggleModal: PropTypes.func.isRequired,
-  setIngredient: PropTypes.func.isRequired,
-};
+// IngredientCategory.propTypes = {
+//   ingredients: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+//   title: PropTypes.string.isRequired,
+//   titleId: PropTypes.string.isRequired,
+//   toggleModal: PropTypes.func.isRequired,
+//   setIngredient: PropTypes.func.isRequired,
+// };
 export { IngredientCategory };
