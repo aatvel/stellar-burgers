@@ -1,22 +1,34 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { createPortal } from "react-dom";
 import modalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
+import { closeDetails } from "../../services/ingredient-details/details-actions";
 
-const Modal = ({ title, toggleModal, children }) => {
+const Modal = ({ title, children }) => {
+  const dispatch = useDispatch();
+  const {showModal } = useSelector((state) => state.details);
+
+  const handleClick = () => {
+    dispatch(closeDetails())
+  }
   const modalRoot = document.getElementById("modals");
+
+  
   React.useEffect(() => {
     const handleEsc = (e) => {
-      e.key === "Escape" && toggleModal();
+      e.key === "Escape" && dispatch(closeDetails());
     };
 
     document.addEventListener("keydown", handleEsc);
     return () => {
       document.removeEventListener("keydown", handleEsc);
     };
-  }, [modalRoot, toggleModal]);
+  }, [modalRoot]);
+
+  
 
   return createPortal(
     <>
@@ -29,7 +41,7 @@ const Modal = ({ title, toggleModal, children }) => {
           <button
             className={modalStyles.closeButton}
             type="button"
-            onClick={toggleModal}
+            onClick={() => handleClick()}
           >
             <CloseIcon type="secondary" />
           </button>
@@ -37,16 +49,16 @@ const Modal = ({ title, toggleModal, children }) => {
 
         <div className={modalStyles.text}>{children}</div>
       </div>
-      <ModalOverlay toggleModal={toggleModal} />
+      <ModalOverlay toggleModal={() => handleClick()} />
     </>,
     modalRoot
   );
 };
 
-Modal.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-  title: PropTypes.string,
-};
+// Modal.propTypes = {
+//   toggleModal: PropTypes.func.isRequired,
+//   children: PropTypes.element.isRequired,
+//   title: PropTypes.string,
+// };
 
 export default React.memo(Modal);

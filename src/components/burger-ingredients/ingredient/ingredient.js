@@ -9,18 +9,21 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { setBun, setMainsAndSauces } from "../../../services/constructor-ingredients/constructor-actions";
+import { showDetails } from "../../../services/ingredient-details/details-actions";
 
 const Ingredient = (props) => {
   const { ingredientData, count } = props;
   const dispatch = useDispatch()
 
   const handleClick = () => {
-    // props.toggleModal();
-    // props.setIngredient(props.ingredientData);
     console.log(ingredientData)
     if(ingredientData.type === 'bun'){dispatch(setBun(ingredientData))} 
     else {dispatch(setMainsAndSauces(ingredientData))}
+
+    dispatch(showDetails(ingredientData))
   };
+
+
   return (
     <li className={IngredientsStyles.ingredient} onClick={handleClick}>
       {count && <Counter count={count} size="default" extraClass="m-1" />}

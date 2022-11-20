@@ -31,12 +31,12 @@ function App() {
 
         </main>
 
-      {/* {ingredientModal && (
-        <Modal title="Детали ингредиента" toggleModal={toggleModal}>
-          <IngredientDetails ingredient={ingredient} />
+      
+        <Modal title="Детали ингредиента" >
+          <IngredientDetails  />
         </Modal>
-      )}
-      {orderModal && (
+      
+      {/* {orderModal && (
         <Modal toggleModal={toggleOrderModal}>
           <OrderDetails orderNumber={order} />
         </Modal>
