@@ -8,8 +8,8 @@ import { ingredientType } from "../../utils/types";
 const IngredientCategory = ({
   title,
   titleId,
-  ingredients
-
+  ingredients,
+  count
 }) => {
 
 
@@ -24,7 +24,7 @@ const IngredientCategory = ({
             <Ingredient
               ingredientData={ingredient}
               key={ingredient._id}
-              count={1}
+              count={count}
             />
           );
         })}

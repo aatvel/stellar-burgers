@@ -13,6 +13,9 @@ import {
   loadIngredientsSuccess,
 } from "../../services/ingredients/ingredients-actions";
 import { PreLoader } from "../app/preloader";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import { closeDetails } from "../../services/ingredient-details/details-actions";
 
 
 
@@ -20,12 +23,18 @@ export default function BurgerIngredients({}) {
   const [current, setCurrent] = React.useState("bun");
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.ingredients);
+  const { showModal } = useSelector((state) => state.details);
+
+  const handleClick = () => {
+    dispatch(closeDetails()) 
+  };
+
+
   React.useEffect(() => {
     dispatch(loadIngredientsStart());
     getIngredients()
       .then((data) => dispatch(loadIngredientsSuccess(data)))
       .catch(() => dispatch(loadingIngredientsError()));    
-    // .finally(() => setIngredientsLoading(false));
   }, [dispatch]);
 
   const onTabClick = (tab) => {
@@ -46,6 +55,9 @@ export default function BurgerIngredients({}) {
     () => data.filter((item) => item.type === "main"),
     [data]
   );
+
+  
+  
 
   return (
     <section className={`${BurgerIngredientsStyles.ingredientsMenu} `}>
@@ -90,6 +102,11 @@ export default function BurgerIngredients({}) {
           // setIngredient={setIngredient}
         />
       </span>}
+      {showModal && <Modal title="Детали ингредиента" closeModal={handleClick} >
+          <IngredientDetails  />
+        </Modal>}
+      
+
     </section>
   );
 }

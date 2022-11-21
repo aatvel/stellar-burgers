@@ -11,8 +11,6 @@ const ModalOverlay = ({ toggleModal }) => {
   );
 };
 
-ModalOverlay.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
-};
+
 
 export { ModalOverlay };

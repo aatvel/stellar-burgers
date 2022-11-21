@@ -2,7 +2,9 @@ import React from "react";
 import IngredientsStyles from "./ingredient.module.css";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../../utils/types";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrag } from "react-dnd/dist/hooks";
+
 
 import {
   CurrencyIcon,
@@ -13,6 +15,9 @@ import { showDetails } from "../../../services/ingredient-details/details-action
 
 const Ingredient = (props) => {
   const { ingredientData, count } = props;
+  const { buns, mainsAndSauces } = useSelector(
+    (state) => state.constructorReducer
+  );
   const dispatch = useDispatch()
 
   const handleClick = () => {
@@ -22,14 +27,24 @@ const Ingredient = (props) => {
     else {dispatch(setMainsAndSauces(ingredientData))}    
   };
 
-  // Не поняла почему в консоли выдаёт ошибку
-  // TypeError: state.mainsAndSauces is not iterable
-  // понимаю, что много чего недоделано, но не смогла решить проблему
-  
+ const [, dragRef] = useDrag({
+    type: 'ingredient',
+    item: ingredientData
+  })
+
+  const counter = React.useMemo(() => {
+    return ingredientData.type !== 'bun'
+      ? mainsAndSauces.filter((item) => item._id === ingredientData._id).length
+      : buns?._id === ingredientData._id
+      ? 2
+      : 0
+  }, [mainsAndSauces, buns])
+
+
 
   return (
-    <li className={IngredientsStyles.ingredient} onClick={handleClick}>
-      {count && <Counter count={count} size="default" extraClass="m-1" />}
+    <li ref={dragRef} className={IngredientsStyles.ingredient} onClick={handleClick}>
+      {counter !== 0 && (<Counter count={counter} size="default" extraClass="m-1" />)}
       <img
         className="ml-4 mr-4"
         src={ingredientData.image}

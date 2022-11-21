@@ -5,9 +5,8 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
 const IngredientDetails = () => {
-const dispatch = useDispatch()
-const {ingredient} = useSelector((state) => state.details)
-  
+  const dispatch = useDispatch();
+  const { ingredient } = useSelector((state) => state.details);
 
   return (
     <div className={styles.card}>

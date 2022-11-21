@@ -9,10 +9,10 @@ const initialState = {
     mainsAndSauces: [],
 }
 
-export const constructorReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case SET_BUN: {return {...state, buns: action.type} }
-        case SET_MAINS_AND_SAUCES: {return {...state, mainsAndSauces: [ ...state.mainsAndSauces, {...action.type}]} }
+export const constructorReducer = (state = initialState, {type, payload}) => {
+    switch (type) {
+        case SET_BUN: {return {...state, buns: payload} }
+        case SET_MAINS_AND_SAUCES: {return {...state, mainsAndSauces: [ ...state.mainsAndSauces, payload]} }
 
         default:{ return state}
     }

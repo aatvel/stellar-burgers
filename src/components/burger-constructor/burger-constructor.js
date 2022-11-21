@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useDrag, useDrop } from "react-dnd";
 import {
   CurrencyIcon,
   ConstructorElement,
@@ -7,37 +8,82 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
-import orderedItemes from "../../utils/order";
-import { ingredientType } from "../../utils/types";
-import PropTypes from "prop-types";
-import { OrderContext } from "../../services/order-context";
 import { checkResponse } from "../../utils/api-ingredients";
-import {BURGER_API_URL} from '../../utils/consts'
+import { BURGER_API_URL } from "../../utils/consts";
+import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
+import {
+  closeOrderDetails,
+  loadingOrderError,
+  loadOrderStart,
+  loadOrderSuccess,
+  showOrderDetails,
+} from "../../services/order/order-actions";
+import {
+  setBun,
+  setMainsAndSauces,
+} from "../../services/constructor-ingredients/constructor-actions";
 
 const BurgerConstructor = (props) => {
   const dispatch = useDispatch();
-  const {buns, mainsAndSauces} = useSelector((state) => state.constructor)
-console.log(mainsAndSauces, buns)
-  // const handleSubmitOrder = () => {
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       ingredients: [buns[0]._id, ...orderId, buns[0]._id],
-  //     }),
-  //   };
+  const { showOrderModal } = useSelector((state) => state.orderReducer);
+  const { buns, mainsAndSauces } = useSelector(
+    (state) => state.constructorReducer
+  );
 
-  //   fetch(`${BURGER_API_URL}/orders`, requestOptions)
-  //     .then(checkResponse)
-  //     .then((result) => {
-  //       setOrderNumber(result.order.number);
-  //     });
-  // };
+  //Modal Ingredient
+  const notBunsId = [];
+
+  mainsAndSauces.forEach((element) => {
+    notBunsId.push(element._id);
+  });
+
+  const handleSubmitOrder = () => {
+    const requestOptions = {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        ingredients: [buns._id, ...notBunsId, buns._id],
+      }),
+    };
+    dispatch(loadOrderStart());
+    fetch(`${BURGER_API_URL}/orders`, requestOptions)
+      .then(checkResponse)
+      .then((result) => {
+        dispatch(loadOrderSuccess(result.order.number));
+      })
+      .catch(() => dispatch(loadingOrderError()));
+  };
+
+  const handleClickOrder = () => {
+    dispatch(closeOrderDetails());
+  };
+
+  //Drag n Drop
+  const onDropHandler = (item) => {
+    item.type === "bun"
+      ? dispatch(setBun(item))
+      : dispatch(setMainsAndSauces(item));
+  };
+
+  const [, dropRef] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      onDropHandler(item);
+    },
+  });
+
+  //totalPrice
+  const totalPrice = mainsAndSauces.reduce((acc, curr) => {
+    return acc + curr.price;
+  }, 0);
 
   return (
-    <div className={`${BurgerConstructorStyles.container}  `}>
+    <div ref={dropRef} className={`${BurgerConstructorStyles.container}  `}>
       <section className={BurgerConstructorStyles.orderedItems}>
         <span className={BurgerConstructorStyles.itemBun}>
           <ConstructorElement
@@ -50,18 +96,19 @@ console.log(mainsAndSauces, buns)
         </span>
 
         <ul className={BurgerConstructorStyles.scroll}>
-          {mainsAndSauces && mainsAndSauces.map((element, index) => {
-            return (
-              <li key={index} className={BurgerConstructorStyles.item}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={element.name}
-                  price={element.price}
-                  thumbnail={element.image_mobile}
-                />
-              </li>
-            );
-          })}
+          {mainsAndSauces &&
+            mainsAndSauces.map((element, index) => {
+              return (
+                <li key={index} className={BurgerConstructorStyles.item}>
+                  <DragIcon type="primary" />
+                  <ConstructorElement
+                    text={element.name}
+                    price={element.price}
+                    thumbnail={element.image_mobile}
+                  />
+                </li>
+              );
+            })}
         </ul>
 
         <span className={`${BurgerConstructorStyles.itemBun} `}>
@@ -78,20 +125,25 @@ console.log(mainsAndSauces, buns)
       <section className={BurgerConstructorStyles.info}>
         <span className={BurgerConstructorStyles.price}>
           <span className={"text text_type_digits-medium"}>
-            {/* {totalPrice + buns[0].price * 2} */}
+            {totalPrice + 2 * (buns && buns.price)}
           </span>
           <span className={BurgerConstructorStyles.currency}>
             <CurrencyIcon />
           </span>
         </span>
 
+        {showOrderModal && (
+          <Modal closeModal={handleClickOrder}>
+            <OrderDetails />
+          </Modal>
+        )}
+
         <Button
           htmlType="button"
           type="primary"
           size="large"
           onClick={() => {
-            // handleSubmitOrder();
-            // props.toggleModal();
+            handleSubmitOrder();
           }}
         >
           Оформить заказ

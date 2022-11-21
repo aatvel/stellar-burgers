@@ -3,44 +3,19 @@ import appStyles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { getIngredients } from "../../utils/api-ingredients.js";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import OrderDetails from "../order-details/order-details";
-import { OrderContext } from "../../services/order-context";
-import { PreLoader } from "./preloader";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-
-
   return (
     <div className={appStyles.page}>
       <AppHeader />
-
-        <main className={appStyles.content}>
-          <BurgerIngredients
-            // data={ingredients}
-            // toggleModal={toggleModal}
-            // setIngredient={setIngredient}
-          />
-          
-            <BurgerConstructor
-              // toggleModal={toggleOrderModal}
-              // setOrderNumber={setOrderNumber}
-            />
-
-        </main>
-
-      
-        <Modal title="Детали ингредиента" >
-          <IngredientDetails  />
-        </Modal>
-      
-      {/* {orderModal && (
-        <Modal toggleModal={toggleOrderModal}>
-          <OrderDetails orderNumber={order} />
-        </Modal>
-      )} */}
+      <main className={appStyles.content}>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider>
+      </main>
     </div>
   );
 }
