@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
 import Ingredient from "./ingredient/ingredient";
@@ -16,6 +17,7 @@ import { PreLoader } from "../app/preloader";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { closeDetails } from "../../services/ingredient-details/details-actions";
+import { INGREDIENT_TYPES } from "../../utils/consts";
 
 
 
@@ -30,7 +32,7 @@ export default function BurgerIngredients({}) {
   };
 
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(loadIngredientsStart());
     getIngredients()
       .then((data) => dispatch(loadIngredientsSuccess(data)))
@@ -43,20 +45,16 @@ export default function BurgerIngredients({}) {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
-  const buns = React.useMemo(
-    () => data.filter((item) => item.type === "bun"),
-    [data]
-  );
-  const sauces = React.useMemo(
-    () => data.filter((item) => item.type === "sauce"),
-    [data]
-  );
-  const mains = React.useMemo(
-    () => data.filter((item) => item.type === "main"),
-    [data]
-  );
 
-  
+
+  const scrollTab = (e) => {
+    const scroll = e.target.scrollTop;
+    scroll <= 220
+      ? setCurrent(INGREDIENT_TYPES.BUN)
+      : scroll <= 720
+      ? setCurrent(INGREDIENT_TYPES.SAUCE)
+      : setCurrent(INGREDIENT_TYPES.MAIN);
+  };
   
 
   return (
@@ -64,24 +62,25 @@ export default function BurgerIngredients({}) {
       <h1 className="text text_type_main-large mb-5 pt-10">Соберите бургер</h1>
 
       <div className={BurgerIngredientsStyles.tabMenu}>
-        <Tab value="bun" active={current === "bun"} onClick={onTabClick}>
+        <Tab value={`${INGREDIENT_TYPES.BUN}`} active={current === INGREDIENT_TYPES.BUN}  onClick={onTabClick}>
           Булочки
         </Tab>
-        <Tab value="sauce" active={current === "sauce"} onClick={onTabClick}>
+        <Tab value={`${INGREDIENT_TYPES.SAUCE}`} active={current === INGREDIENT_TYPES.SAUCE} onClick={onTabClick}>
           Соусы
         </Tab>
-        <Tab value="main" active={current === "main"} onClick={onTabClick}>
+        <Tab value={`${INGREDIENT_TYPES.MAIN}`} active={current === INGREDIENT_TYPES.MAIN} onClick={onTabClick}>
           Начинки
         </Tab>
       </div>
 
       {loading ? (<PreLoader/>) :
 
-      <span className={BurgerIngredientsStyles.ingredients}>
+      <span className={BurgerIngredientsStyles.ingredients} onScroll={scrollTab} >
         <IngredientCategory
           titleId="bun"
           title="Булочки"
-          ingredients={buns}
+          ingredients={INGREDIENT_TYPES.BUN}
+   
           // toggleModal={toggleModal}
           // setIngredient={setIngredient}
         />
@@ -89,7 +88,8 @@ export default function BurgerIngredients({}) {
         <IngredientCategory
           titleId="sauce"
           title="Соусы"
-          ingredients={sauces}
+          ingredients={INGREDIENT_TYPES.SAUCE}
+       
           // toggleModal={toggleModal}
           // setIngredient={setIngredient}
         />
@@ -97,7 +97,8 @@ export default function BurgerIngredients({}) {
         <IngredientCategory
           titleId="main"
           title="Начинки"
-          ingredients={mains}
+          ingredients={INGREDIENT_TYPES.MAIN}
+
           // toggleModal={toggleModal}
           // setIngredient={setIngredient}
         />
