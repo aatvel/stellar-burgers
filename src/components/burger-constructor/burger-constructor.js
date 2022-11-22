@@ -23,6 +23,8 @@ import {
   setBun,
   setMainsAndSauces,
 } from "../../services/constructor-ingredients/constructor-actions";
+import emptyImg from "../../images/empty_space.png";
+import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
 
 const BurgerConstructor = (props) => {
   const dispatch = useDispatch();
@@ -86,39 +88,64 @@ const BurgerConstructor = (props) => {
     <div ref={dropRef} className={`${BurgerConstructorStyles.container}  `}>
       <section className={BurgerConstructorStyles.orderedItems}>
         <span className={BurgerConstructorStyles.itemBun}>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={buns && buns.name + " (верх)"}
-            price={buns && buns.price}
-            thumbnail={buns && buns.image_mobile}
-          />
+          {buns === null ? (
+            <ConstructorElement
+              text="Выберите булочку"
+              type="top"
+              thumbnail={emptyImg}
+            />
+          ) : (
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={buns && buns.name + " (верх)"}
+              price={buns && buns.price}
+              thumbnail={buns && buns.image_mobile}
+            />
+          )}
         </span>
 
         <ul className={BurgerConstructorStyles.scroll}>
-          {mainsAndSauces &&
-            mainsAndSauces.map((element, index) => {
+          {mainsAndSauces.length > 0 ? (
+            mainsAndSauces.map((ingredient, index) => {
               return (
-                <li key={index} className={BurgerConstructorStyles.item}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={element.name}
-                    price={element.price}
-                    thumbnail={element.image_mobile}
-                  />
+                <li className={BurgerConstructorStyles.item} key={index}>
+                <MainsAndSauces
+                  key={index}
+                  index={index}
+                  ingredient={ingredient}
+                  mainsAndSauces={mainsAndSauces}
+                />
                 </li>
               );
-            })}
+            })
+          ) : (
+            <li className={BurgerConstructorStyles.item}>
+              <ConstructorElement
+                text="Выберите начинку и соус"
+                thumbnail={emptyImg}
+              />
+            </li>
+          )}
         </ul>
 
         <span className={`${BurgerConstructorStyles.itemBun} `}>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={buns && buns.name + " (низ)"}
-            price={buns && buns.price}
-            thumbnail={buns && buns.image_mobile}
-          />
+          {buns !== null ? (
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={buns && buns.name + " (низ)"}
+              price={buns && buns.price}
+              thumbnail={buns && buns.image_mobile}
+            />
+          ) : (
+            <ConstructorElement
+              text="Выберите булочку"
+              type="bottom"
+              thumbnail={emptyImg}
+              price={null}
+            />
+          )}
         </span>
       </section>
 

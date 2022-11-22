@@ -1,15 +1,11 @@
 .container {
-  /* BurgerConstructor */
-
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  transform: translateX(10%);
-  overflow: hidden;
+  justify-content: space-between;
+  max-width: 600px;
+  width: 100%;
+  margin-top: 100px;
 
-  width: 600px;
-  left: 1020px;
-  top: 128px;
 }
 
 .orderedItems {

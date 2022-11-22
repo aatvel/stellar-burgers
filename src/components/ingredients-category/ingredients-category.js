@@ -12,7 +12,7 @@ const IngredientCategory = ({
   count
 }) => {
   const { data } = useSelector((state) => state.ingredients);
-  const filteredIngredients = data && data.filter(item => item.type === ingredients);
+  const orderedMains = data && data.filter(item => item.type === ingredients);
 
   return (
     <div >
@@ -20,7 +20,7 @@ const IngredientCategory = ({
         {title}
       </h3>
       <section className={categoryStyles.items}>
-        {filteredIngredients.map((ingredient) => {
+        {orderedMains.map((ingredient) => {
           return (
             <Ingredient
               ingredientData={ingredient}
