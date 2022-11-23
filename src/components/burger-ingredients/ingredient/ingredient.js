@@ -20,8 +20,7 @@ const Ingredient = (props) => {
 
   const handleClick = () => {
     dispatch(showDetails(ingredientData))
-    if(ingredientData.type === 'bun'){dispatch(setBun(ingredientData))} 
-    else {dispatch(setMainsAndSauces(ingredientData))}    
+   
   };
 
  const [, dragRef] = useDrag({

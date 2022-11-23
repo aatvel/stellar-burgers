@@ -7,17 +7,13 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import { IngredientCategory } from "../ingredients-category/ingredients-category";
-import { getIngredients } from "../../utils/api-ingredients";
-import {
-  loadingIngredientsError,
-  loadIngredientsStart,
-  loadIngredientsSuccess,
-} from "../../services/ingredients/ingredients-actions";
+
 import { PreLoader } from "../app/preloader";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { closeDetails } from "../../services/ingredient-details/details-actions";
 import { INGREDIENT_TYPES } from "../../utils/consts";
+import { loadedIngredients } from "../../services/ingredients/ingredients-actions";
 
 
 export default function BurgerIngredients({}) {
@@ -32,10 +28,7 @@ export default function BurgerIngredients({}) {
 
 
   useEffect(() => {
-    dispatch(loadIngredientsStart());
-    getIngredients()
-      .then((data) => dispatch(loadIngredientsSuccess(data)))
-      .catch(() => dispatch(loadingIngredientsError()));    
+   dispatch(loadedIngredients() )  
   }, [dispatch]);
 
   const onTabClick = (tab) => {

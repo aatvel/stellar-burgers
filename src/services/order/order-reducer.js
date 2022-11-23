@@ -4,6 +4,7 @@ import {
   ORDER_LOADING,
   ORDER_SUCCESS,
   ORDER_ERROR,
+  RESET_ORDER
 } from "./order-actions";
 
 const initialState = {
@@ -37,6 +38,12 @@ export const orderReducer = (state = initialState, { type, payload }) => {
         ...state,
         error: true,
       };
+    }
+    case RESET_ORDER: {
+      return {
+        ...state,
+        order: null
+      }
     }
     default: {
       return state;

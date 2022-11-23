@@ -25,6 +25,7 @@ import {
 } from "../../services/constructor-ingredients/constructor-actions";
 import emptyImg from "../../images/empty_space.png";
 import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
+import { fetchOrder } from "../../services/order/order-actions";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -32,33 +33,21 @@ const BurgerConstructor = () => {
   const { buns, mainsAndSauces } = useSelector(
     (state) => state.constructorReducer
   );
+  const isBunAdded = buns !== undefined;
 
   //Modal Ingredient
   const notBunsId = [];
+  
 
   mainsAndSauces.forEach((element) => {
     notBunsId.push(element._id);
   });
 
+
+
   const handleSubmitOrder = () => {
-    const requestOptions = {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({
-        ingredients: [buns._id, ...notBunsId, buns._id],
-      }),
-    };
-    dispatch(loadOrderStart());
-    fetch(`${BURGER_API_URL}/orders`, requestOptions)
-      .then(checkResponse)
-      .then((result) => {
-        dispatch(loadOrderSuccess(result.order.number));
-      })
-      .catch(() => dispatch(loadingOrderError()));
+    dispatch(fetchOrder({ingredients: [buns._id, ...notBunsId, buns._id]}))
+    
   };
 
   const handleClickOrder = () => {
@@ -169,6 +158,7 @@ const BurgerConstructor = () => {
           onClick={() => {
             handleSubmitOrder();
           }}
+          disabled={!isBunAdded}
         >
           Оформить заказ
         </Button>
