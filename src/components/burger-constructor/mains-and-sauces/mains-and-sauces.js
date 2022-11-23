@@ -73,9 +73,9 @@ const [{handlerId}, drop] = useDrop({
         price={ingredient.price}
         thumbnail={ingredient.image_mobile}
         handleClose={() =>
-            dispatchEvent({
-                CONSTRUCTOR_DELETE,
-                payload: index
+            dispatch({
+                type: CONSTRUCTOR_DELETE,
+                payload: index,
             })
         }
       />
