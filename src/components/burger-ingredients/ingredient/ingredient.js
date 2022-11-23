@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd/dist/hooks";
-
-
 import {
   CurrencyIcon,
   Counter,
@@ -14,7 +12,7 @@ import { setBun, setMainsAndSauces } from "../../../services/constructor-ingredi
 import { showDetails } from "../../../services/ingredient-details/details-actions";
 
 const Ingredient = (props) => {
-  const { ingredientData, count } = props;
+  const { ingredientData } = props;
   const { buns, mainsAndSauces } = useSelector(
     (state) => state.constructorReducer
   );
@@ -22,7 +20,6 @@ const Ingredient = (props) => {
 
   const handleClick = () => {
     dispatch(showDetails(ingredientData))
-    console.log(ingredientData)
     if(ingredientData.type === 'bun'){dispatch(setBun(ingredientData))} 
     else {dispatch(setMainsAndSauces(ingredientData))}    
   };
@@ -65,11 +62,9 @@ const Ingredient = (props) => {
   );
 };
 
-// Ingredient.propTypes = {
-//   ingredientData: ingredientType.isRequired,
-//   toggleModal: PropTypes.func.isRequired,
-//   setIngredient: PropTypes.func.isRequired,
-//   count: PropTypes.number.isRequired,
-// };
+Ingredient.propTypes = {
+  ingredientData: ingredientType.isRequired
+
+};
 
 export default React.memo(Ingredient);

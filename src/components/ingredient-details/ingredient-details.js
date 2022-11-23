@@ -1,11 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./ingredient-details.module.css";
-import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
+
 
 const IngredientDetails = () => {
-  const dispatch = useDispatch();
   const { ingredient } = useSelector((state) => state.details);
 
   return (
@@ -54,8 +52,6 @@ const IngredientDetails = () => {
   );
 };
 
-// IngredientDetails.propTypes = {
-//   ingredient: ingredientType.isRequired,
-// };
+
 
 export default React.memo(IngredientDetails);

@@ -51,10 +51,10 @@ const Modal = ({ title, children, closeModal }) => {
   );
 };
 
-// Modal.propTypes = {
-//   toggleModal: PropTypes.func.isRequired,
-//   children: PropTypes.element.isRequired,
-//   title: PropTypes.string,
-// };
+Modal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+  title: PropTypes.string,
+};
 
 export default React.memo(Modal);

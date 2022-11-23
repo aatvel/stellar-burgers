@@ -34,11 +34,10 @@ const IngredientCategory = ({
     </div >
   );
 };
-// IngredientCategory.propTypes = {
-//   ingredients: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-//   title: PropTypes.string.isRequired,
-//   titleId: PropTypes.string.isRequired,
-//   toggleModal: PropTypes.func.isRequired,
-//   setIngredient: PropTypes.func.isRequired,
-// };
+IngredientCategory.propTypes = {
+  ingredients: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  titleId: PropTypes.string.isRequired,
+  count:PropTypes.number
+};
 export { IngredientCategory };

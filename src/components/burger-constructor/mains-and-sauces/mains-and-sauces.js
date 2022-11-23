@@ -10,6 +10,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "../burger-constructor.module.css";
 import { CONSTRUCTOR_REORDER, CONSTRUCTOR_DELETE } from "../../../services/constructor-ingredients/constructor-actions";
+import PropTypes from "prop-types";
 
 const MainsAndSauces = ({ ingredient, index }) => {
 const dispatch = useDispatch();
@@ -82,5 +83,12 @@ const [{handlerId}, drop] = useDrop({
     </li>
   );
 };
+
+
+
+MainsAndSauces.propTypes = {
+  ingredient: PropTypes.object,
+  index: PropTypes.number
+}
 
 export default React.memo(MainsAndSauces);

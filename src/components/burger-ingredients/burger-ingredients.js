@@ -20,7 +20,6 @@ import { closeDetails } from "../../services/ingredient-details/details-actions"
 import { INGREDIENT_TYPES } from "../../utils/consts";
 
 
-
 export default function BurgerIngredients({}) {
   const [current, setCurrent] = React.useState("bun");
   const dispatch = useDispatch();
@@ -80,27 +79,18 @@ export default function BurgerIngredients({}) {
           titleId="bun"
           title="Булочки"
           ingredients={INGREDIENT_TYPES.BUN}
-   
-          // toggleModal={toggleModal}
-          // setIngredient={setIngredient}
         />
 
         <IngredientCategory
           titleId="sauce"
           title="Соусы"
           ingredients={INGREDIENT_TYPES.SAUCE}
-       
-          // toggleModal={toggleModal}
-          // setIngredient={setIngredient}
         />
 
         <IngredientCategory
           titleId="main"
           title="Начинки"
           ingredients={INGREDIENT_TYPES.MAIN}
-
-          // toggleModal={toggleModal}
-          // setIngredient={setIngredient}
         />
       </span>}
       {showModal && <Modal title="Детали ингредиента" closeModal={handleClick} >
@@ -111,7 +101,3 @@ export default function BurgerIngredients({}) {
     </section>
   );
 }
-
-// BurgerIngredients.propTypes = {
-//   data: PropTypes.arrayOf(ingredientType.isRequired)
-// };

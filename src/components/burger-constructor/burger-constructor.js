@@ -26,7 +26,7 @@ import {
 import emptyImg from "../../images/empty_space.png";
 import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const { showOrderModal } = useSelector((state) => state.orderReducer);
   const { buns, mainsAndSauces } = useSelector(
@@ -177,9 +177,6 @@ const BurgerConstructor = (props) => {
   );
 };
 
-// BurgerConstructor.propTypes = {
-//   toggleModal: PropTypes.func.isRequired,
-//   setOrderNumber: PropTypes.func.isRequired,
-// };
+
 
 export default React.memo(BurgerConstructor);

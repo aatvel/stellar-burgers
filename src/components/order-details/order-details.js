@@ -26,7 +26,4 @@ const OrderDetails = () => {
   );
 };
 
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.number
-}
 export default OrderDetails;
