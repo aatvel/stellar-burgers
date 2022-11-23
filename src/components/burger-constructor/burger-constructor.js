@@ -109,14 +109,11 @@ const BurgerConstructor = (props) => {
           {mainsAndSauces.length > 0 ? (
             mainsAndSauces.map((ingredient, index) => {
               return (
-                <li className={BurgerConstructorStyles.item} key={index}>
                 <MainsAndSauces
-                  key={index}
+                  key={ingredient.id}
                   index={index}
                   ingredient={ingredient}
-                  mainsAndSauces={mainsAndSauces}
                 />
-                </li>
               );
             })
           ) : (
