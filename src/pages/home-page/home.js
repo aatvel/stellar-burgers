@@ -1,12 +1,12 @@
 import React from "react";
-import appStyles from "./app.module.css";
-import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import appStyles from "./home.module.css";
+import AppHeader from "../../components/app-header/app-header";
+import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
+import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-function App() {
+function Home() {
   return (
     <div className={appStyles.page}>
       <AppHeader />
@@ -20,4 +20,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

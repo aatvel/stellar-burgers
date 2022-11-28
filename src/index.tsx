@@ -1,27 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './components/app/app';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import Home from "./pages/home-page/home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { compose, createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import { store } from './services/store';
+import { Provider } from "react-redux";
+import { store } from "./services/store";
+import LoginContainer from "./pages/login-page/login-container";
+import RegisterContainer from "./pages/register-page/register-container";
+import RestoreContainer from "./pages/restore-page/restore-container";
+import ResetContainer from "./pages/reset-page/reset-container";
+import ProfileContainer from "./pages/profile-page/profile-container";
 // import thunk from 'redux-thunk';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
   <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/login" element={<LoginContainer />} />
+
+        <Route path="/register" element={<RegisterContainer />} />
+        
+        <Route path="/restore-password" element={<RestoreContainer />} />
+        
+        <Route path="/reset-password" element={<ResetContainer />} />
+        
+        <Route path="/profile" element={<ProfileContainer />} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>
 );
-
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

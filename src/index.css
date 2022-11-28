@@ -1,13 +1,156 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  text-decoration: none;
+  color: #8585ad;
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.login-wrapper {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.sign-in {
+  margin: 0 auto;
+  color: green;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  max-width: 480px;
+  width: 100%;
+}
+
+.inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.input-login {
+  margin-bottom: 24px;
+  max-width: 488px;
+  height: 68px;
+  width: 100%;
+  outline: none;
+  font-family: "Jet Brains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #8585ad;
+  padding: 24px 0px 24px 24px;
+}
+
+.login-button {
+  max-width: 128px;
+  width: 100%;
+  height: 56px;
+  background: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+  border-radius: 64px;
+  font-family: "Jet Brains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.sign-in-header {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  color: white;
+  margin-top: 180px;
+  margin-bottom: 24px;
+}
+
+.register-forget {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.first-header {
+  margin: 0;
+  color: #8585ad;
+}
+
+.second-header {
+  margin: 0;
+  cursor: pointer;
+  padding-left: 8px;
+  color: #4c4cff;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+}
+
+.info-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  width: 100%;
+}
+
+.info-type {
+  max-width: 320px;
+  width: 100%;
+  height: 64px;
+  margin-bottom: 20px;
+  font-family: "Jet Brains Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+
+  /* interface/bg */
+  background: #131316;
+  /* interface/accent */
+}
+
+.profile-input-placeholder {
+  z-index: 2;
+
+  font-style: normal;
+  position: absolute;
+  pointer-events: none;
+  top: 8px;
+  left: 25px;
+  color: #8585ad;
+  font-family: "Jet Brains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.active {
+  color: white;
 }
