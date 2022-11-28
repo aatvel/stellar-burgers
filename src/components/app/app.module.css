@@ -1,14 +1,12 @@
-.app {
-  margin: 0;
-  padding: 0;
-}
-
 .content {
   display: flex;
+
 }
 .page {
   margin: 0 auto;
   max-width: 1280px;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 *::-webkit-scrollbar {

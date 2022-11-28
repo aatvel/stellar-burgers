@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useDrag, useDrop } from "react-dnd";
 import {
   CurrencyIcon,
   ConstructorElement,
@@ -6,63 +8,157 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
-import orderedItemes from "../../utils/order";
-import { ingredientType } from "../../utils/types";
-import PropTypes from "prop-types";
+import { checkResponse } from "../../utils/api-ingredients";
+import { BURGER_API_URL } from "../../utils/consts";
+import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
+import {
+  closeOrderDetails,
+  loadingOrderError,
+  loadOrderStart,
+  loadOrderSuccess,
+  showOrderDetails,
+} from "../../services/order/order-actions";
+import {
+  setBun,
+  setMainsAndSauces,
+} from "../../services/constructor-ingredients/constructor-actions";
+import emptyImg from "../../images/empty_space.png";
+import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
+import { fetchOrder } from "../../services/order/order-actions";
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
+  const dispatch = useDispatch();
+  const { showOrderModal } = useSelector((state) => state.orderReducer);
+  const { buns, mainsAndSauces } = useSelector(
+    (state) => state.constructorReducer
+  );
+  const isBunAdded = buns !== undefined;
+
+  //Modal Ingredient
+  const notBunsId = [];
+  
+
+  mainsAndSauces.forEach((element) => {
+    notBunsId.push(element._id);
+  });
+
+
+
+  const handleSubmitOrder = () => {
+    dispatch(fetchOrder({ingredients: [buns._id, ...notBunsId, buns._id]}))
+    
+  };
+
+  const handleClickOrder = () => {
+    dispatch(closeOrderDetails());
+  };
+
+  //Drag n Drop
+  const onDropHandler = (item) => {
+    item.type === "bun"
+      ? dispatch(setBun(item))
+      : dispatch(setMainsAndSauces(item));
+  };
+
+  const [, dropRef] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      onDropHandler(item);
+    },
+  });
+
+  //totalPrice
+  const totalPrice = mainsAndSauces.reduce((acc, curr) => {
+    return acc + curr.price;
+  }, 0);
+
   return (
-    <div className={`${BurgerConstructorStyles.container}  `}>
+    <div ref={dropRef} className={`${BurgerConstructorStyles.container}  `}>
       <section className={BurgerConstructorStyles.orderedItems}>
         <span className={BurgerConstructorStyles.itemBun}>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={props.data[0].price}
-            thumbnail={props.data[0].image_mobile}
-          />
+          {buns === null ? (
+            <ConstructorElement
+              text="Выберите булочку"
+              type="top"
+              thumbnail={emptyImg}
+            />
+          ) : (
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={buns && buns.name + " (верх)"}
+              price={buns && buns.price}
+              thumbnail={buns && buns.image_mobile}
+            />
+          )}
         </span>
 
         <ul className={BurgerConstructorStyles.scroll}>
-          {orderedItemes.map((element, index) => {
-            return (
-              <li key={index} className={BurgerConstructorStyles.item}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={element.name}
-                  price={element.price}
-                  thumbnail={element.image_mobile}
+          {mainsAndSauces.length > 0 ? (
+            mainsAndSauces.map((ingredient, index) => {
+              return (
+                <MainsAndSauces
+                  key={ingredient.id}
+                  index={index}
+                  ingredient={ingredient}
                 />
-              </li>
-            );
-          })}
+              );
+            })
+          ) : (
+            <li className={BurgerConstructorStyles.item}>
+              <ConstructorElement
+                text="Выберите начинку и соус"
+                thumbnail={emptyImg}
+              />
+            </li>
+          )}
         </ul>
 
         <span className={`${BurgerConstructorStyles.itemBun} `}>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={props.data[0].price}
-            thumbnail={props.data[0].image_mobile}
-          />
+          {buns !== null ? (
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={buns && buns.name + " (низ)"}
+              price={buns && buns.price}
+              thumbnail={buns && buns.image_mobile}
+            />
+          ) : (
+            <ConstructorElement
+              text="Выберите булочку"
+              type="bottom"
+              thumbnail={emptyImg}
+              price={null}
+            />
+          )}
         </span>
       </section>
 
       <section className={BurgerConstructorStyles.info}>
         <span className={BurgerConstructorStyles.price}>
-          <span className={"text text_type_digits-medium"}>5760</span>
+          <span className={"text text_type_digits-medium"}>
+            {totalPrice + 2 * (buns && buns.price)}
+          </span>
           <span className={BurgerConstructorStyles.currency}>
             <CurrencyIcon />
           </span>
         </span>
 
+        {showOrderModal && (
+          <Modal closeModal={handleClickOrder}>
+            <OrderDetails />
+          </Modal>
+        )}
+
         <Button
           htmlType="button"
           type="primary"
           size="large"
-          onClick={props.toggleModal}
+          onClick={() => {
+            handleSubmitOrder();
+          }}
+          disabled={!isBunAdded}
         >
           Оформить заказ
         </Button>
@@ -71,10 +167,6 @@ const BurgerConstructor = (props) => {
   );
 };
 
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-  toggleModal: PropTypes.func.isRequired,
-};
+
 
 export default React.memo(BurgerConstructor);
-

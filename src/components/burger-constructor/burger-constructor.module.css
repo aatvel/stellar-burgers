@@ -1,15 +1,11 @@
 .container {
-  /* BurgerConstructor */
-
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  transform: translateX(10%);
+  justify-content: space-between;
+  max-width: 600px;
+  width: 100%;
+  margin-top: 100px;
 
-  width: 600px;
-  height: 912px;
-  left: 1020px;
-  top: 128px;
 }
 
 .orderedItems {
@@ -23,27 +19,28 @@
   width: 540px;
   height: 80px;
   transform: translate(40px, 0%);
-  padding: 8px;
   align-items: center;
-  column-gap: 8px;
+  margin: 8px;
 }
 
 .scroll {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  /* transform: translateY(-15%); */
 
   list-style: none;
-  max-height: 464px;
+  max-height: 40vh;
   overflow-x: hidden;
   overflow-y: scroll;
   scroll-behavior: smooth;
+
   padding-left: 0;
   row-gap: 16px;
   justify-content: center;
   align-items: center;
   padding: 0px;
-  gap: 10px;
-  padding-top: 40px;
+
+  flex-wrap: wrap;
 }
 
 .item {
@@ -63,16 +60,18 @@
 
 .info {
   display: flex;
-
+  /* transform: translateY(-80%); */
   justify-content: flex-end;
   align-items: center;
 
+  margin-bottom: 3vh;
   padding: 0px;
   gap: 40px;
   width: 568px;
   height: 64px;
   left: 16px;
   top: 796px;
+  margin-top: 16px;
 }
 
 .price {
@@ -83,16 +82,21 @@
   font-style: normal;
   font-weight: 400;
   font-size: 48px;
+
   line-height: 36px;
+  
+  margin: auto;
+  padding-left: 12%;
   /* identical to box height, or 75% */
 
   display: flex;
-  align-items: center;
+  justify-content: flex-start; 
+
 
   /* text/primary-light (standart text) */
 
   color: #f2f2f3;
-  transform: translate(-45%, 0%);
+  /* transform: translate(-65%, 0%); */
 }
 
 .button {
@@ -100,8 +104,8 @@
 
   display: flex;
 
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
   padding: 20px 40px;
 
   width: 215px;
@@ -110,7 +114,9 @@
 
 .currency {
   align-items: center;
-  transform: translate(30%, 0%);
+  /* transform: translate(30%, 0%); */
+  padding: auto;
+  margin-left: 8px;
 
   /* Subtract */
 

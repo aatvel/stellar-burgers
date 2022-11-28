@@ -12,6 +12,7 @@
   min-width: 720px;
   min-height: 300px;
   box-sizing: border-box;
+  border-radius: 40px;
 }
 
 .title {
