@@ -13,7 +13,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { closeDetails } from "../../services/ingredient-details/details-actions";
 import { INGREDIENT_TYPES } from "../../utils/consts";
-import { loadedIngredients } from "../../services/ingredients/ingredients-actions";
+import { loadedIngredients, loadIngredientsStart } from "../../services/ingredients/ingredients-actions";
 
 
 export default function BurgerIngredients({}) {
@@ -28,7 +28,7 @@ export default function BurgerIngredients({}) {
 
 
   useEffect(() => {
-   dispatch(loadedIngredients() )  
+   dispatch(loadIngredientsStart())  
   }, [dispatch]);
 
   const onTabClick = (tab) => {

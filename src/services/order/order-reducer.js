@@ -1,9 +1,9 @@
 import {
   SHOW_ORDER_DETAILS,
   CLOSE_ORDER_DETAILS,
-  ORDER_LOADING,
-  ORDER_SUCCESS,
-  ORDER_ERROR,
+  LOAD_ORDER_START,
+  LOAD_ORDER_SUCCESS,
+  LOAD_ORDER_ERROR,
   RESET_ORDER
 } from "./order-actions";
 
@@ -22,10 +22,10 @@ export const orderReducer = (state = initialState, { type, payload }) => {
     case CLOSE_ORDER_DETAILS: {
       return { showOrderModal: false, order: null };
     }
-    case ORDER_LOADING: {
+    case LOAD_ORDER_START: {
       return { ...state, loading: true };
     }
-    case ORDER_SUCCESS: {
+    case LOAD_ORDER_SUCCESS: {
       return {
         ...state,
         showOrderModal: true,
@@ -33,7 +33,7 @@ export const orderReducer = (state = initialState, { type, payload }) => {
         loading: false,
       };
     }
-    case ORDER_ERROR: {
+    case LOAD_ORDER_ERROR: {
       return {
         ...state,
         error: true,

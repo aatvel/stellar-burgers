@@ -15,7 +15,7 @@ import Modal from "../modal/modal";
 import {
   closeOrderDetails,
   loadingOrderError,
-  loadOrderStart,
+  onLoadingStart,
   loadOrderSuccess,
   showOrderDetails,
 } from "../../services/order/order-actions";
@@ -46,7 +46,7 @@ const BurgerConstructor = () => {
 
 
   const handleSubmitOrder = () => {
-    dispatch(fetchOrder({ingredients: [buns._id, ...notBunsId, buns._id]}))
+    dispatch(onLoadingStart({ingredients: [buns._id, ...notBunsId, buns._id]}))
     
   };
 
