@@ -1,19 +1,22 @@
 import React from "react";
 import AppHeader from "../../components/app-header/app-header";
 
-const Restore = ({}) => {
+const Restore = ({handleChange, value, handleClick }) => {
+  
   return (
     <>
       <div className="login-wrapper">
         <AppHeader />
         <div className="sign-in">
           <div className="sign-in-header">Восстановление пароля</div>
-          <form className="inputs-wrapper">
+          <form className="inputs-wrapper" onSubmit={handleClick}>
             <input
               className="input input-login"
               placeholder="Укажите e-mail"
               type="email"
               required
+              value={value}
+              onChange={handleChange}
             />
             <input
               className="login-button"

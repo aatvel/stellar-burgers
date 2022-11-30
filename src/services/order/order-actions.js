@@ -1,8 +1,3 @@
-import { BURGER_API_URL } from "../../utils/consts";
-import { checkResponse } from "../../utils/api-ingredients";
-import { CONSTRUCTOR_RESET } from "../constructor-ingredients/constructor-actions";
-// import { request } from '../../utils/api-ingredients';
-
 
 export const SHOW_ORDER_DETAILS = "SHOW_ORDER_DETAILS";
 export const CLOSE_ORDER_DETAILS = "CLOSE_ORDER_DETAILS";

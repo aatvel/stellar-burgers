@@ -8,8 +8,6 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
-import { checkResponse } from "../../utils/api-ingredients";
-import { BURGER_API_URL } from "../../utils/consts";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import {
@@ -25,7 +23,7 @@ import {
 } from "../../services/constructor-ingredients/constructor-actions";
 import emptyImg from "../../images/empty_space.png";
 import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
-import { fetchOrder } from "../../services/order/order-actions";
+
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();

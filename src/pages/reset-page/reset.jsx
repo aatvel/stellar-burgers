@@ -1,21 +1,33 @@
 import React from "react";
 import AppHeader from "../../components/app-header/app-header";
 
-const Reset = ({}) => {
+const Reset = ({value,
+  code,
+  handleChangePassword,
+  handleChangeCode,
+  handleClick}) => {
   return (
     <>
       <div className="login-wrapper">
         <AppHeader />
         <div className="sign-in">
           <div className="sign-in-header">Восстановление пароля</div>
-          <form className="inputs-wrapper">
+          <form className="inputs-wrapper" onSubmit={handleClick}>
             <input
               className="input input-login"
               placeholder="Введите новый пароль"
+              type='password'
+              required
+              value={value}
+              onChange={handleChangePassword}
             />
             <input
               className="input input-login"
               placeholder="Введите код из письма"
+              type='token'
+              required
+              value={code}
+              onChange={handleChangeCode}
             />
             <input
               className="login-button"

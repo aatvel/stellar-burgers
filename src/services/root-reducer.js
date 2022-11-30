@@ -3,11 +3,15 @@ import { constructorReducer } from './constructor-ingredients/constructor-reduce
 import { detailsReducer } from './ingredient-details/details-reducer';
 import {ingredientsReducer} from  './ingredients/ingredients-reducer'
 import { orderReducer } from './order/order-reducer';
+import { restoreReducer } from './restore-password/restore-reducer';
+import { resetReducer } from './reset-password/reset-reducer';
 
 export const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
     constructorReducer: constructorReducer,
     details: detailsReducer,
-    orderReducer: orderReducer
+    orderReducer: orderReducer,
+    restoreReducer,
+    resetReducer
   });
   
