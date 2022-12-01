@@ -8,6 +8,7 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
+import { NavLink } from "react-router-dom";
 
 class MenuItem extends React.Component {
   render() {
@@ -27,28 +28,30 @@ export default function AppHeader() {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <ul className={styles.menu_left}>
-          <li className={styles.menu_item}>
-            <BurgerIcon type="primary" />
+          <NavLink className={styles.menu_item}>
+            <BurgerIcon  />
             <p className="text text_type_main-default">Конструктор</p>
-          </li>
+          </NavLink>
 
+          <NavLink className={styles.menu_item}>
           <MenuItem
-            icon={<ListIcon type="secondary" />}
+            icon={<ListIcon  />}
             className="text text_type_main-default text_color_inactive"
             text="Лента заказов"
           />
+            </NavLink>
         </ul>
 
         <section className={styles.logo}>
           <Logo />
         </section>
 
-        <ul className={styles.menu_right}>
+        <NavLink className={styles.menu_right}>
           <MenuItem
-            icon={<ProfileIcon type="secondary" />}
+            icon={<ProfileIcon  />}
             text="Личный кабинет"
           />
-        </ul>
+        </NavLink>
       </nav>
     </header>
   );

@@ -3,9 +3,12 @@ import Reset from "./reset";
 import { useState } from "react";
 import { passwordReset } from "../../services/reset-password";
 import { useNavigate } from "react-router-dom";
+import {  useDispatch } from "react-redux";
+import { onResetStart } from "../../services/reset-password/reset-actions";
 
 const ResetContainer = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [value, setValue] = useState("");
   const [code, setCode] = useState("");
 
@@ -20,15 +23,8 @@ const ResetContainer = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    const data = passwordReset({ password: value, token: code });
-    data.then((data) => {
-      console.log(data);
-      if (data.succes) {
-        console.log("Password successfully reset");
-        goToProfilePage()
-      }
-      return data.success;
-    });
+    dispatch(onResetStart({ password: value, token: code }));
+    goToProfilePage()
   };
 
   return (

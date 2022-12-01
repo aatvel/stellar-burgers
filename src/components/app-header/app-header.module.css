@@ -24,11 +24,13 @@
 .menu_left {
   display: flex;
   align-items: flex-start;
+  
   transform: translateX(-10%);
   gap: 8px;
 }
 
 .menu_right {
+  align-items: center;
   display: flex;
   margin-left: 13%;
 }
