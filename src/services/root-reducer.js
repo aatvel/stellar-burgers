@@ -5,6 +5,9 @@ import {ingredientsReducer} from  './ingredients/ingredients-reducer'
 import { orderReducer } from './order/order-reducer';
 import { restoreReducer } from './restore-password/restore-reducer';
 import { resetReducer } from './reset-password/reset-reducer';
+import { registerReducer } from './register/register-reducer';
+import { loginReducer } from './login/login-reducer';
+
 
 export const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
@@ -12,6 +15,8 @@ export const rootReducer = combineReducers({
     details: detailsReducer,
     orderReducer: orderReducer,
     restoreReducer,
-    resetReducer
+    resetReducer,
+    registerReducer,
+    loginReducer
   });
   

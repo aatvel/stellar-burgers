@@ -2,7 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import AppHeader from "../../components/app-header/app-header";
 
-const Profile = () => {
+const Profile = ({currentUser}) => {
+  // console.log(currenUser)
   return (
     <>
       <div className="login-wrapper">
@@ -30,7 +31,7 @@ const Profile = () => {
                   className="input input-login"
                   style={{ padding: "40px 0px 24px 24px" }}
                 >
-                  {/* {userInfo?.user?.name} */}
+                  {currentUser?.name}
                 </div>
               </div>
               <div style={{ width: "100%", position: "relative" }}>
@@ -39,7 +40,7 @@ const Profile = () => {
                   className="input input-login"
                   style={{ padding: "40px 0px 24px 24px" }}
                 >
-                  {/* {userInfo?.user?.email} */}
+                  {currentUser?.email}
                 </div>
               </div>
               <div style={{ width: "100%", position: "relative" }}>
@@ -47,7 +48,7 @@ const Profile = () => {
                 <div
                   className="input input-login"
                   style={{ padding: "40px 0px 24px 24px" }}
-                ></div>
+                >******</div>
               </div>
             </form>
           </div>

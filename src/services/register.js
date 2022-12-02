@@ -1,6 +1,6 @@
-import { loginRequest } from "./api";
+import { registerRequest } from "./api";
 
-export const loginUser = async (data) => {
-    return await loginRequest(data)
+export const registerUser = async (data) => {
+    return await registerRequest(data)
     .then((res) => res.json())
 }
