@@ -25,7 +25,7 @@ class MenuItem extends React.Component {
 
 export default function AppHeader() {
   const location = useLocation();
-  const setActive = (url: string) => {
+  const setActive = (url) => {
     if (location.pathname === "/profile" && url === "/profile") {
       return true;
     }
