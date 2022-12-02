@@ -54,6 +54,9 @@
   left: 1073px;
   top: 0px;
 }
+.menu_item_a {
+ color: aliceblue;
+}
 
 .logo {
   display: flex;

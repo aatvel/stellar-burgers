@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import Home from "./pages/home-page/home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { ProtectedRoute } from "./components/protected-route";
 import { Provider } from "react-redux";
 import { store } from "./services/store";
 import LoginContainer from "./pages/login-page/login-container";
@@ -25,12 +25,19 @@ root.render(
         <Route path="/login" element={<LoginContainer />} />
 
         <Route path="/register" element={<RegisterContainer />} />
-        
+
         <Route path="/restore-password" element={<RestoreContainer />} />
-        
+
         <Route path="/reset-password" element={<ResetContainer />} />
-        
-        <Route path="/profile" element={<ProfileContainer />} />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfileContainer />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   </Provider>

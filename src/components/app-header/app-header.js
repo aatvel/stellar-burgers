@@ -8,7 +8,7 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 class MenuItem extends React.Component {
   render() {
@@ -24,33 +24,36 @@ class MenuItem extends React.Component {
 }
 
 export default function AppHeader() {
+  const location = useLocation();
+  const setActive = (url: string) => {
+    if (location.pathname === "/profile" && url === "/profile") {
+      return true;
+    }
+  };
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
         <ul className={styles.menu_left}>
-          <NavLink className={styles.menu_item}>
-            <BurgerIcon  />
+          <NavLink className={styles.menu_item} to={{pathname: '/'}}>
+            <BurgerIcon  type={setActive(location.pathname) ? 'primary' : 'secondary'}/>
             <p className="text text_type_main-default">Конструктор</p>
           </NavLink>
 
           <NavLink className={styles.menu_item}>
-          <MenuItem
-            icon={<ListIcon  />}
-            className="text text_type_main-default text_color_inactive"
-            text="Лента заказов"
-          />
-            </NavLink>
+            <MenuItem
+              icon={<ListIcon type={setActive(location.pathname) ? 'primary' : 'secondary'} />}
+              className="text text_type_main-default text_color_inactive"
+              text="Лента заказов"
+            />
+          </NavLink>
         </ul>
 
         <section className={styles.logo}>
           <Logo />
         </section>
 
-        <NavLink className={styles.menu_right}>
-          <MenuItem
-            icon={<ProfileIcon  />}
-            text="Личный кабинет"
-          />
+        <NavLink className={styles.menu_right} to={{pathname: '/profile'}}>
+          <MenuItem icon={<ProfileIcon  type={setActive(location.pathname) ? 'primary' : 'secondary'} />} text="Личный кабинет" />
         </NavLink>
       </nav>
     </header>

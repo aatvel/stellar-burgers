@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Login from "./login";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onLogintart } from "../../services/login/login-actions";
 
@@ -9,6 +9,7 @@ const LoginContainer = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const goHome = () => navigate("/");
@@ -30,6 +31,13 @@ const LoginContainer = () => {
     dispatch(onLogintart(user));
     // goHome()
   };
+
+  const fromPage = location.state?.from?.pathname || '/'
+
+  const {tokenUser} = useSelector((s) => s.loginReducer)
+  const auth2 = tokenUser?.user
+
+
 
   return (
     <>
