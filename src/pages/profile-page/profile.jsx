@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import AppHeader from "../../components/app-header/app-header";
 
-const Profile = ({currentUser}) => {
+const Profile = ({currentUser, handleClickLogout}) => {
   // console.log(currenUser)
   return (
     <>
@@ -16,7 +16,7 @@ const Profile = ({currentUser}) => {
             <NavLink to="/profile/orders" className="info-type">
               История заказов
             </NavLink>
-            <NavLink to="/profile/orders/:id" className="info-type">
+            <NavLink  className="info-type" onClick={handleClickLogout} >
               Выход
             </NavLink>
           </div>

@@ -5,6 +5,9 @@ import {
   GET_CURRENT_USER_START,
   GET_CURRENT_USER_SUCCESS,
   GET_CURRENT_USER_ERROR,
+  LOGOUT_USER_REQUEST,
+  LOGOUT_USER_SUCCESS,
+  LOGOUT_USER_ERROR,
 } from "./login-actions";
 
 const initialState = {
@@ -33,20 +36,45 @@ export const loginReducer = (state = initialState, { type, payload }) => {
         loading: false,
       };
     }
+
+
     case GET_CURRENT_USER_START: {
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     }
-    case GET_CURRENT_USER_SUCCESS:{
+    case GET_CURRENT_USER_SUCCESS: {
       return {
         ...state,
-        loading:false,
-        currentUser: payload
-      }
+        loading: false,
+        currentUser: payload,
+      };
     }
     case GET_CURRENT_USER_ERROR: {
+      return {
+        ...state,
+        error: true,
+        loading: false,
+      };
+    }
+
+    
+    case LOGOUT_USER_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case LOGOUT_USER_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        currentUser: null,
+        tokenUser: null,
+      };
+    }
+    case LOGOUT_USER_ERROR: {
       return {
         ...state,
         error: true,

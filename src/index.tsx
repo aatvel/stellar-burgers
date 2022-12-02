@@ -33,9 +33,9 @@ root.render(
         <Route
           path="/profile"
           element={
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <ProfileContainer />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
       </Routes>

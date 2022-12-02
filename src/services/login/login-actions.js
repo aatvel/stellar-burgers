@@ -2,6 +2,13 @@ export const LOGIN_USER_REQUEST = "LOGIN_USER_REQUEST";
 export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
 export const LOGIN_USER_ERROR = "LOGIN_USER_ERROR";
 
+
+export const LOGOUT_USER_REQUEST = "LOGOUT_USER_REQUEST";
+export const LOGOUT_USER_SUCCESS = "LOGOUT_USER_SUCCESS";
+export const LOGOUT_USER_ERROR = "LOGOUT_USER_ERROR";
+
+
+
 export const GET_CURRENT_USER_START = 'GET_CURRENT_USER_START'
 export const GET_CURRENT_USER_SUCCESS = 'GET_CURRENT_USER_SUCCESS'
 export const GET_CURRENT_USER_ERROR = 'GET_CURRENT_USER_ERROR'
@@ -19,6 +26,22 @@ export const onLoginSuccess= (res) => ({
 
 export const onLoginError = (error) => ({
   type: LOGIN_USER_ERROR,
+  payload: error
+})
+
+
+export const onLogoutStart = (token) => ({
+  type: LOGOUT_USER_REQUEST,
+  payload: token
+})
+
+export const onLogoutSuccess= (res) => ({
+  type: LOGOUT_USER_SUCCESS,
+  payload: res
+})
+
+export const onLogoutError = (error) => ({
+  type: LOGOUT_USER_ERROR,
   payload: error
 })
 

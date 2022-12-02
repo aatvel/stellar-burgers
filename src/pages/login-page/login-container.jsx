@@ -34,9 +34,6 @@ const LoginContainer = () => {
 
   const fromPage = location.state?.from?.pathname || '/'
 
-  const {tokenUser} = useSelector((s) => s.loginReducer)
-  const auth2 = tokenUser?.user
-
 
 
   return (

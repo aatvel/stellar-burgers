@@ -3,6 +3,7 @@ import { checkResponse } from "../utils/api-ingredients";
 import { BURGER_API_URL } from "../utils/consts";
 import { getCookie, setCookie } from "../utils/cookie";
 
+
 export const fetchOrderRequest = async (data) => {
   return await fetch(`${BURGER_API_URL}/orders`, {
     method: "POST",
@@ -45,7 +46,6 @@ export const passwordResetRequest = async (form) => {
   });
 };
 
-
 // Отправляем данные формы на сервер для РЕГИСТРАЦИИ
 export const registerRequest = async (form) => {
   return await fetch(`${BURGER_API_URL}/auth/register`, {
@@ -71,7 +71,6 @@ export const loginUserRequest = async (form) => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
@@ -79,9 +78,22 @@ export const loginUserRequest = async (form) => {
   });
 };
 
+// Отправляем данные формы на сервер для РЕГИСТРАЦИИ
+export const logoutUserRequest = async () => {
+  return await fetch(`${BURGER_API_URL}/auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token:  getCookie('refreshToken'),
+
+    }),
+  });
+};
 
 // Отправляем данные формы на сервер для РЕГИСТРАЦИИ
-// export const refreshTokenRequest = async (form) => {
+// export const refreshTokenRequest = async () => {
 //   return await fetch(`${BURGER_API_URL}/auth/token`, {
 //     method: "POST",
 //     mode: "cors",
@@ -99,7 +111,7 @@ export const loginUserRequest = async (form) => {
 //   });
 // };
 
-// https://norma.nomoreparties.space/api/auth/user
+
 
 // Отправляем данные формы на сервер для РЕГИСТРАЦИИ
 export const getUserRequest = async () => {
@@ -110,7 +122,7 @@ export const getUserRequest = async () => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-      authorization: getCookie('accessToken')
+      authorization: getCookie("accessToken"),
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
