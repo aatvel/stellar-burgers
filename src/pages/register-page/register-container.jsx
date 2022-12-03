@@ -1,18 +1,21 @@
 import React from "react";
 import Register from "./register";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { onRegisterStart } from "../../services/register/register-actions";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
+import { getCurrentUserStart } from "../../services/login/login-actions";
 
 const RegisterContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const goHome = () => navigate("/");
+  const fromPage = location.state?.from?.pathname || "/";
+  const directoFromLogin = () => navigate(fromPage, { replace: true });
 
   const user = {
     email,
@@ -33,9 +36,19 @@ const RegisterContainer = () => {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(onRegisterStart(user));
-
-    // goHome()
+    directoFromLogin();
   };
+
+  useEffect(() => {
+    dispatch(getCurrentUserStart());
+  }, []);
+
+  const { currentUser } = useSelector((s) => s.loginReducer);
+  useEffect(() => {
+    if (currentUser) {
+      return directoFromLogin();
+    }
+  });
 
   return (
     <>

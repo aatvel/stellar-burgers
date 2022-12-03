@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Reset from "./reset";
 import { useState } from "react";
 import { passwordReset } from "../../services/reset-password";
-import { useNavigate } from "react-router-dom";
-import {  useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { onResetStart } from "../../services/reset-password/reset-actions";
+import { getCurrentUserStart } from "../../services/login/login-actions";
 
 const ResetContainer = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [value, setValue] = useState("");
   const [code, setCode] = useState("");
 
@@ -24,8 +25,23 @@ const ResetContainer = () => {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(onResetStart({ password: value, token: code }));
-    goToProfilePage()
+    goToProfilePage();
   };
+
+  const location = useLocation();
+  const fromPage = location.state?.from?.pathname || "/";
+  const directoFromLogin = () => navigate(fromPage, { replace: true });
+
+  useEffect(() => {
+    dispatch(getCurrentUserStart());
+  }, []);
+
+  const { currentUser } = useSelector((s) => s.loginReducer);
+  useEffect(() => {
+    if (currentUser) {
+      return directoFromLogin();
+    }
+  });
 
   return (
     <>
