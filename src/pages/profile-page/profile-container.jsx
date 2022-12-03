@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Profile from "./profile";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,29 +7,30 @@ import { getCurrentUserStart, onLogoutStart } from "../../services/login/login-a
 
 const ProfileContainer = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getCurrentUserStart());
   }, []);
 
   const {currentUser} = useSelector((s) => s.loginReducer)
-  // console.log(currentUser)
 
   const goHome = () => navigate("/");
 
-  const {tokenUser} = useSelector(store => store.loginReducer);
-  console.log(tokenUser)
+  const fromPage = location.state?.from?.pathname || '/'
+  const directoFromLogin = () =>  navigate(fromPage, {replace: true})
+
 
   const handleClickLogout = (e) => {
     e.preventDefault();
-    dispatch(onLogoutStart(tokenUser));
-    // goHome()
+    dispatch(onLogoutStart());
+    directoFromLogin()
   };
 
   return (
     <>
       <Profile
-      currentUser={currentUser?.user}
+      currentUser={currentUser}
       handleClickLogout={handleClickLogout}  />
            
     </>

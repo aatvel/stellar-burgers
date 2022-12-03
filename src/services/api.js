@@ -79,16 +79,13 @@ export const loginUserRequest = async (form) => {
 };
 
 // Отправляем данные формы на сервер для РЕГИСТРАЦИИ
-export const logoutUserRequest = async () => {
+export const logoutUserRequest = async (refreshToken) => {
   return await fetch(`${BURGER_API_URL}/auth/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      token:  getCookie('refreshToken'),
-
-    }),
+    body: JSON.stringify(refreshToken),
   });
 };
 

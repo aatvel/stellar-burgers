@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Login from "./login";
 import { useNavigate , useLocation} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { onLogintart } from "../../services/login/login-actions";
+import { getCurrentUserStart, onLogintart } from "../../services/login/login-actions";
 
 
 const LoginContainer = () => {
@@ -12,7 +12,17 @@ const LoginContainer = () => {
   const location = useLocation()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const goHome = () => navigate("/");
+  const fromPage = location.state?.from?.pathname || '/'
+ const directoFromLogin = () => navigate(fromPage, {replace: true})
+
+  useEffect(() => {
+    dispatch(getCurrentUserStart());
+  }, []);
+
+  const { currentUser } = useSelector((s) => s.loginReducer);
+  console.log(currentUser);
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -29,12 +39,16 @@ const LoginContainer = () => {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(onLogintart(user));
-    // goHome()
+    directoFromLogin()
+   
   };
 
-  const fromPage = location.state?.from?.pathname || '/'
 
-
+  useEffect(() => {
+    if (currentUser){
+      return directoFromLogin()
+    }
+  })
 
   return (
     <>
@@ -44,7 +58,7 @@ const LoginContainer = () => {
         handleChangeEmail={handleChangeEmail}
         handleChangePassword={handleChangePassword}
         handleClick={handleClick}
-      />
+      /> 
     </>
   );
 };

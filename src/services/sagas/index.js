@@ -154,7 +154,7 @@ function* gologinUser({ payload }) {
     if (response.success) {
       const { refreshToken, accessToken } = response;
       yield put(onLoginSuccess(response));
-      yield call(saveTokenToLocalStorage,"refreshToken", refreshToken);
+      yield call(saveTokenToLocalStorage, refreshToken);
       yield call(setCookie, "accessToken", accessToken);
     }
   } catch (error) {
@@ -169,12 +169,12 @@ function* loginUsers() {
 
 
 function* getUserStart() {
-  console.log(getCookie("accessToken"));
+  // console.log(getCookie("accessToken"));
   try {
     const response = yield call(getUser);
     // console.log(response);
     if (response.success) {
-      yield put(getCurrentUserSuccess(response));
+      yield put(getCurrentUserSuccess(response.user));
     }
   } catch (error) {}
 }
@@ -184,14 +184,15 @@ function* ongetUser() {
 }
 
 //LOGOUT
-function* gologoutUser({ token }) {
-  console.log(token);
+function* gologoutUser() {
+  const token = {token: localStorage.getItem('refreshToken')}
   try {
     const response = yield call(logoutUser, token);
     console.log(response);
     if (response) {
       yield put(onLogoutSuccess());
-      yield deleteCookie("accessToken");
+      deleteCookie('refreshToken')
+      deleteCookie('accessToken')
     }
   } catch (error) {}
 }
