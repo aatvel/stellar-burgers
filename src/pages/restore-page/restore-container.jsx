@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Restore from "./restore";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { passwordRestore } from "../../services/restore-password";
 import { onRestoreStart } from "../../services/restore-password/restore-actions";
@@ -16,8 +16,7 @@ const RestoreContainer = () => {
     setValue(e.target.value);
   };
 
-  const goResetPassword = () => navigate("/reset-password");
-
+  const goResetPassword = () => navigate("/reset-password", {state: 123});
   const fromPage = location.state?.from?.pathname || "/";
   const directoFromLogin = () => navigate(fromPage, { replace: true });
 
@@ -38,14 +37,13 @@ const RestoreContainer = () => {
     }
   });
 
+
   return (
-    <>
-      <Restore
-        value={value}
-        handleChange={handleChange}
-        handleClick={handleClick}
-      />
-    </>
+    <Restore
+      value={value}
+      handleChange={handleChange}
+      handleClick={handleClick}
+    />
   );
 };
 

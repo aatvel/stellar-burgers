@@ -1,8 +1,7 @@
 import React from "react";
 import AppHeader from "../../components/app-header/app-header";
 
-const Restore = ({handleChange, value, handleClick }) => {
-  
+const Restore = ({ handleChange, value, handleClick }) => {
   return (
     <>
       <div className="login-wrapper">
@@ -22,6 +21,7 @@ const Restore = ({handleChange, value, handleClick }) => {
               className="login-button"
               type="submit"
               style={{ maxWidth: "256px" }}
+              text={"Отправить"}
             />
           </form>
           <div className="register-forget">

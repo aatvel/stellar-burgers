@@ -7,6 +7,7 @@ import { restoreReducer } from './restore-password/restore-reducer';
 import { resetReducer } from './reset-password/reset-reducer';
 import { registerReducer } from './register/register-reducer';
 import { loginReducer } from './login/login-reducer';
+import { editReducer } from './edit-user/edit-reducer';
 
 
 export const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
     restoreReducer,
     resetReducer,
     registerReducer,
-    loginReducer
+    loginReducer,
+    editReducer
   });
   

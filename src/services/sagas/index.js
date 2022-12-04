@@ -16,6 +16,8 @@ import {
   setCookie,
 } from "../../utils/cookie";
 import { CONSTRUCTOR_RESET } from "../constructor-ingredients/constructor-actions";
+import { editUser } from "../edit-user";
+import { EDIT_USER_REQUEST, onEditError, onEditStart } from "../edit-user/edit-actions";
 import { fetchOrder } from "../fetch-order";
 import { getUser } from "../get-user";
 import {
@@ -61,6 +63,7 @@ import {
   onRestoreSuccess,
   RESTORE_PASSWORD_REQUEST,
 } from "../restore-password/restore-actions";
+import { updateUser } from "../update-user";
 
 function* onLoadIngredientsStart() {
   try {
@@ -147,7 +150,7 @@ function* registerUsers() {
 
 //LOGIN
 function* gologinUser({ payload }) {
-  console.log(payload);
+  // console.log(payload);
   try {
     const response = yield call(loginUser, payload);
 
@@ -170,14 +173,33 @@ function* loginUsers() {
 
 function* getUserStart() {
   // console.log(getCookie("accessToken"));
-  try {
+  const response = yield call(getUser);
+
+  if (response.success) {
+    yield put(getCurrentUserSuccess(response.user));
+    console.log(response)
+
+  }
+
+  if(response.message === "jwt expired"){
+    const token = {
+      token: localStorage.getItem("refreshToken")
+    };
+    const updateToken = yield call(updateUser, token);
+    const {accessToken, refreshToken} = updateToken;
+    yield call(saveTokenToLocalStorage, refreshToken);
+    yield call(setCookie, "accessToken", accessToken);
     const response = yield call(getUser);
-    // console.log(response);
-    if (response.success) {
-      yield put(getCurrentUserSuccess(response.user));
+    if(response.success){
+      yield put(getCurrentUserSuccess(response.user))
+      console.log(response)
     }
-  } catch (error) {}
+
+  }
 }
+
+
+
 
 function* ongetUser() {
   yield takeLatest(GET_CURRENT_USER_START, getUserStart);
@@ -191,7 +213,7 @@ function* gologoutUser() {
     console.log(response);
     if (response) {
       yield put(onLogoutSuccess());
-      deleteCookie('refreshToken')
+      // deleteCookie('refreshToken')
       deleteCookie('accessToken')
     }
   } catch (error) {}
@@ -199,6 +221,24 @@ function* gologoutUser() {
 
 function* logoutUsers() {
   yield takeEvery(LOGOUT_USER_REQUEST, gologoutUser);
+}
+
+//edit User
+function* goEditUser({ payload }) {
+
+  try {
+    const response = yield call(editUser, payload);
+    console.log(response);
+    if (response.success) {
+      yield put(onEditStart(response));
+    }
+  } catch (error) {
+    yield put(onEditError(error.message));
+  }
+}
+
+function* editUsers() {
+  yield takeEvery(EDIT_USER_REQUEST, goEditUser);
 }
 
 export default function* rootSaga() {
@@ -211,6 +251,7 @@ export default function* rootSaga() {
     fork(loginUsers),
     fork(ongetUser),
     fork(logoutUsers),
+    fork(editUsers)
   ];
   yield all([...burgerSagas]);
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Reset from "./reset";
 import { useState } from "react";
 import { passwordReset } from "../../services/reset-password";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onResetStart } from "../../services/reset-password/reset-actions";
 import { getCurrentUserStart } from "../../services/login/login-actions";
@@ -29,6 +29,7 @@ const ResetContainer = () => {
   };
 
   const location = useLocation();
+
   const fromPage = location.state?.from?.pathname || "/";
   const directoFromLogin = () => navigate(fromPage, { replace: true });
 
@@ -42,6 +43,16 @@ const ResetContainer = () => {
       return directoFromLogin();
     }
   });
+
+
+
+
+  const { state } = useLocation();
+  {
+    if (state !== 123 ) {
+      return <Navigate to="/" />;
+    }
+  }
 
   return (
     <>

@@ -12,7 +12,6 @@ export function ProtectedRoute({ children }) {
   }, []);
 
   const { currentUser } = useSelector((s) => s.loginReducer);
-  console.log(currentUser);
 
   if (!currentUser) {
     return <Navigate to="/login" state={{ from: location }} />;
