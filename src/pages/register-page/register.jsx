@@ -17,7 +17,7 @@ const Register = ({
   return (
     <>
       <div className="login-wrapper">
-        <AppHeader />
+
         <div className="sign-in">
           <>
             <div className="sign-in-header">Регистрация</div>

@@ -27,7 +27,7 @@ import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { showOrderModal } = useSelector((state) => state.orderReducer);
+  // const { showOrderModal } = useSelector((state) => state.orderReducer);
   const { buns, mainsAndSauces } = useSelector(
     (state) => state.constructorReducer
   );
@@ -48,9 +48,9 @@ const BurgerConstructor = () => {
     
   };
 
-  const handleClickOrder = () => {
-    dispatch(closeOrderDetails());
-  };
+  // const handleClickOrder = () => {
+  //   dispatch(closeOrderDetails());
+  // };
 
   //Drag n Drop
   const onDropHandler = (item) => {
@@ -143,11 +143,11 @@ const BurgerConstructor = () => {
           </span>
         </span>
 
-        {showOrderModal && (
+        {/* {showOrderModal && (
           <Modal closeModal={handleClickOrder}>
             <OrderDetails />
           </Modal>
-        )}
+        )} */}
 
         <Button
           htmlType="button"

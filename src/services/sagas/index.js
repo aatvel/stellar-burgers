@@ -185,7 +185,7 @@ function* getUserStart() {
   } else if (
     localStorage.getItem("refreshToken") && !getCookie("accessToken")
   ){
-    const updateToken = yield call(updateUser, token);
+    const updateToken = yield call(updateUser, localStorage.getItem("refreshToken"));
     const {accessToken, refreshToken} = updateToken;
     yield call(saveTokenToLocalStorage, refreshToken);
     yield call(setCookie, "accessToken", accessToken);
@@ -232,7 +232,8 @@ function* gologoutUser() {
     console.log(response);
     if (response) {
       yield put(onLogoutSuccess());
-      // deleteCookie('refreshToken')
+      const refreshToken = localStorage.getItem('refreshToken')
+      localStorage.removeItem("refreshToken", refreshToken)
       deleteCookie('accessToken')
     }
   } catch (error) {}

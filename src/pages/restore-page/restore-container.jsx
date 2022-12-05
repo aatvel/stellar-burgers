@@ -18,6 +18,9 @@ const RestoreContainer = () => {
 
   const goResetPassword = () => navigate("/reset-password", {state: 123});
 
+  // useEffect(() => {
+  //   dispatch(getCurrentUserStart());
+  // }, []);
 
   const handleClick = (e) => {
     e.preventDefault();

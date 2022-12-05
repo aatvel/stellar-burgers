@@ -4,18 +4,14 @@ import { useLocation, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserStart } from "../services/login/login-actions";
 import { PreLoader } from "./app/preloader";
+import { getCookie } from "../utils/cookie";
 
 export function ProtectedRoute({ children }) {
   const location = useLocation();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCurrentUserStart());
-  }, []);
-  const { currentUser } = useSelector((s) => s.loginReducer);
+  const auth = getCookie("accessToken")
 
-
-  if (!currentUser) {
+  if (!auth) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
   return children;

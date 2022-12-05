@@ -9,7 +9,7 @@ const Reset = ({value,
   return (
     <>
       <div className="login-wrapper">
-        <AppHeader />
+
         <div className="sign-in">
           <div className="sign-in-header">Восстановление пароля</div>
           <form className="inputs-wrapper" onSubmit={handleClick}>

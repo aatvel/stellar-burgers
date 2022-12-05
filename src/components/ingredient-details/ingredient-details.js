@@ -1,10 +1,12 @@
 import React from "react";
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./ingredient-details.module.css";
 
 
 const IngredientDetails = () => {
   const { ingredient } = useSelector((state) => state.details);
+  console.log(ingredient)
 
   return (
     <div className={styles.card}>

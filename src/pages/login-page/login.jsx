@@ -12,7 +12,7 @@ const Login = ({
   return (
     <>
       <div className="login-wrapper">
-        <AppHeader />
+
 
         <div className="sign-in">
           <div className="sign-in-header">Вход</div>

@@ -21,7 +21,6 @@ const ProfileContainer = () => {
   const { currentUser } = useSelector((s) => s.loginReducer);
 
 
-
   const fromPage = location.state?.from?.pathname || "/";
   const directToPage = () => navigate(fromPage, { replace: true });
 
@@ -30,7 +29,6 @@ const ProfileContainer = () => {
     dispatch(onLogoutStart());
     directToPage();
   };
-
 
 
   return (

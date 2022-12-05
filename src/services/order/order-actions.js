@@ -34,23 +34,3 @@ export const onLoadingError = (error) => ({
 
 
 
-
-// export const fetchOrder = (data) =>  {
-//   return function (dispatch){
-//   dispatch({type: ORDER_LOADING});
-//   fetch(`${BURGER_API_URL}/orders`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//      },
-//     body: JSON.stringify(data),
-//   })
-//     .then(checkResponse)
-//     .then((result) => {
-//       dispatch({type: ORDER_SUCCESS,
-//         payload: result.order.number});
-//     })
-//     .then(dispatch({type: CONSTRUCTOR_RESET}))
-    
-//     .catch(() => dispatch({type: ORDER_ERROR}));}
-// }

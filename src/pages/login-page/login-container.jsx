@@ -17,12 +17,9 @@ const LoginContainer = () => {
   const fromPage = location.state?.from?.pathname || "/";
   const directoFromLogin = () => navigate(fromPage, { replace: true });
 
-  useEffect(() => {
-    dispatch(getCurrentUserStart());
-  }, []);
-
-  const { currentUser } = useSelector((s) => s.loginReducer);
-
+  // useEffect(() => {
+  //   dispatch(getCurrentUserStart());
+  // }, []);
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -42,11 +39,7 @@ const LoginContainer = () => {
     setTimeout(() => directoFromLogin(), 1000);
   };
 
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     return directoFromLogin();
-  //   }
-  // });
+
 
   return (
     <>

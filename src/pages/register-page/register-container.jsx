@@ -38,11 +38,6 @@ const RegisterContainer = () => {
     dispatch(onRegisterStart(user));
     setTimeout(() => directoFromLogin(), 1000);
   };
-
-  useEffect(() => {
-    dispatch(getCurrentUserStart());
-  }, []);
-
  
 
   return (
