@@ -19,8 +19,7 @@ const Ingredient = (props) => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
-    dispatch(showDetails(ingredientData))
-   
+    dispatch(showDetails(ingredientData))   
   };
 
  const [, dragRef] = useDrag({

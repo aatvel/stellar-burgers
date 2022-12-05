@@ -39,7 +39,7 @@ const LoginContainer = () => {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(onLogintart(user));
-    directoFromLogin();
+    setTimeout(() => directoFromLogin(), 600);
   };
 
   useEffect(() => {

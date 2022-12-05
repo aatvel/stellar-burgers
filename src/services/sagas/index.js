@@ -30,6 +30,7 @@ import {
 } from "../ingredients/ingredients-const";
 import { loginUser } from "../login";
 import {
+  getCurrentUserError,
   getCurrentUserSuccess,
   GET_CURRENT_USER_START,
   LOGIN_USER_REQUEST,
@@ -174,11 +175,29 @@ function* loginUsers() {
 function* getUserStart() {
   // console.log(getCookie("accessToken"));
   const response = yield call(getUser);
+  const token = {
+    token: localStorage.getItem("refreshToken")
+  };
 
   if (response.success) {
     yield put(getCurrentUserSuccess(response.user));
     console.log(response)
-
+  } else if (
+    localStorage.getItem("refreshToken") && !getCookie("accessToken")
+  ){
+    const updateToken = yield call(updateUser, token);
+    const {accessToken, refreshToken} = updateToken;
+    yield call(saveTokenToLocalStorage, refreshToken);
+    yield call(setCookie, "accessToken", accessToken);
+    const response = yield call(getUser);
+    console.log(response)
+    if (response.success){
+      yield put(getCurrentUserSuccess(response.user))
+    } else {
+      yield put(getCurrentUserError(response.message))
+    }
+  } else if (!response.success){
+    yield put(getCurrentUserError(response.message))
   }
 
   if(response.message === "jwt expired"){

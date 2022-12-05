@@ -16,7 +16,7 @@ const Profile = ({currentUser, handleClickLogout}) => {
             <NavLink to="/profile/orders" className="info-type">
               История заказов
             </NavLink>
-            <NavLink  className="info-type" onClick={handleClickLogout} >
+            <NavLink to="/" className="info-type" onClick={handleClickLogout} >
               Выход
             </NavLink>
           </div>

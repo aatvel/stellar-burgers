@@ -4,6 +4,7 @@ import "./index.css";
 import Home from "./pages/home-page/home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "./components/protected-route";
+import { ProtectedRouteAuth } from "./components/protected-route-auth";
 import { Provider } from "react-redux";
 import { store } from "./services/store";
 import LoginContainer from "./pages/login-page/login-container";
@@ -11,6 +12,7 @@ import RegisterContainer from "./pages/register-page/register-container";
 import RestoreContainer from "./pages/restore-page/restore-container";
 import ResetContainer from "./pages/reset-page/reset-container";
 import ProfileContainer from "./pages/profile-page/profile-container";
+import IngredientDetails from "./components/ingredient-details/ingredient-details";
 // import thunk from 'redux-thunk';
 
 const root = ReactDOM.createRoot(
@@ -22,9 +24,18 @@ root.render(
       <Routes>
         <Route path="/" element={<Home />} />
 
-        <Route path="/login" element={<LoginContainer />} />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRouteAuth>
+              <LoginContainer />
+            </ProtectedRouteAuth>
+          }
+        />
 
         <Route path="/register" element={<RegisterContainer />} />
+
+        <Route path="/ingredient" element={<IngredientDetails />} />
 
         <Route path="/restore-password" element={<RestoreContainer />} />
 
@@ -35,7 +46,7 @@ root.render(
           element={
             <ProtectedRoute>
               <ProfileContainer />
-           </ProtectedRoute>
+            </ProtectedRoute>
           }
         />
       </Routes>
