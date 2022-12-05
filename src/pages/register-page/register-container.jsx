@@ -36,19 +36,14 @@ const RegisterContainer = () => {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(onRegisterStart(user));
-    directoFromLogin();
+    setTimeout(() => directoFromLogin(), 1000);
   };
 
   useEffect(() => {
     dispatch(getCurrentUserStart());
   }, []);
 
-  const { currentUser } = useSelector((s) => s.loginReducer);
-  useEffect(() => {
-    if (currentUser) {
-      return directoFromLogin();
-    }
-  });
+ 
 
   return (
     <>

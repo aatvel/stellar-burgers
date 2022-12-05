@@ -25,26 +25,13 @@ const ResetContainer = () => {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(onResetStart({ password: value, token: code }));
-    goToProfilePage();
+    setTimeout(() => goToProfilePage(), 1000);
   };
 
   const location = useLocation();
 
   const fromPage = location.state?.from?.pathname || "/";
   const directoFromLogin = () => navigate(fromPage, { replace: true });
-
-  useEffect(() => {
-    dispatch(getCurrentUserStart());
-  }, []);
-
-  const { currentUser } = useSelector((s) => s.loginReducer);
-  useEffect(() => {
-    if (currentUser) {
-      return directoFromLogin();
-    }
-  });
-
-
 
 
   const { state } = useLocation();

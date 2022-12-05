@@ -33,13 +33,32 @@ root.render(
           }
         />
 
-        <Route path="/register" element={<RegisterContainer />} />
+        <Route
+          path="/register"
+          element={
+            <ProtectedRouteAuth>
+              <RegisterContainer />
+            </ProtectedRouteAuth>
+          }
+        />
 
-        <Route path="/ingredient" element={<IngredientDetails />} />
+        <Route
+          path="/restore-password"
+          element={
+            <ProtectedRouteAuth>
+              <RestoreContainer />
+            </ProtectedRouteAuth>
+          }
+        />
 
-        <Route path="/restore-password" element={<RestoreContainer />} />
-
-        <Route path="/reset-password" element={<ResetContainer />} />
+        <Route
+          path="/reset-password"
+          element={
+            <ProtectedRouteAuth>
+              <ResetContainer />
+            </ProtectedRouteAuth>
+          }
+        />
 
         <Route
           path="/profile"

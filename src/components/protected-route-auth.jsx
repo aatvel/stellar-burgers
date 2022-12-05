@@ -7,15 +7,14 @@ import { PreLoader } from "./app/preloader";
 
 export function ProtectedRouteAuth({ children }) {
   const location = useLocation();
-
-  const fromPage = location.state?.from?.pathname || "/";
-
-  const { currentUser } = useSelector((s) => s.loginReducer);
-
-    
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCurrentUserStart());
+  }, []);
+  const { currentUser } = useSelector((s) => s.loginReducer);    
 
   if (currentUser) {
-    return <Navigate to="/" state={{ from: fromPage }} />;
+    return <Navigate to="/" state={{ from: location }} />;
   }
   return children;
 }

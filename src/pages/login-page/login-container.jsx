@@ -39,14 +39,14 @@ const LoginContainer = () => {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(onLogintart(user));
-    setTimeout(() => directoFromLogin(), 600);
+    setTimeout(() => directoFromLogin(), 1000);
   };
 
-  useEffect(() => {
-    if (currentUser) {
-      return directoFromLogin();
-    }
-  });
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     return directoFromLogin();
+  //   }
+  // });
 
   return (
     <>

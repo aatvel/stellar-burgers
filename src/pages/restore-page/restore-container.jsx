@@ -17,26 +17,13 @@ const RestoreContainer = () => {
   };
 
   const goResetPassword = () => navigate("/reset-password", {state: 123});
-  const fromPage = location.state?.from?.pathname || "/";
-  const directoFromLogin = () => navigate(fromPage, { replace: true });
+
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(onRestoreStart({ email: value }));
-    goResetPassword();
+    setTimeout(() => goResetPassword(), 1000);
   };
-
-  useEffect(() => {
-    dispatch(getCurrentUserStart());
-  }, []);
-
-  const { currentUser } = useSelector((s) => s.loginReducer);
-  useEffect(() => {
-    if (currentUser) {
-      return directoFromLogin();
-    }
-  });
-
 
   return (
     <Restore

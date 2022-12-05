@@ -7,11 +7,13 @@ import { PreLoader } from "./app/preloader";
 
 export function ProtectedRoute({ children }) {
   const location = useLocation();
+  const dispatch = useDispatch();
 
-
+  useEffect(() => {
+    dispatch(getCurrentUserStart());
+  }, []);
   const { currentUser } = useSelector((s) => s.loginReducer);
 
-    
 
   if (!currentUser) {
     return <Navigate to="/login" state={{ from: location }} />;
