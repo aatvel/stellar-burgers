@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AppHeader from "../../components/app-header/app-header";
+import PropTypes from "prop-types";
 
 const Login = ({
   email,
@@ -55,5 +56,13 @@ const Login = ({
     </>
   );
 };
+
+Login.propTypes = {
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  handleChangePassword: PropTypes.func.isRequired,
+  handleChangeEmail: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired
+}
 
 export default Login;

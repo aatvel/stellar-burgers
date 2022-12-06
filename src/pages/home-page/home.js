@@ -25,7 +25,7 @@ function Home() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const background = location?.state?.background;
+  const background = location.state && location?.state?.background;
 
   const goBack = () => navigate(-1);
 
@@ -46,7 +46,7 @@ function Home() {
   return (
     <div className={appStyles.page}>
       <AppHeader />
-      <Routes location={location?.state?.background || location}>
+      <Routes location={background || location}>
         <Route path="/" element={<Main />} />
 
         <Route
@@ -96,7 +96,7 @@ function Home() {
 
         <Route
           path="/ingredients/:_id"
-          element={<IngredientPage />}
+          element={<IngredientPage background={background} />}
         />
       </Routes>
 
@@ -108,7 +108,7 @@ function Home() {
               <Modal
                 title="Детали ингредиента"
                 closeModal={handleClick}
-                children={<IngredientDetails />}
+                children={<IngredientDetails  background={background}/>}
               />
             }
           />

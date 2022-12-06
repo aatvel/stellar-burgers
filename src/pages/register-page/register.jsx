@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AppHeader from "../../components/app-header/app-header";
+import PropTypes from "prop-types";
 
 
 const Register = ({
@@ -21,7 +21,7 @@ const Register = ({
         <div className="sign-in">
           <>
             <div className="sign-in-header">Регистрация</div>
-            <form className="inputs-wrapper" onSubmit={handleClick}>
+            <form className="inputs-wrapper"  onSubmit={handleClick}>
               <input
                 className="input input-login"
                 placeholder="Имя"
@@ -34,6 +34,7 @@ const Register = ({
                 value={email}
                 onChange={handleChangeEmail}
               />
+              
               <input
                 className="input input-login"
                 placeholder="Пароль"
@@ -58,6 +59,15 @@ const Register = ({
       </div>
     </>
   );
+};
+Register.propTypes = {
+name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  handleChangeName: PropTypes.func.isRequired,
+  handleChangeEmail: PropTypes.func.isRequired,
+  handleChangePassword: PropTypes.func.isRequired,
+  handleClick: PropTypes.func
 };
 
 export default Register;

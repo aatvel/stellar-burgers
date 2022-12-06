@@ -1,11 +1,10 @@
-import React from "react";
-import AppHeader from "../../components/app-header/app-header";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Restore = ({ handleChange, value, handleClick }) => {
   return (
     <>
       <div className="login-wrapper">
-
         <div className="sign-in">
           <div className="sign-in-header">Восстановление пароля</div>
           <form className="inputs-wrapper" onSubmit={handleClick}>
@@ -26,12 +25,20 @@ const Restore = ({ handleChange, value, handleClick }) => {
           </form>
           <div className="register-forget">
             <p className="first-header">Вспомнили пароль?</p>
-            <p className="second-header">Войти</p>
+            <Link to="/login" className="second-header">
+              Войти
+            </Link>
           </div>
         </div>
       </div>
     </>
   );
+};
+
+Restore.propTypes = {
+  value: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default Restore;

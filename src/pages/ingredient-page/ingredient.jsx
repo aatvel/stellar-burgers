@@ -8,6 +8,8 @@ const styleIngredient = {
   margin: "0 auto",
   marginTop: 120,
   textAlign: "center",
+  overflow: 'hidden'
+  
 };
 
 export function IngredientPage() {

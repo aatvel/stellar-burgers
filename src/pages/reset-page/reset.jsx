@@ -1,5 +1,5 @@
-import React from "react";
-import AppHeader from "../../components/app-header/app-header";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Reset = ({value,
   code,
@@ -37,12 +37,23 @@ const Reset = ({value,
           </form>
           <div className="register-forget">
             <p className="first-header">Вспомнили пароль?</p>
-            <p className="second-header">Войти</p>
+            <Link to="/login" className="second-header">
+              Войти
+            </Link>
           </div>
         </div>
       </div>
     </>
   );
+};
+
+
+Reset.propTypes = {
+  code: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  handleChangePassword: PropTypes.func.isRequired,
+  handleChangeCode: PropTypes.func.isRequired,
+
 };
 
 export default Reset;

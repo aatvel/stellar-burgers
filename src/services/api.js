@@ -128,9 +128,9 @@ export const editUserRequest = async (form) => {
     cache: "no-cache",
     credentials: "same-origin",
     headers: {
-      Accept: "application/json",
+      // Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: getCookie("accessToken"),
+      authorization: getCookie("accessToken"),
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",

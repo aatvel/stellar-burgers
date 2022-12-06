@@ -17,12 +17,19 @@ import {
 } from "../../utils/cookie";
 import { CONSTRUCTOR_RESET } from "../constructor-ingredients/constructor-actions";
 import { editUser } from "../edit-user";
-import { EDIT_USER_REQUEST, onEditError, onEditStart } from "../edit-user/edit-actions";
+import {
+  EDIT_USER_REQUEST,
+  onEditError,
+  onEditStart,
+  onEditSuccess,
+} from "../edit-user/edit-actions";
 import { fetchOrder } from "../fetch-order";
 import { getUser } from "../get-user";
 import {
   loadIngredientsError,
   loadIngredientsSuccess,
+  showPageDetailSuccess,
+  SHOW_PAGE_DETAIL_START,
 } from "../ingredients/ingredients-actions";
 import {
   LOAD_INGREDIENTS_START,
@@ -170,55 +177,50 @@ function* loginUsers() {
   yield takeEvery(LOGIN_USER_REQUEST, gologinUser);
 }
 
-
-
 function* getUserStart() {
   // console.log(getCookie("accessToken"));
   const response = yield call(getUser);
   const token = {
-    token: localStorage.getItem("refreshToken")
+    token: localStorage.getItem("refreshToken"),
   };
 
   if (response.success) {
     yield put(getCurrentUserSuccess(response.user));
-    console.log(response)
+    console.log(response);
   } else if (
-    localStorage.getItem("refreshToken") && !getCookie("accessToken")
-  ){
+    localStorage.getItem("refreshToken") &&
+    !getCookie("accessToken")
+  ) {
     const updateToken = yield call(updateUser, token);
-    const {accessToken, refreshToken} = updateToken;
+    const { accessToken, refreshToken } = updateToken;
     yield call(saveTokenToLocalStorage, refreshToken);
     yield call(setCookie, "accessToken", accessToken);
     const response = yield call(getUser);
-    console.log(response)
-    if (response.success){
-      yield put(getCurrentUserSuccess(response.user))
+    console.log(response);
+    if (response.success) {
+      yield put(getCurrentUserSuccess(response.user));
     } else {
-      yield put(getCurrentUserError(response.message))
+      yield put(getCurrentUserError(response.message));
     }
-  } else if (!response.success){
-    yield put(getCurrentUserError(response.message))
+  } else if (!response.success) {
+    yield put(getCurrentUserError(response.message));
   }
 
-  if(response.message === "jwt expired"){
+  if (response.message === "jwt expired") {
     const token = {
-      token: localStorage.getItem("refreshToken")
+      token: localStorage.getItem("refreshToken"),
     };
     const updateToken = yield call(updateUser, token);
-    const {accessToken, refreshToken} = updateToken;
+    const { accessToken, refreshToken } = updateToken;
     yield call(saveTokenToLocalStorage, refreshToken);
     yield call(setCookie, "accessToken", accessToken);
     const response = yield call(getUser);
-    if(response.success){
-      yield put(getCurrentUserSuccess(response.user))
-      console.log(response)
+    if (response.success) {
+      yield put(getCurrentUserSuccess(response.user));
+      console.log(response);
     }
-
   }
 }
-
-
-
 
 function* ongetUser() {
   yield takeLatest(GET_CURRENT_USER_START, getUserStart);
@@ -226,15 +228,15 @@ function* ongetUser() {
 
 //LOGOUT
 function* gologoutUser() {
-  const token = {token: localStorage.getItem('refreshToken')}
+  const token = { token: localStorage.getItem("refreshToken") };
   try {
     const response = yield call(logoutUser, token);
     console.log(response);
     if (response) {
       yield put(onLogoutSuccess());
-      const refreshToken = localStorage.getItem('refreshToken')
-      localStorage.removeItem("refreshToken", refreshToken)
-      deleteCookie('accessToken')
+      const refreshToken = localStorage.getItem("refreshToken");
+      localStorage.removeItem("refreshToken", refreshToken);
+      deleteCookie("accessToken");
     }
   } catch (error) {}
 }
@@ -245,12 +247,12 @@ function* logoutUsers() {
 
 //edit User
 function* goEditUser({ payload }) {
-
   try {
     const response = yield call(editUser, payload);
-    console.log(response);
+    console.log(payload);
     if (response.success) {
-      yield put(onEditStart(response));
+      yield put(onEditSuccess(response));
+      console.log(response)
     }
   } catch (error) {
     yield put(onEditError(error.message));
@@ -259,6 +261,27 @@ function* goEditUser({ payload }) {
 
 function* editUsers() {
   yield takeEvery(EDIT_USER_REQUEST, goEditUser);
+}
+
+function* goPageIngredient({ payload }) {
+  try {
+    const response = yield call(getIngredients);
+    if (response) {
+      yield delay(1000);
+      yield put(loadIngredientsSuccess(response));
+
+      // response.filter((data) => data.id === payload)
+      const hook = response.filter((data) => data._id === payload);
+      console.log(hook);
+      yield put(showPageDetailSuccess(hook))
+    }
+  } catch (error) {
+    yield put(loadIngredientsError(error.message));
+  }
+}
+
+function* getPageIngredient() {
+  yield takeEvery(SHOW_PAGE_DETAIL_START, goPageIngredient);
 }
 
 export default function* rootSaga() {
@@ -271,7 +294,8 @@ export default function* rootSaga() {
     fork(loginUsers),
     fork(ongetUser),
     fork(logoutUsers),
-    fork(editUsers)
+    fork(editUsers),
+    fork(getPageIngredient),
   ];
   yield all([...burgerSagas]);
 }

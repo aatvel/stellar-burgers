@@ -7,19 +7,19 @@ import {
   getCurrentUserStart,
   onLogoutStart,
 } from "../../services/login/login-actions";
-
+import { PreLoader } from "../../components/app/preloader";
+import { onEditStart } from "../../services/edit-user/edit-actions";
 
 const ProfileContainer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const { currentUser, loading } = useSelector((s) => s.loginReducer);
 
   useEffect(() => {
     dispatch(getCurrentUserStart());
+
   }, []);
-
-  const { currentUser } = useSelector((s) => s.loginReducer);
-
 
   const fromPage = location.state?.from?.pathname || "/";
   const directToPage = () => navigate(fromPage, { replace: true });
@@ -30,8 +30,9 @@ const ProfileContainer = () => {
     directToPage();
   };
 
-
-  return (
+  return loading ? (
+    <PreLoader />
+  ) : (
     <>
       <Profile
         currentUser={currentUser}

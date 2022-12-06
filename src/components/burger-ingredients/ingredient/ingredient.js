@@ -49,8 +49,8 @@ const Ingredient = (props) => {
       <li
         ref={dragRef}
         className={IngredientsStyles.ingredient}
-        // onClick={handleClick}
-        onMouseDown={handleClick}
+        onClick={handleClick}
+        // onMouseDown={handleClick}
       >
         {counter !== 0 && (
           <Counter count={counter} size="default" extraClass="m-1" />

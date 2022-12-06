@@ -1,3 +1,5 @@
+
+import { SHOW_PAGE_DETAIL_START, SHOW_PAGE_DETAIL_SUCCESS } from './ingredients-actions'
 import {
     LOAD_INGREDIENTS_START,
     LOAD_INGREDIENTS_SUCCESS,
@@ -8,6 +10,7 @@ import {
 
 const initialState = {
     data: [],
+    pageIngredient: [],
     loading: true,
     error: false
 }
@@ -27,6 +30,13 @@ export const ingredientsReducer = (state = initialState, {type, payload}) => {
                 ...state, error: payload
             }
         }
+        case SHOW_PAGE_DETAIL_SUCCESS: {
+            return{
+                ...state, pageIngredient: payload
+                // pageIngredient: state.data.filter((data) => data.id === payload)
+            }
+        }
+        
         default: {
             return state;
         }
