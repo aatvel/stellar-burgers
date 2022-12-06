@@ -39,14 +39,12 @@ const Ingredient = (props) => {
   const ingredientId = ingredientData["_id"];
 
   return (
-    <Link
+    (<Link
       key={ingredientId}
       to={{
-        pathname: `/ingredients/${ingredientId}`,
+        pathname: `/ingredients/${ingredientId}`
         }}
-      className={IngredientsStyles.link}
-      state={{ background: location }}
-
+      state={{ background: location}}
     >
       <li
         ref={dragRef}
@@ -73,7 +71,7 @@ const Ingredient = (props) => {
           {ingredientData.name}
         </p>
       </li>
-    </Link>
+    </Link>)
   );
 };
 

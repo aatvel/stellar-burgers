@@ -9,7 +9,7 @@ import { getCookie } from "../utils/cookie";
 export function ProtectedRouteAuth({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const auth = getCookie("accessToken")
+  const auth = localStorage.getItem("refreshToken")
 
   const fromPage = location.state?.from?.pathname || "/";
   const directoFromLogin = () => navigate(fromPage, { replace: true });

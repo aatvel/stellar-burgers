@@ -9,7 +9,7 @@ import { getCookie } from "../utils/cookie";
 export function ProtectedRoute({ children }) {
   const location = useLocation();
 
-  const auth = getCookie("accessToken")
+  const auth = localStorage.getItem("refreshToken")
 
   if (!auth) {
     return <Navigate to="/login" state={{ from: location }} />;

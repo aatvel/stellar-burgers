@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import {
@@ -42,15 +43,21 @@ const BurgerConstructor = () => {
   });
 
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const fromPage = location.state?.from?.pathname || "/";
+  const auth = localStorage.getItem("refreshToken")
 
   const handleSubmitOrder = () => {
-    dispatch(onLoadingStart({ingredients: [buns._id, ...notBunsId, buns._id]}))
+    if(auth){
+    dispatch(onLoadingStart({ingredients: [buns._id, ...notBunsId, buns._id]}))}
+    else {
+      navigate('/login', { replace: true })
+    }
     
   };
 
-  // const handleClickOrder = () => {
-  //   dispatch(closeOrderDetails());
-  // };
+
 
   //Drag n Drop
   const onDropHandler = (item) => {

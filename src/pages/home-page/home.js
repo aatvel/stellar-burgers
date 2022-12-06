@@ -18,22 +18,16 @@ import RestoreContainer from "../restore-page/restore-container";
 import ResetContainer from "../reset-page/reset-container";
 import ProfileContainer from "../profile-page/profile-container";
 import { loadIngredientsStart } from "../../services/ingredients/ingredients-actions";
-import ingredientDetails from "../../components/ingredient-details/ingredient-details";
-import { getCurrentUserStart } from "../../services/login/login-actions";
-
+import { IngredientPage } from "../ingredient-page/ingredient";
 
 function Home() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const state = useSelector(store => store)
+  const state = useSelector((store) => store);
+
   const background = location?.state?.background;
 
-  //   useEffect(() => {
-  //   dispatch(getCurrentUserStart());
-  // }, []);
-
-  // const background = location?.state?.background;
   const goBack = () => navigate(-1);
 
   //Modal Ingredient
@@ -48,7 +42,6 @@ function Home() {
   const handleClickOrder = () => {
     dispatch(closeOrderDetails());
   };
- 
 
   return (
     <div className={appStyles.page}>
@@ -101,7 +94,10 @@ function Home() {
           }
         />
 
-        <Route path="/ingredients/:ingredientId" element={<IngredientDetails />} />
+        <Route
+          path="/ingredients/:ingredientId"
+          element={<IngredientPage />}
+        />
       </Routes>
 
       {background && showModal && (
@@ -120,9 +116,11 @@ function Home() {
       )}
 
       {showOrderModal && (
-        <Modal closeModal={handleClickOrder}>
-          <OrderDetails />
-        </Modal>
+        <ProtectedRoute>
+          <Modal closeModal={handleClickOrder}>
+            <OrderDetails />
+          </Modal>
+        </ProtectedRoute>
       )}
     </div>
   );

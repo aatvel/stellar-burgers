@@ -185,7 +185,7 @@ function* getUserStart() {
   } else if (
     localStorage.getItem("refreshToken") && !getCookie("accessToken")
   ){
-    const updateToken = yield call(updateUser, localStorage.getItem("refreshToken"));
+    const updateToken = yield call(updateUser, token);
     const {accessToken, refreshToken} = updateToken;
     yield call(saveTokenToLocalStorage, refreshToken);
     yield call(setCookie, "accessToken", accessToken);
