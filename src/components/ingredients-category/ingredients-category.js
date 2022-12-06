@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import Ingredient from "../burger-ingredients/ingredient/ingredient";
 import categoryStyles from "./ingredients-category.module.css";
+import { Link, useLocation } from "react-router-dom";
 
 const IngredientCategory = ({ title, titleId, ingredients }) => {
   const { data } = useSelector((state) => state.ingredients);

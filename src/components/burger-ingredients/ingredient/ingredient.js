@@ -39,17 +39,18 @@ const Ingredient = (props) => {
   const ingredientId = ingredientData["_id"];
 
   return (
-    (<Link
+    <Link
       key={ingredientId}
       to={{
-        pathname: `/ingredients/${ingredientId}`
-        }}
-      state={{ background: location}}
+        pathname: `/ingredients/${ingredientId}`,
+      }}
+      state={{ background: location }}
     >
       <li
         ref={dragRef}
         className={IngredientsStyles.ingredient}
-        onClick={handleClick}
+        // onClick={handleClick}
+        onMouseDown={handleClick}
       >
         {counter !== 0 && (
           <Counter count={counter} size="default" extraClass="m-1" />
@@ -71,7 +72,7 @@ const Ingredient = (props) => {
           {ingredientData.name}
         </p>
       </li>
-    </Link>)
+    </Link>
   );
 };
 

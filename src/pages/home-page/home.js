@@ -24,7 +24,6 @@ function Home() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const state = useSelector((store) => store);
 
   const background = location?.state?.background;
 
@@ -42,6 +41,7 @@ function Home() {
   const handleClickOrder = () => {
     dispatch(closeOrderDetails());
   };
+  
 
   return (
     <div className={appStyles.page}>
@@ -95,7 +95,7 @@ function Home() {
         />
 
         <Route
-          path="/ingredients/:ingredientId"
+          path="/ingredients/:_id"
           element={<IngredientPage />}
         />
       </Routes>
@@ -103,7 +103,7 @@ function Home() {
       {background && showModal && (
         <Routes>
           <Route
-            path="/ingredients/:ingredientId"
+            path="/ingredients/:_id"
             element={
               <Modal
                 title="Детали ингредиента"

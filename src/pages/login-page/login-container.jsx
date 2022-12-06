@@ -39,8 +39,6 @@ const LoginContainer = () => {
     setTimeout(() => directoFromLogin(), 1000);
   };
 
-
-
   return (
     <>
       <Login
