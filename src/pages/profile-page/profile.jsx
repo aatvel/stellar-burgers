@@ -8,7 +8,6 @@ import {
   PasswordInput,
   EmailInput,
   Input,
-  EditIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { onEditStart } from "../../services/edit-user/edit-actions";
@@ -17,6 +16,7 @@ const Profile = ({ currentUser, handleClickLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+
   const [name, setName] = useState(currentUser?.name || "");
   const [email, setEmail] = useState(currentUser?.email || "");
   const [password, setPassword] = useState("");
@@ -39,10 +39,16 @@ const Profile = ({ currentUser, handleClickLogout }) => {
     setPassword(e.target.value);
   };
 
-  const handleClick = (e) => {
+  const handleSave = (e) => {
     console.log(user);
     e.preventDefault();
     dispatch(onEditStart(user));
+  };
+
+  const handleReset = (e) => {
+    setName(currentUser?.name );
+    setEmail(currentUser?.email);
+    setPassword("");
   };
 
   return (
@@ -68,14 +74,15 @@ const Profile = ({ currentUser, handleClickLogout }) => {
               <form
                 className="inputs-wrapper"
                 style={{ marginTop: "120px", marginLeft: "60px" }}
+                onSubmit={handleSave}
               >
                 <div style={{ width: "100%", position: "relative" }}>
-                  <EmailInput
+                  <Input
                     onChange={handleChangeName}
                     value={name}
                     name={"name"}
                     placeholder="Логин"
-                    isIcon={true}
+                    icon={"EditIcon"}
                     extraClass="mb-2"
                   />
                 </div>
@@ -86,7 +93,7 @@ const Profile = ({ currentUser, handleClickLogout }) => {
                     value={email}
                     name={"email"}
                     placeholder="Почта"
-                    isIcon={true}
+                    icon={"EditIcon"}
                     extraClass="mb-2"
                   />
                 </div>
@@ -96,18 +103,29 @@ const Profile = ({ currentUser, handleClickLogout }) => {
                     onChange={handleChangePassword}
                     value={password}
                     name={"password"}
-                    icon="EditIcon"
+                    icon={"EditIcon"}
                   />
                 </div>
+                
                 <Button
-                  style={{ marginTop: "20px", marginLeft: "350px" }}
+                  style={{ marginTop: "20px", marginLeft: "150px", width: "120px" }}
                   htmlType="submit"
                   type="primary"
                   size="small"
                   extraClass="ml-2"
-                  onClick={handleClick}
                 >
                   Сохранить
+                </Button>
+
+                <Button
+                  style={{marginLeft: "400px", marginBottom: "0", transform: "translateY(-40px)", width: "120px" }}
+                  htmlType="button"
+                  type= "primary"
+                  size="small"
+                  extraClass="ml-2"
+                  onClick={handleReset}
+                >
+                Отмена
                 </Button>
               </form>
             </div>

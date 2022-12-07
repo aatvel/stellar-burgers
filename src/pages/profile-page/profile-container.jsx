@@ -30,6 +30,8 @@ const ProfileContainer = () => {
     directToPage();
   };
 
+  
+
   return loading ? (
     <PreLoader />
   ) : (

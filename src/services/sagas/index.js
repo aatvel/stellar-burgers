@@ -140,10 +140,10 @@ function* ResetPassword() {
 
 //REGISTER
 function* goRegisterUser({ payload }) {
-  console.log(payload);
+  // console.log(payload);
   try {
     const response = yield call(registerUser, payload);
-    console.log(response);
+    // console.log(response);
     if (response.success) {
       yield put(onRegisterSuccess(response));
     }
@@ -186,7 +186,7 @@ function* getUserStart() {
 
   if (response.success) {
     yield put(getCurrentUserSuccess(response.user));
-    console.log(response);
+    // console.log(response);
   } else if (
     localStorage.getItem("refreshToken") &&
     !getCookie("accessToken")
@@ -196,7 +196,7 @@ function* getUserStart() {
     yield call(saveTokenToLocalStorage, refreshToken);
     yield call(setCookie, "accessToken", accessToken);
     const response = yield call(getUser);
-    console.log(response);
+    // console.log(response);
     if (response.success) {
       yield put(getCurrentUserSuccess(response.user));
     } else {
@@ -217,7 +217,7 @@ function* getUserStart() {
     const response = yield call(getUser);
     if (response.success) {
       yield put(getCurrentUserSuccess(response.user));
-      console.log(response);
+      // console.log(response);
     }
   }
 }
@@ -231,7 +231,7 @@ function* gologoutUser() {
   const token = { token: localStorage.getItem("refreshToken") };
   try {
     const response = yield call(logoutUser, token);
-    console.log(response);
+    // console.log(response);
     if (response) {
       yield put(onLogoutSuccess());
       const refreshToken = localStorage.getItem("refreshToken");
@@ -246,13 +246,14 @@ function* logoutUsers() {
 }
 
 //edit User
-function* goEditUser({ payload }) {
+function* goEditUser(payload) {
+  
   try {
     const response = yield call(editUser, payload);
-    console.log(payload);
+    console.log(response, payload);
     if (response.success) {
-      yield put(onEditSuccess(response));
-      console.log(response)
+      yield put(onEditSuccess(payload));
+      console.log(response, payload);
     }
   } catch (error) {
     yield put(onEditError(error.message));
@@ -272,8 +273,8 @@ function* goPageIngredient({ payload }) {
 
       // response.filter((data) => data.id === payload)
       const hook = response.filter((data) => data._id === payload);
-      console.log(hook);
-      yield put(showPageDetailSuccess(hook))
+      // console.log(hook);
+      yield put (showPageDetailSuccess(hook))
     }
   } catch (error) {
     yield put(loadIngredientsError(error.message));

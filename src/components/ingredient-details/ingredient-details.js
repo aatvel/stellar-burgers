@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./ingredient-details.module.css";
 import { showPageDetailStart } from "../../services/ingredients/ingredients-actions";
 import { PreLoader } from "../app/preloader";
+import PropTypes from "prop-types";
 
 const IngredientDetails = ({ background }) => {
   const dispatch = useDispatch();
@@ -71,6 +72,9 @@ const IngredientDetails = ({ background }) => {
   );
 };
 
+IngredientDetails.propTypes = {
+  background: PropTypes.object
+}
 
 
 export default React.memo(IngredientDetails);

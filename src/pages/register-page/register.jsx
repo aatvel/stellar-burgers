@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-
 const Register = ({
   name,
   email,
@@ -10,18 +9,15 @@ const Register = ({
   handleChangeName,
   handleChangeEmail,
   handleChangePassword,
-  handleClick
+  handleClick,
 }) => {
-
-
   return (
     <>
       <div className="login-wrapper">
-
         <div className="sign-in">
           <>
             <div className="sign-in-header">Регистрация</div>
-            <form className="inputs-wrapper"  onSubmit={handleClick}>
+            <form className="inputs-wrapper" onSubmit={handleClick}>
               <input
                 className="input input-login"
                 placeholder="Имя"
@@ -34,7 +30,7 @@ const Register = ({
                 value={email}
                 onChange={handleChangeEmail}
               />
-              
+
               <input
                 className="input input-login"
                 placeholder="Пароль"
@@ -61,13 +57,13 @@ const Register = ({
   );
 };
 Register.propTypes = {
-name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   handleChangeName: PropTypes.func.isRequired,
   handleChangeEmail: PropTypes.func.isRequired,
   handleChangePassword: PropTypes.func.isRequired,
-  handleClick: PropTypes.func
+  handleClick: PropTypes.func,
 };
 
 export default Register;

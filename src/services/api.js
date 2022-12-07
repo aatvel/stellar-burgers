@@ -120,7 +120,7 @@ export const getUserRequest = async () => {
   });
 };
 
-// Отправляем данные формы на сервер для РЕГИСТРАЦИИ
+// Отправляем данные формы на сервер для мзменения профайла
 export const editUserRequest = async (form) => {
   return await fetch(`${BURGER_API_URL}/auth/user`, {
     method: "PATCH",
@@ -128,7 +128,7 @@ export const editUserRequest = async (form) => {
     cache: "no-cache",
     credentials: "same-origin",
     headers: {
-      // Accept: "application/json",
+      accept: "application/json",
       "Content-Type": "application/json",
       authorization: getCookie("accessToken"),
     },
