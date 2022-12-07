@@ -19,7 +19,7 @@ const Profile = ({ currentUser, handleClickLogout }) => {
 
   const [name, setName] = useState(currentUser?.name || "");
   const [email, setEmail] = useState(currentUser?.email || "");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("password");
 
   const user = {
     email,
@@ -40,7 +40,7 @@ const Profile = ({ currentUser, handleClickLogout }) => {
   };
 
   const handleSave = (e) => {
-    console.log(user);
+    // console.log(user);
     e.preventDefault();
     dispatch(onEditStart(user));
   };

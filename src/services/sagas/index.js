@@ -246,14 +246,12 @@ function* logoutUsers() {
 }
 
 //edit User
-function* goEditUser(payload) {
-  
+function* goEditUser({ payload }) {
   try {
     const response = yield call(editUser, payload);
-    console.log(response, payload);
+
     if (response.success) {
-      yield put(onEditSuccess(payload));
-      console.log(response, payload);
+      yield put(onEditSuccess(response));
     }
   } catch (error) {
     yield put(onEditError(error.message));
@@ -274,7 +272,7 @@ function* goPageIngredient({ payload }) {
       // response.filter((data) => data.id === payload)
       const hook = response.filter((data) => data._id === payload);
       // console.log(hook);
-      yield put (showPageDetailSuccess(hook))
+      yield put(showPageDetailSuccess(hook));
     }
   } catch (error) {
     yield put(loadIngredientsError(error.message));
