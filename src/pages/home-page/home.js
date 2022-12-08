@@ -25,6 +25,10 @@ function Home() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    dispatch(loadIngredientsStart());
+  }, [dispatch]);
+
   const background = location.state && location?.state?.background;
 
   const goBack = () => navigate(-1);
