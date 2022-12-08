@@ -1,39 +1,41 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Reset = ({value,
+const Reset = ({
+  value,
   code,
   handleChangePassword,
   handleChangeCode,
-  handleClick}) => {
+  handleClick,
+}) => {
   return (
     <>
       <div className="login-wrapper">
-
         <div className="sign-in">
           <div className="sign-in-header">Восстановление пароля</div>
           <form className="inputs-wrapper" onSubmit={handleClick}>
-            <input
-              className="input input-login"
-              placeholder="Введите новый пароль"
-              type='password'
-              required
-              value={value}
+            <PasswordInput
+              placeholder="Пароль"
               onChange={handleChangePassword}
+              extraClass="mb-2"
+              minLength="5"
             />
-            <input
-              className="input input-login"
-              placeholder="Введите код из письма"
-              type='token'
+            <Input
+              extraClass="mb-2"
+              placeholder="Код из письма"
               required
               value={code}
               onChange={handleChangeCode}
             />
-            <input
-              className="login-button"
-              type="submit"
-              style={{ maxWidth: "167px" }}
-            />
+            <Button
+                htmlType="submit"
+                type="primary"
+                size="large"
+                extraClass="ml-2"
+              >
+                Восстановить
+              </Button>
           </form>
           <div className="register-forget">
             <p className="first-header">Вспомнили пароль?</p>
@@ -47,13 +49,11 @@ const Reset = ({value,
   );
 };
 
-
 Reset.propTypes = {
   code: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
   handleChangePassword: PropTypes.func.isRequired,
   handleChangeCode: PropTypes.func.isRequired,
-
 };
 
 export default Reset;

@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import {
+  Button,
+  EmailInput,
+  Input,
+  PasswordInput,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const Register = ({
   name,
@@ -18,30 +24,35 @@ const Register = ({
           <>
             <div className="sign-in-header">Регистрация</div>
             <form className="inputs-wrapper" onSubmit={handleClick}>
-              <input
-                className="input input-login"
+              <Input
                 placeholder="Имя"
                 value={name}
                 onChange={handleChangeName}
+                extraClass="mb-2"
               />
-              <input
-                className="input input-login"
+              <EmailInput
                 placeholder="E-mail"
                 value={email}
                 onChange={handleChangeEmail}
+                extraClass="mb-2"
               />
 
-              <input
-                className="input input-login"
+              <PasswordInput
                 placeholder="Пароль"
                 value={password}
                 onChange={handleChangePassword}
+                extraClass="mb-2"
+                minLength="5"
               />
-              <input
-                className="login-button"
-                type="submit"
-                style={{ maxWidth: "256px" }}
-              />
+
+              <Button
+                htmlType="submit"
+                type="primary"
+                size="large"
+                extraClass="ml-2"
+              >
+                Зарегистрироваться
+              </Button>
             </form>
           </>
 

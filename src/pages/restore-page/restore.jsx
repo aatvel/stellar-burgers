@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const Restore = ({ handleChange, value, handleClick }) => {
   return (
@@ -8,12 +9,9 @@ const Restore = ({ handleChange, value, handleClick }) => {
         <div className="sign-in">
           <div className="sign-in-header">Восстановление пароля</div>
           <form className="inputs-wrapper" onSubmit={handleClick}>
-            <input
-              className="input input-login"
-              placeholder="Укажите e-mail"
-              type="email"
-              required
-              value={value}
+            <EmailInput
+              placeholder="E-mail"
+              extraClass="mb-2"
               onChange={handleChange}
             />
             <input

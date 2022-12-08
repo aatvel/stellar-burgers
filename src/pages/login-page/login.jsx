@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import AppHeader from "../../components/app-header/app-header";
 import PropTypes from "prop-types";
+import {
+  Button,
+  EmailInput,
+  Input,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const Login = ({
   email,
@@ -13,27 +18,30 @@ const Login = ({
   return (
     <>
       <div className="login-wrapper">
-
-
         <div className="sign-in">
           <div className="sign-in-header">Вход</div>
 
           <form className="inputs-wrapper" onSubmit={handleClick}>
-            <input
-              className="input input-login"
+            <EmailInput
+              extraClass="mb-2"
               placeholder="E-mail"
               value={email}
               onChange={handleChangeEmail}
+              minLength="5"
             />
 
-            <input
-              className="input input-login"
+            <Input
+              extraClass="mb-2"
               placeholder="Пароль"
               value={password}
               onChange={handleChangePassword}
+              minLength="5"
             />
 
-            <input className="login-button" type="submit" value="Войти" />
+        
+            <Button htmlType="submit" type="primary" size="large" extraClass="ml-2">
+              Войти
+            </Button>
           </form>
 
           <div className="register-forget">
@@ -62,7 +70,7 @@ Login.propTypes = {
   password: PropTypes.string.isRequired,
   handleChangePassword: PropTypes.func.isRequired,
   handleChangeEmail: PropTypes.func.isRequired,
-  handleClick: PropTypes.func.isRequired
-}
+  handleClick: PropTypes.func.isRequired,
+};
 
 export default Login;
