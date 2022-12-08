@@ -19,11 +19,11 @@ const Profile = ({ currentUser, handleClickLogout }) => {
 
   const [name, setName] = useState(currentUser?.name || "");
   const [email, setEmail] = useState(currentUser?.email || "");
-  // const [password, setPassword] = useState("password");
+  const [password, setPassword] = useState("******");
 
   const user = {
     email,
-    // password,
+    password,
     name,
   };
 
@@ -35,18 +35,18 @@ const Profile = ({ currentUser, handleClickLogout }) => {
     setEmail(e.target.value);
   };
 
-  // const handleChangePassword = (e) => {
-  //   setPassword(e.target.value);
-  // };
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
   const handleSave = (e) => {
-    // console.log(user);
+    console.log(user);
     e.preventDefault();
     dispatch(onEditStart(user));
   };
 
   const handleReset = (e) => {
-    setName(currentUser?.name );
+    setName(currentUser?.name);
     setEmail(currentUser?.email);
   };
 
@@ -99,16 +99,21 @@ const Profile = ({ currentUser, handleClickLogout }) => {
 
                 <div style={{ width: "100%", position: "relative" }}>
                   <PasswordInput
-                    // onChange={handleChangePassword}
-                    value={"password"}
+                    onChange={handleChangePassword}
+                    value={password}
                     name={"password"}
-                    
-                    disabled={true}
+                    placeholder="Пароль"
+                    icon={"EditIcon"}
+                   
                   />
                 </div>
-                
+
                 <Button
-                  style={{ marginTop: "20px", marginLeft: "150px", width: "120px" }}
+                  style={{
+                    marginTop: "20px",
+                    marginLeft: "150px",
+                    width: "120px",
+                  }}
                   htmlType="submit"
                   type="primary"
                   size="small"
@@ -118,14 +123,19 @@ const Profile = ({ currentUser, handleClickLogout }) => {
                 </Button>
 
                 <Button
-                  style={{marginLeft: "400px", marginBottom: "0", transform: "translateY(-40px)", width: "120px" }}
+                  style={{
+                    marginLeft: "400px",
+                    marginBottom: "0",
+                    transform: "translateY(-40px)",
+                    width: "120px",
+                  }}
                   htmlType="button"
-                  type= "primary"
+                  type="primary"
                   size="small"
                   extraClass="ml-2"
                   onClick={handleReset}
                 >
-                Отмена
+                  Отмена
                 </Button>
               </form>
             </div>
