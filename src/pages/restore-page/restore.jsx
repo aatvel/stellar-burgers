@@ -12,7 +12,7 @@ const Restore = ({ handleChange, value, handleClick }) => {
             <EmailInput
               placeholder="E-mail"
               extraClass="mb-2"
-              
+              value={value}
               onChange={handleChange}
             />
            <Button

@@ -1,6 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import appStyles from "./app.module.css";
 import AppHeader from "../../components/app-header/app-header";
@@ -9,7 +15,7 @@ import IngredientDetails from "../../components/ingredient-details/ingredient-de
 import { closeDetails } from "../../services/ingredient-details/details-actions";
 import OrderDetails from "../../components/order-details/order-details";
 import { closeOrderDetails } from "../../services/order/order-actions";
-import Main from "./main";
+import Home from "../home-page/home";
 import { ProtectedRoute } from "../../components/protected-route";
 import { ProtectedRouteAuth } from "../../components/protected-route-auth";
 import LoginContainer from "../login-page/login-container";
@@ -28,7 +34,8 @@ function App() {
   useEffect(() => {
     dispatch(loadIngredientsStart());
   }, [dispatch]);
-
+  const params = useParams();
+  console.log(params)
   const background = location.state && location?.state?.background;
 
   const goBack = () => navigate(-1);
@@ -45,13 +52,12 @@ function App() {
   const handleClickOrder = () => {
     dispatch(closeOrderDetails());
   };
-  
 
   return (
     <div className={appStyles.page}>
       <AppHeader />
       <Routes location={background || location}>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Home />} />
 
         <Route
           path="/login"
@@ -100,11 +106,11 @@ function App() {
 
         <Route
           path="/ingredients/:_id"
-          element={<IngredientPage background={background} />}
+          element={<IngredientDetails background={background} />}
         />
       </Routes>
 
-      {background && showModal && (
+      { showModal && (
         <Routes>
           <Route
             path="/ingredients/:_id"
@@ -112,7 +118,7 @@ function App() {
               <Modal
                 title="Детали ингредиента"
                 closeModal={handleClick}
-                children={<IngredientDetails  background={background}/>}
+                children={<IngredientDetails background={background} />}
               />
             }
           />

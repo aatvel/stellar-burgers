@@ -20,6 +20,7 @@ const Reset = ({
               onChange={handleChangePassword}
               extraClass="mb-2"
               minLength="5"
+              value={value}
             />
             <Input
               extraClass="mb-2"

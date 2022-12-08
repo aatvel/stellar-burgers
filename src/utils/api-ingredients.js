@@ -5,7 +5,9 @@ import { BURGER_API_URL } from "./consts";
 
 
 export const checkResponse = (res) => {
+
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+
 };
 
 export function request(url, options) {
@@ -13,7 +15,9 @@ export function request(url, options) {
   return fetch(url, options)
     .then(checkResponse)
     .then((data) => {
-      if (data?.success) return data.data;
+      console.log(data)
+      if (data?.success) return data;
+      
       return Promise.reject(data);
     });
 }

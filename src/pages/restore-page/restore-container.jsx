@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Restore from "./restore";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { passwordRestore } from "../../services/restore-password";
+
 import { onRestoreStart } from "../../services/restore-password/restore-actions";
-import { getCurrentUserStart } from "../../services/login/login-actions";
+
 
 const RestoreContainer = () => {
   const [value, setValue] = useState("");

@@ -16,15 +16,15 @@ import {
   setCookie,
 } from "../../utils/cookie";
 import { CONSTRUCTOR_RESET } from "../constructor-ingredients/constructor-actions";
-import { editUser } from "../edit-user";
+import { editUser } from "../api";
 import {
   EDIT_USER_REQUEST,
   onEditError,
   onEditStart,
   onEditSuccess,
 } from "../edit-user/edit-actions";
-import { fetchOrder } from "../fetch-order";
-import { getUser } from "../get-user";
+import { fetchOrder } from "../api";
+import { getUser } from "../api";
 import {
   loadIngredientsError,
   loadIngredientsSuccess,
@@ -35,7 +35,7 @@ import {
   LOAD_INGREDIENTS_START,
   LOAD_INGREDIENTS_SUCCESS,
 } from "../ingredients/ingredients-const";
-import { loginUser } from "../login";
+import { loginUser } from "../api";
 import {
   getCurrentUserError,
   getCurrentUserSuccess,
@@ -47,38 +47,39 @@ import {
   onLogoutError,
   onLogoutSuccess,
 } from "../login/login-actions";
-import { logoutUser } from "../logout";
+import { logoutUser } from "../api";
 import {
   LOAD_ORDER_START,
   onLoadingError,
   onLoadingSuccess,
 } from "../order/order-actions";
-import { registerUser } from "../register";
+import { registerUser } from "../api"
 import {
   onRegisterError,
   onRegisterSuccess,
   REGISTER_USER_REQUEST,
 } from "../register/register-actions";
-import { passwordReset } from "../reset-password";
+import { passwordReset } from "../api";
 import {
   onResetError,
   onResetSuccess,
   RESET_PASSWORD_REQUEST,
 } from "../reset-password/reset-actions";
-import { passwordRestore } from "../restore-password";
+import { passwordRestore } from "../api";
 import {
   onRestoreError,
   onRestoreSuccess,
   RESTORE_PASSWORD_REQUEST,
 } from "../restore-password/restore-actions";
-import { updateUser } from "../update-user";
+import { updateUser } from "../api";
 
 function* onLoadIngredientsStart() {
   try {
     const response = yield call(getIngredients);
+    // console.log(response)
     if (response) {
       yield delay(1000);
-      yield put(loadIngredientsSuccess(response));
+      yield put(loadIngredientsSuccess(response.data));
     }
   } catch (error) {
     yield put(loadIngredientsError(error.message));
@@ -92,7 +93,9 @@ function* onLoadIngredients() {
 //make order
 function* onLoadOrderStart({ payload }) {
   try {
+    console.log(payload)
     const response = yield call(fetchOrder, payload);
+    console.log(response)
     if (response.success) {
       yield putResolve(onLoadingSuccess(response.order.number));
       yield put({ type: CONSTRUCTOR_RESET });
@@ -267,10 +270,10 @@ function* goPageIngredient({ payload }) {
     const response = yield call(getIngredients);
     if (response) {
       yield delay(1000);
-      yield put(loadIngredientsSuccess(response));
+      yield put(loadIngredientsSuccess(response.data));
 
       // response.filter((data) => data.id === payload)
-      const hook = response.filter((data) => data._id === payload);
+      const hook = response.data.filter((data) => data._id === payload);
       // console.log(hook);
       yield put(showPageDetailSuccess(hook));
     }

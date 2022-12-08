@@ -36,6 +36,7 @@ const Profile = ({ currentUser, handleClickLogout }) => {
   };
 
   const handleChangePassword = (e) => {
+    
     setPassword(e.target.value);
   };
 
@@ -103,8 +104,8 @@ const Profile = ({ currentUser, handleClickLogout }) => {
                     value={password}
                     name={"password"}
                     placeholder="Пароль"
-                    icon={"EditIcon"}
-                   
+                    icon={"EditIcon"}  
+                    extraClass="mb-2"                 
                   />
                 </div>
 

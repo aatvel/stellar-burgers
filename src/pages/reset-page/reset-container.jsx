@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Reset from "./reset";
 import { useState } from "react";
-import { passwordReset } from "../../services/reset-password";
+
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onResetStart } from "../../services/reset-password/reset-actions";
