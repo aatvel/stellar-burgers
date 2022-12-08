@@ -19,11 +19,11 @@ const Profile = ({ currentUser, handleClickLogout }) => {
 
   const [name, setName] = useState(currentUser?.name || "");
   const [email, setEmail] = useState(currentUser?.email || "");
-  const [password, setPassword] = useState("password");
+  // const [password, setPassword] = useState("password");
 
   const user = {
     email,
-    password,
+    // password,
     name,
   };
 
@@ -35,9 +35,9 @@ const Profile = ({ currentUser, handleClickLogout }) => {
     setEmail(e.target.value);
   };
 
-  const handleChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
+  // const handleChangePassword = (e) => {
+  //   setPassword(e.target.value);
+  // };
 
   const handleSave = (e) => {
     // console.log(user);
@@ -48,7 +48,6 @@ const Profile = ({ currentUser, handleClickLogout }) => {
   const handleReset = (e) => {
     setName(currentUser?.name );
     setEmail(currentUser?.email);
-    setPassword("");
   };
 
   return (
@@ -100,10 +99,11 @@ const Profile = ({ currentUser, handleClickLogout }) => {
 
                 <div style={{ width: "100%", position: "relative" }}>
                   <PasswordInput
-                    onChange={handleChangePassword}
-                    value={password}
+                    // onChange={handleChangePassword}
+                    value={"password"}
                     name={"password"}
-                    icon={"EditIcon"}
+                    
+                    disabled={true}
                   />
                 </div>
                 
