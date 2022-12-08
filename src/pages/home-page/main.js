@@ -1,4 +1,4 @@
-import appStyles from "./home.module.css";
+import appStyles from "./app.module.css";
 
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";

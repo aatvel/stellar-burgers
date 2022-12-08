@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import appStyles from "./home.module.css";
+import appStyles from "./app.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import Modal from "../../components/modal/modal";
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
@@ -20,7 +20,7 @@ import ProfileContainer from "../profile-page/profile-container";
 import { loadIngredientsStart } from "../../services/ingredients/ingredients-actions";
 import { IngredientPage } from "../ingredient-page/ingredient";
 
-function Home() {
+function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -130,4 +130,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default App;

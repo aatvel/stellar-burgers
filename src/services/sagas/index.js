@@ -157,7 +157,7 @@ function* registerUsers() {
 }
 
 //LOGIN
-function* gologinUser({ payload }) {
+function* goLoginUser({ payload }) {
   // console.log(payload);
   try {
     const response = yield call(loginUser, payload);
@@ -174,7 +174,7 @@ function* gologinUser({ payload }) {
 }
 
 function* loginUsers() {
-  yield takeEvery(LOGIN_USER_REQUEST, gologinUser);
+  yield takeEvery(LOGIN_USER_REQUEST, goLoginUser);
 }
 
 function* getUserStart() {
@@ -222,12 +222,12 @@ function* getUserStart() {
   }
 }
 
-function* ongetUser() {
+function* onGetUser() {
   yield takeLatest(GET_CURRENT_USER_START, getUserStart);
 }
 
 //LOGOUT
-function* gologoutUser() {
+function* goLogoutUser() {
   const token = { token: localStorage.getItem("refreshToken") };
   try {
     const response = yield call(logoutUser, token);
@@ -242,7 +242,7 @@ function* gologoutUser() {
 }
 
 function* logoutUsers() {
-  yield takeEvery(LOGOUT_USER_REQUEST, gologoutUser);
+  yield takeEvery(LOGOUT_USER_REQUEST, goLogoutUser);
 }
 
 //edit User
@@ -291,7 +291,7 @@ export default function* rootSaga() {
     fork(ResetPassword),
     fork(registerUsers),
     fork(loginUsers),
-    fork(ongetUser),
+    fork(onGetUser),
     fork(logoutUsers),
     fork(editUsers),
     fork(getPageIngredient),
