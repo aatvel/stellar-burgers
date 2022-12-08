@@ -9,15 +9,21 @@ import { getCookie } from "../utils/cookie";
 export function ProtectedRouteAuth({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const auth = localStorage.getItem("refreshToken")
+  const auth = localStorage.getItem("refreshToken");
+
+  // const isLoggedIn = useSelector((store) => store.loginReducer.isLoggedIn);
+  // console.log( isLoggedIn);
 
   const fromPage = location.state?.from?.pathname || "/";
-  const directoFromLogin = () => navigate(fromPage, { replace: true });
+
 
   if (auth) {
-    return <Navigate to="/" state={{ from: location }} />;
+    return <Navigate to={ fromPage } />;
   }
 
-  
+  // if ( !auth) {
+  //   return <Navigate to="/login" state={{ from: location}}/>;
+  // }
+
   return children;
 }

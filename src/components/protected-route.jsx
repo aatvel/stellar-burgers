@@ -6,8 +6,9 @@ import { getCurrentUserStart } from "../services/login/login-actions";
 import { PreLoader } from "./app/preloader";
 import { getCookie } from "../utils/cookie";
 
-export function ProtectedRoute({ children }) {
+export function ProtectedRoute({  children}) {
   const location = useLocation();
+  // const isLoggedIn = useSelector((store) => store.loginReducer.isLoggedIn);
 
   const auth = localStorage.getItem("refreshToken")
 

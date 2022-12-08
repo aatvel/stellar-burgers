@@ -15,6 +15,7 @@ const initialState = {
   currentUser: null,
   loading: false,
   error: false,
+  isLoggedIn: false
 };
 
 export const loginReducer = (state = initialState, { type, payload }) => {
@@ -27,6 +28,7 @@ export const loginReducer = (state = initialState, { type, payload }) => {
         ...state,
         tokenUser: payload,
         loading: false,
+        isLoggedIn: true
       };
     }
     case LOGIN_USER_ERROR: {
@@ -49,6 +51,7 @@ export const loginReducer = (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         currentUser: payload,
+        isLoggedIn: true
       };
     }
     case GET_CURRENT_USER_ERROR: {
@@ -72,6 +75,7 @@ export const loginReducer = (state = initialState, { type, payload }) => {
         loading: false,
         currentUser: null,
         tokenUser: null,
+        isLoggedIn: false
       };
     }
     case LOGOUT_USER_ERROR: {
