@@ -1,4 +1,5 @@
-import React from "react";
+
+import * as React from "react";
 import { useEffect } from "react";
 import {
   Routes,
@@ -17,7 +18,6 @@ import OrderDetails from "../../components/order-details/order-details";
 import { closeOrderDetails } from "../../services/order/order-actions";
 import Home from "../home-page/home";
 import { ProtectedRoute } from "../../components/protected-route";
-import { ProtectedRouteAuth } from "../../components/protected-route-auth";
 import LoginContainer from "../login-page/login-container";
 import RegisterContainer from "../register-page/register-container";
 import RestoreContainer from "../restore-page/restore-container";
@@ -38,6 +38,8 @@ function App() {
   // console.log(params)
   const background = location.state && location.state.background;
 
+
+
   const goBack = () => navigate(-1);
 
   //Modal Ingredient
@@ -56,49 +58,49 @@ function App() {
   return (
     <div className={appStyles.page}>
       <AppHeader />
-      <Routes location={background || location}>
+      <Routes location={showModal ? background : location }>
         <Route index element={<Home />} />
 
         <Route
           path="login"
           element={
-            <ProtectedRouteAuth>
+            <ProtectedRoute>
               <LoginContainer />
-            </ProtectedRouteAuth>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="register"
           element={
-            <ProtectedRouteAuth>
+            <ProtectedRoute>
               <RegisterContainer />
-            </ProtectedRouteAuth>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="restore-password"
           element={
-            <ProtectedRouteAuth>
+            <ProtectedRoute>
               <RestoreContainer />
-            </ProtectedRouteAuth>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="reset-password"
           element={
-            <ProtectedRouteAuth>
+            <ProtectedRoute>
               <ResetContainer />
-            </ProtectedRouteAuth>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="profile"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute anonymous={false}>
               <ProfileContainer />
             </ProtectedRoute>
           }
@@ -111,7 +113,7 @@ function App() {
         </Route >
       </Routes>
 
-      {showModal && (
+      {showModal  && (
         <Routes>
           <Route
             path="ingredients/:_id"
@@ -125,7 +127,7 @@ function App() {
             }
           /> 
         </Routes>
-      )}
+      ) }
 
       {showOrderModal && (
         <ProtectedRoute>

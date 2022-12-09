@@ -64,17 +64,18 @@ export default function AppHeader() {
             <p className="text text_type_main-default">Конструктор</p>
           </NavLink>
 
-          <NavLink className={styles.menu_item} to={{ pathname: "/login" }}>
-          <ListIcon
-            type={setOrderActive(location.pathname) ? "primary" : "secondary"}
-          />
-          <p className="text text_type_main-default">Лента заказов</p>
-        </NavLink>
-
+          <NavLink className={styles.menu_item} to={{ pathname: "/order" }}>
+            <ListIcon
+              type={setOrderActive(location.pathname) ? "primary" : "secondary"}
+            />
+            <p className="text text_type_main-default">Лента заказов</p>
+          </NavLink>
         </ul>
 
         <section className={styles.logo}>
-          <Logo />
+          <NavLink  to={{ pathname: "/" }}>
+            <Logo />
+          </NavLink>
         </section>
 
         <NavLink className={styles.menu_right} to={{ pathname: "/profile" }}>

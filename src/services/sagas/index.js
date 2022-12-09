@@ -7,6 +7,7 @@ import {
   delay,
   putResolve,
   takeLatest,
+  take,
 } from "redux-saga/effects";
 import { getIngredients } from "../../utils/api-ingredients";
 import {
@@ -167,6 +168,7 @@ function* goLoginUser({ payload }) {
       yield put(onLoginSuccess(response));
       yield call(saveTokenToLocalStorage, refreshToken);
       yield call(setCookie, "accessToken", accessToken);
+      yield call(setCookie,'isLoggedIn', true)
     }
   } catch (error) {
     yield put(onLoginError(error.message));
@@ -180,10 +182,33 @@ function* loginUsers() {
 function* getUserStart() {
   // console.log(getCookie("accessToken"));
   const response = yield call(getUser);
-
   const token = {
     token: localStorage.getItem("refreshToken"),
   };
+
+  if (response.success) {
+    yield put(getCurrentUserSuccess(response.user));  
+    yield call(setCookie,'isLoggedIn', true)
+  } else if (
+    localStorage.getItem("refreshToken") &&
+    !getCookie("accessToken")
+  ) {
+    const updateToken = yield call(updateUser, token);
+    const { accessToken, refreshToken } = updateToken;
+    yield call(saveTokenToLocalStorage, refreshToken);
+    yield call(setCookie, "accessToken", accessToken);
+    const response = yield call(getUser);
+    console.log(response);
+    if (response.success) {
+      yield put(getCurrentUserSuccess(response.user));
+    } else {
+      yield put(getCurrentUserError(response.message));
+      console.log(response)
+    }
+  } else if (!response.success) {
+    yield put(getCurrentUserError(response.message));
+    console.log(response)
+  }
 
   if (response.message === "jwt expired") {
     const token = {
@@ -199,30 +224,6 @@ function* getUserStart() {
       console.log(response);
     }
   }
-
-  if (response.success) {
-    yield put(getCurrentUserSuccess(response.user));
-    console.log(response);
-  } else if (
-    localStorage.getItem("refreshToken") &&
-    !getCookie("accessToken")
-  ) {
-    const updateToken = yield call(updateUser, token);
-    const { accessToken, refreshToken } = updateToken;
-    yield call(saveTokenToLocalStorage, refreshToken);
-    yield call(setCookie, "accessToken", accessToken);
-    const response = yield call(getUser);
-    console.log(response);
-    if (response.success) {
-      yield put(getCurrentUserSuccess(response.user));
-    } else {
-      yield put(getCurrentUserError(response.message));
-    }
-  } else if (!response.success) {
-    yield put(getCurrentUserError(response.message));
-  }
-
-  
 }
 
 function* onGetUser() {
@@ -239,9 +240,10 @@ function* goLogoutUser() {
       yield put(onLogoutSuccess());
       const refreshToken = localStorage.getItem("refreshToken");
       localStorage.removeItem("refreshToken", refreshToken);
-      deleteCookie("accessToken");
-    }
-  } catch (error) {}
+      yield call( deleteCookie, 'accessToken');
+      yield call( deleteCookie, 'isLoggedIn');
+     
+  }} catch (error) {}
 }
 
 function* logoutUsers() {

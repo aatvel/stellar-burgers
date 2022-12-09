@@ -1,6 +1,6 @@
 import React from "react";
 import { createPortal } from "react-dom";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import modalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
@@ -10,11 +10,13 @@ const Modal = ({ title, children, closeModal }) => {
 
   const modalRoot = document.getElementById("modals");
 
+
   React.useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') {
         e.preventDefault();
         closeModal();
+
       }
     };
 
