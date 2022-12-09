@@ -116,12 +116,12 @@ function App() {
           <Route
             path="ingredients/:_id"
             location={background}
-            render={ () =>{
+            element={
               <Modal
                 title="Детали ингредиента"
                 closeModal={handleClick}
                 children={<IngredientDetails background={background} />}
-              />}
+              />
             }
           /> 
         </Routes>

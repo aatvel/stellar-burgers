@@ -9,21 +9,18 @@ import { getCookie } from "../utils/cookie";
 export function ProtectedRouteAuth({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const auth = localStorage.getItem("refreshToken");
+  const auth = getCookie('accessToken')
 
   // const isLoggedIn = useSelector((store) => store.loginReducer.isLoggedIn);
   // console.log( isLoggedIn);
 
-  const fromPage = location.state?.from?.pathname || "/";
 
-
+  const from = location.state?.from || '/';
+  // Если разрешен неавторизованный доступ, а пользователь авторизован...
   if (auth) {
-    return <Navigate to={ fromPage } />;
+    // ...то отправляем его на предыдущую страницу
+    return <Navigate to={ from } />;
   }
-
-  // if ( !auth) {
-  //   return <Navigate to="/login" state={{ from: location}}/>;
-  // }
 
   return children;
 }
