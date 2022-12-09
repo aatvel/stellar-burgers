@@ -91,9 +91,9 @@ function* onLoadIngredients() {
 //make order
 function* onLoadOrderStart({ payload }) {
   try {
-    console.log(payload)
+    // console.log(payload)
     const response = yield call(fetchOrder, payload);
-    console.log(response)
+    // console.log(response)
     if (response.success) {
       yield putResolve(onLoadingSuccess(response.order.number));
       yield put({ type: CONSTRUCTOR_RESET });
@@ -274,7 +274,6 @@ function* goPageIngredient({ payload }) {
       yield delay(1000);
       yield put(loadIngredientsSuccess(response.data));
 
-      // response.filter((data) => data.id === payload)
       const hook = response.data.filter((data) => data._id === payload);
       // console.log(hook);
       yield put(showPageDetailSuccess(hook));

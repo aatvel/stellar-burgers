@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { useEffect } from "react";
 import {
@@ -38,8 +37,6 @@ function App() {
   // console.log(params)
   const background = location.state && location.state.background;
 
-
-
   const goBack = () => navigate(-1);
 
   //Modal Ingredient
@@ -53,12 +50,13 @@ function App() {
   const { showOrderModal } = useSelector((state) => state.orderReducer);
   const handleClickOrder = () => {
     dispatch(closeOrderDetails());
+ 
   };
 
   return (
     <div className={appStyles.page}>
       <AppHeader />
-      <Routes location={showModal ? background : location }>
+      <Routes location={showModal ? background : location}>
         <Route index element={<Home />} />
 
         <Route
@@ -109,11 +107,10 @@ function App() {
         <Route
           path="ingredients/:_id"
           element={<IngredientPage background={background} />}
-        >
-        </Route >
+        ></Route>
       </Routes>
 
-      {showModal  && (
+      {showModal && (
         <Routes>
           <Route
             path="ingredients/:_id"
@@ -125,16 +122,14 @@ function App() {
                 children={<IngredientDetails background={background} />}
               />
             }
-          /> 
+          />
         </Routes>
-      ) }
+      )}
 
       {showOrderModal && (
-        <ProtectedRoute>
-          <Modal closeModal={handleClickOrder}>
-            <OrderDetails />
-          </Modal>
-        </ProtectedRoute>
+        <Modal closeModal={handleClickOrder}>
+          <OrderDetails />
+        </Modal>
       )}
     </div>
   );
