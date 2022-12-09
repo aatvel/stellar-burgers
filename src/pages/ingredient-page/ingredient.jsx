@@ -12,11 +12,11 @@ const styleIngredient = {
   
 };
 
-export function IngredientPage() {
+export function IngredientPage(background) {
   return (
     <div style={styleIngredient}>
       <h1 className="text text_type_main-large">Детали ингредиента</h1>
-      <IngredientDetails />
+      <IngredientDetails  />
     </div>
   );
 }

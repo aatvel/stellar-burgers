@@ -1,7 +1,7 @@
 import React from "react";
 import IngredientsStyles from "./ingredient.module.css";
 import PropTypes from "prop-types";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Outlet } from "react-router-dom";
 import { ingredientType } from "../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd/dist/hooks";
@@ -46,11 +46,11 @@ const Ingredient = (props) => {
       }}
       state={{ background: location }}
     >
+
       <li
         ref={dragRef}
         className={IngredientsStyles.ingredient}
         onClick={handleClick}
-        // onMouseDown={handleClick}
       >
         {counter !== 0 && (
           <Counter count={counter} size="default" extraClass="m-1" />
@@ -72,6 +72,7 @@ const Ingredient = (props) => {
           {ingredientData.name}
         </p>
       </li>
+
     </Link>
   );
 };

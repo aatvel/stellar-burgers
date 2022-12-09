@@ -82,6 +82,16 @@ export const loginUser = (form) => {
   })
 }
 
+// Отправляем данные формы на сервер для РЕГИСТРАЦИИ
+export const logoutUserRequest = async (refreshToken) => {
+  return await fetch(`${BURGER_API_URL}/auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(refreshToken),
+  });
+};
 
 export const logoutUser = (refreshToken) => {
   return request(`${BURGER_API_URL}/auth/logout`, {
@@ -109,9 +119,9 @@ export const updateUser = (token) => {
   })
 }
 
-
-export const getUser = () => {
-  return request(`${BURGER_API_URL}/auth/user`, {
+// // Отправляем данные формы на сервер для РЕГИСТРАЦИИ
+export const getUserRequest = async () => {
+  return await fetch(`${BURGER_API_URL}/auth/user`, {
     method: "GET",
     mode: "cors",
     cache: "no-cache",
@@ -122,8 +132,29 @@ export const getUser = () => {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-  })
+  });
+};
+
+export const getUser = async () => {
+  return await getUserRequest()
+  .then((res) => res.json())
 }
+
+// export const getUser = () => {
+//   return  request(`${BURGER_API_URL}/auth/user`, {
+//     method: "GET",
+//     mode: "cors",
+//     cache: "no-cache",
+//     credentials: "same-origin",
+//     headers: {
+//       "Content-Type": "application/json",
+//       authorization: getCookie("accessToken"),
+//     },
+//     redirect: "follow",
+//     referrerPolicy: "no-referrer",
+//   })
+// }
+
 
 
 
@@ -143,4 +174,3 @@ export const editUser = (form) => {
     body: JSON.stringify(form)
   })
 }
-

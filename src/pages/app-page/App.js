@@ -35,8 +35,8 @@ function App() {
     dispatch(loadIngredientsStart());
   }, [dispatch]);
   const params = useParams();
-  console.log(params)
-  const background = location.state && location?.state?.background;
+  // console.log(params)
+  const background = location.state && location.state.background;
 
   const goBack = () => navigate(-1);
 
@@ -57,10 +57,10 @@ function App() {
     <div className={appStyles.page}>
       <AppHeader />
       <Routes location={background || location}>
-        <Route path="/" element={<Home />} />
+        <Route index element={<Home />} />
 
         <Route
-          path="/login"
+          path="login"
           element={
             <ProtectedRouteAuth>
               <LoginContainer />
@@ -69,7 +69,7 @@ function App() {
         />
 
         <Route
-          path="/register"
+          path="register"
           element={
             <ProtectedRouteAuth>
               <RegisterContainer />
@@ -78,7 +78,7 @@ function App() {
         />
 
         <Route
-          path="/restore-password"
+          path="restore-password"
           element={
             <ProtectedRouteAuth>
               <RestoreContainer />
@@ -87,7 +87,7 @@ function App() {
         />
 
         <Route
-          path="/reset-password"
+          path="reset-password"
           element={
             <ProtectedRouteAuth>
               <ResetContainer />
@@ -96,7 +96,7 @@ function App() {
         />
 
         <Route
-          path="/profile"
+          path="profile"
           element={
             <ProtectedRoute>
               <ProfileContainer />
@@ -105,23 +105,25 @@ function App() {
         />
 
         <Route
-          path="/ingredients/:_id"
-          element={<IngredientDetails background={background} />}
-        />
+          path="ingredients/:_id"
+          element={<IngredientPage background={background} />}
+        >
+        </Route >
       </Routes>
 
-      { showModal && (
+      {showModal && (
         <Routes>
           <Route
-            path="/ingredients/:_id"
-            element={
+            path="ingredients/:_id"
+            location={background}
+            render={ () =>{
               <Modal
                 title="Детали ингредиента"
                 closeModal={handleClick}
                 children={<IngredientDetails background={background} />}
-              />
+              />}
             }
-          />
+          /> 
         </Routes>
       )}
 

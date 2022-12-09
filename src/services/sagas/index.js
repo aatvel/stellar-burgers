@@ -20,7 +20,6 @@ import { editUser } from "../api";
 import {
   EDIT_USER_REQUEST,
   onEditError,
-  onEditStart,
   onEditSuccess,
 } from "../edit-user/edit-actions";
 import { fetchOrder } from "../api";
@@ -33,7 +32,6 @@ import {
 } from "../ingredients/ingredients-actions";
 import {
   LOAD_INGREDIENTS_START,
-  LOAD_INGREDIENTS_SUCCESS,
 } from "../ingredients/ingredients-const";
 import { loginUser } from "../api";
 import {
@@ -44,7 +42,6 @@ import {
   LOGOUT_USER_REQUEST,
   onLoginError,
   onLoginSuccess,
-  onLogoutError,
   onLogoutSuccess,
 } from "../login/login-actions";
 import { logoutUser } from "../api";
@@ -183,31 +180,10 @@ function* loginUsers() {
 function* getUserStart() {
   // console.log(getCookie("accessToken"));
   const response = yield call(getUser);
+
   const token = {
     token: localStorage.getItem("refreshToken"),
   };
-
-  if (response.success) {
-    yield put(getCurrentUserSuccess(response.user));
-    // console.log(response);
-  } else if (
-    localStorage.getItem("refreshToken") &&
-    !getCookie("accessToken")
-  ) {
-    const updateToken = yield call(updateUser, token);
-    const { accessToken, refreshToken } = updateToken;
-    yield call(saveTokenToLocalStorage, refreshToken);
-    yield call(setCookie, "accessToken", accessToken);
-    const response = yield call(getUser);
-    // console.log(response);
-    if (response.success) {
-      yield put(getCurrentUserSuccess(response.user));
-    } else {
-      yield put(getCurrentUserError(response.message));
-    }
-  } else if (!response.success) {
-    yield put(getCurrentUserError(response.message));
-  }
 
   if (response.message === "jwt expired") {
     const token = {
@@ -220,9 +196,33 @@ function* getUserStart() {
     const response = yield call(getUser);
     if (response.success) {
       yield put(getCurrentUserSuccess(response.user));
-      // console.log(response);
+      console.log(response);
     }
   }
+
+  if (response.success) {
+    yield put(getCurrentUserSuccess(response.user));
+    console.log(response);
+  } else if (
+    localStorage.getItem("refreshToken") &&
+    !getCookie("accessToken")
+  ) {
+    const updateToken = yield call(updateUser, token);
+    const { accessToken, refreshToken } = updateToken;
+    yield call(saveTokenToLocalStorage, refreshToken);
+    yield call(setCookie, "accessToken", accessToken);
+    const response = yield call(getUser);
+    console.log(response);
+    if (response.success) {
+      yield put(getCurrentUserSuccess(response.user));
+    } else {
+      yield put(getCurrentUserError(response.message));
+    }
+  } else if (!response.success) {
+    yield put(getCurrentUserError(response.message));
+  }
+
+  
 }
 
 function* onGetUser() {
