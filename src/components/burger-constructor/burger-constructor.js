@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import {
@@ -8,14 +9,12 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
-import { checkResponse } from "../../utils/api-ingredients";
-import { BURGER_API_URL } from "../../utils/consts";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import {
   closeOrderDetails,
   loadingOrderError,
-  loadOrderStart,
+  onLoadingStart,
   loadOrderSuccess,
   showOrderDetails,
 } from "../../services/order/order-actions";
@@ -25,11 +24,11 @@ import {
 } from "../../services/constructor-ingredients/constructor-actions";
 import emptyImg from "../../images/empty_space.png";
 import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
-import { fetchOrder } from "../../services/order/order-actions";
+
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { showOrderModal } = useSelector((state) => state.orderReducer);
+  // const { showOrderModal } = useSelector((state) => state.orderReducer);
   const { buns, mainsAndSauces } = useSelector(
     (state) => state.constructorReducer
   );
@@ -44,15 +43,21 @@ const BurgerConstructor = () => {
   });
 
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const fromPage = location.state?.from?.pathname || "/";
+  const auth = localStorage.getItem("refreshToken")
 
   const handleSubmitOrder = () => {
-    dispatch(fetchOrder({ingredients: [buns._id, ...notBunsId, buns._id]}))
+    if(auth){
+    dispatch(onLoadingStart({ingredients: [buns._id, ...notBunsId, buns._id]}))}
+    else {
+      navigate('/login', { replace: true })
+    }
     
   };
 
-  const handleClickOrder = () => {
-    dispatch(closeOrderDetails());
-  };
+
 
   //Drag n Drop
   const onDropHandler = (item) => {
@@ -145,11 +150,11 @@ const BurgerConstructor = () => {
           </span>
         </span>
 
-        {showOrderModal && (
+        {/* {showOrderModal && (
           <Modal closeModal={handleClickOrder}>
             <OrderDetails />
           </Modal>
-        )}
+        )} */}
 
         <Button
           htmlType="button"

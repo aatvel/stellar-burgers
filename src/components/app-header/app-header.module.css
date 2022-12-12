@@ -1,12 +1,8 @@
 .header {
   display: -ms-grid;
   margin: 0 auto;
-  width: 146%;
 
-
-
-  height: 88px;
-  margin-top: 40px;
+  margin-top: 20px;
   overflow: hidden;
 
   /* interface/modal-bg */
@@ -22,17 +18,19 @@
 .nav {
   display: flex;
   margin: 0 auto;
-
+  justify-content: space-between;
 }
 
 .menu_left {
   display: flex;
   align-items: flex-start;
+  
   transform: translateX(-10%);
   gap: 8px;
 }
 
 .menu_right {
+  align-items: center;
   display: flex;
   margin-left: 13%;
 }
@@ -52,10 +50,12 @@
   padding: 16px 20px;
   gap: 8px;
 
-  width: 227px;
   height: 56px;
   left: 1073px;
   top: 0px;
+}
+.menu_item_a {
+ color: aliceblue;
 }
 
 .logo {
