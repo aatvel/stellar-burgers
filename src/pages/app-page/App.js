@@ -24,6 +24,7 @@ import ResetContainer from "../reset-page/reset-container";
 import ProfileContainer from "../profile-page/profile-container";
 import { loadIngredientsStart } from "../../services/ingredients/ingredients-actions";
 import { IngredientPage } from "../ingredient-page/ingredient";
+import { ProtectedRouteOrder } from "../../components/protected-route-order";
 
 function App() {
   const dispatch = useDispatch();
@@ -127,9 +128,11 @@ function App() {
       )}
 
       {showOrderModal && (
+        <ProtectedRouteOrder >       
         <Modal closeModal={handleClickOrder}>
           <OrderDetails />
         </Modal>
+        </ProtectedRouteOrder>
       )}
     </div>
   );
