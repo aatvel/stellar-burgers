@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
@@ -12,11 +12,8 @@ import BurgerConstructorStyles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import {
-  closeOrderDetails,
-  loadingOrderError,
-  onLoadingStart,
-  loadOrderSuccess,
-  showOrderDetails,
+
+  onLoadingStart
 } from "../../services/order/order-actions";
 import {
   setBun,
@@ -24,28 +21,28 @@ import {
 } from "../../services/constructor-ingredients/constructor-actions";
 import emptyImg from "../../images/empty_space.png";
 import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
+import { TItem } from "../../utils/types";
 
 
-const BurgerConstructor = () => {
+const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   // const { showOrderModal } = useSelector((state) => state.orderReducer);
   const { buns, mainsAndSauces } = useSelector(
-    (state) => state.constructorReducer
+    (s: any) => s.constructorReducer
   );
   const isBunAdded = buns !== undefined;
 
   //Modal Ingredient
-  const notBunsId = [];
-  
+  const notBunsId: any[] = [];
 
-  mainsAndSauces.forEach((element) => {
+
+  mainsAndSauces.forEach((element: {_id: string}) => {
     notBunsId.push(element._id);
   });
 
 
   const location = useLocation();
   const navigate = useNavigate();
-  const fromPage = location.state?.from?.pathname || "/";
   const auth = localStorage.getItem("refreshToken")
 
   const handleSubmitOrder = () => {
@@ -58,9 +55,8 @@ const BurgerConstructor = () => {
   };
 
 
-
   //Drag n Drop
-  const onDropHandler = (item) => {
+  const onDropHandler = (item: TItem) => {
     item.type === "bun"
       ? dispatch(setBun(item))
       : dispatch(setMainsAndSauces(item));
@@ -68,13 +64,13 @@ const BurgerConstructor = () => {
 
   const [, dropRef] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item: TItem) {
       onDropHandler(item);
     },
   });
 
   //totalPrice
-  const totalPrice = mainsAndSauces.reduce((acc, curr) => {
+  const totalPrice = mainsAndSauces.reduce((acc: number, curr: { price: number; }) => {
     return acc + curr.price;
   }, 0);
 
@@ -87,6 +83,7 @@ const BurgerConstructor = () => {
               text="Выберите булочку"
               type="top"
               thumbnail={emptyImg}
+              price={0}
             />
           ) : (
             <ConstructorElement
@@ -101,7 +98,7 @@ const BurgerConstructor = () => {
 
         <ul className={BurgerConstructorStyles.scroll}>
           {mainsAndSauces.length > 0 ? (
-            mainsAndSauces.map((ingredient, index) => {
+            mainsAndSauces.map((ingredient: any | null | undefined, index: number  ) => {
               return (
                 <MainsAndSauces
                   key={ingredient.id}
@@ -115,6 +112,7 @@ const BurgerConstructor = () => {
               <ConstructorElement
                 text="Выберите начинку и соус"
                 thumbnail={emptyImg}
+                price={0}
               />
             </li>
           )}
@@ -134,7 +132,7 @@ const BurgerConstructor = () => {
               text="Выберите булочку"
               type="bottom"
               thumbnail={emptyImg}
-              price={null}
+              price={0}
             />
           )}
         </span>
@@ -146,15 +144,10 @@ const BurgerConstructor = () => {
             {totalPrice + 2 * (buns && buns.price)}
           </span>
           <span className={BurgerConstructorStyles.currency}>
-            <CurrencyIcon />
+            <CurrencyIcon type="primary" />
           </span>
         </span>
 
-        {/* {showOrderModal && (
-          <Modal closeModal={handleClickOrder}>
-            <OrderDetails />
-          </Modal>
-        )} */}
 
         <Button
           htmlType="button"

@@ -1,39 +1,45 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, FC } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./ingredient-details.module.css";
 import { showPageDetailStart } from "../../services/ingredients/ingredients-actions";
 import { PreLoader } from "../app/preloader";
+import {  useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const IngredientDetails = ({ background }) => {
-  const dispatch = useDispatch();
-  const { ingredient } = useSelector((state) => state.details);
-  const { pageIngredient, loading} = useSelector((s) => s.ingredients);
+export interface IBackground {
+  background: object | null;
+}
 
+const IngredientDetails: FC<IBackground> = ({ background }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { ingredient } = useSelector((s: any) => s.details);
+  const { pageIngredient, loading } = useSelector((s: any) => s.ingredients);
 
   const { _id } = useParams();
 
   useEffect(() => {
     if (!background) {
-      dispatch(showPageDetailStart(_id));      
+      dispatch(showPageDetailStart(_id));
     }
-  }, [background]);
+  }, []);
 
-
-  
-  return (
-    loading ? (
-      <PreLoader />
-    ) : (
+  return loading ? (
+    <PreLoader />
+  ) : (
     <div className={styles.card}>
-
       <img
         className={`${styles.image} mt-3 `}
         alt={background ? ingredient.name : pageIngredient[0]?.name}
-        src={background ? ingredient.image_large : pageIngredient[0]?.image_large}
+        src={
+          background ? ingredient.image_large : pageIngredient[0]?.image_large
+        }
       />
-      <h3 className="text text_type_main-medium mt-4 ">{background ? ingredient.name : pageIngredient[0]?.name}</h3>
+      <h3 className="text text_type_main-medium mt-4 ">
+        {background ? ingredient.name : pageIngredient[0]?.name}
+      </h3>
       <ul className={`mt-8 ${styles.values}`}>
         <li className={styles.value}>
           <p className="text text_type_main-default text_color_inactive">
@@ -64,17 +70,14 @@ const IngredientDetails = ({ background }) => {
             Углеводы, г
           </p>
           <p className="text text text_type_digits-default text_color_inactive">
-            {background ? ingredient.carbohydrates : pageIngredient[0]?.carbohydrates}
+            {background
+              ? ingredient.carbohydrates
+              : pageIngredient[0]?.carbohydrates}
           </p>
         </li>
       </ul>
-    </div> )
+    </div>
   );
 };
 
-IngredientDetails.propTypes = {
-  background: PropTypes.object
-}
-
-
-export default React.memo(IngredientDetails);
+export default IngredientDetails;

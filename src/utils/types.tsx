@@ -13,3 +13,20 @@ export const ingredientType = PropTypes.shape({
   image_mobile: PropTypes.string.isRequired,
   image_large: PropTypes.string.isRequired,
 });
+
+export type TItem = {
+  _id: string,
+  name: string,
+  type: "bun" | "main" | "sauce",
+  proteins: number,
+  fat: number,
+  carbohydrates: number,
+  calories: number,
+  price: number,
+  image: string,
+  image_mobile: string,
+  image_large: string,
+  constId?: number,
+  index?: number,
+  count: number,
+};

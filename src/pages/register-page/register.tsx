@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -8,7 +8,17 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Register = ({
+interface IRegister {
+  name: string,
+  email: string,
+  password: string,
+  handleChangeName: any,
+  handleChangeEmail: any,
+  handleChangePassword: any,
+  handleClick: any,
+}
+
+const Register: FC<IRegister> = ({
   name,
   email,
   password,
@@ -42,7 +52,7 @@ const Register = ({
                 value={password}
                 onChange={handleChangePassword}
                 extraClass="mb-2"
-                minLength="5"
+                minLength={5}
               />
 
               <Button

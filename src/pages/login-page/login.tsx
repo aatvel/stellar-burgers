@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import { Link } from "react-router-dom";
 import AppHeader from "../../components/app-header/app-header";
 import PropTypes from "prop-types";
@@ -8,7 +8,15 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Login = ({
+interface ILogin {
+  email: string ,
+  password: string,
+  handleChangePassword: any,
+  handleChangeEmail:  any;
+  handleClick:  any,
+}
+
+const Login: FC<ILogin> = ({
   email,
   password,
   handleChangePassword,
@@ -27,7 +35,7 @@ const Login = ({
               placeholder="E-mail"
               value={email}
               onChange={handleChangeEmail}
-              minLength="5"
+              minLength={5}
             />
 
             <Input
@@ -35,7 +43,7 @@ const Login = ({
               placeholder="Пароль"
               value={password}
               onChange={handleChangePassword}
-              minLength="5"
+              minLength={5}
             />
 
         

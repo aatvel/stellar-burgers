@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
@@ -11,12 +11,28 @@ import {
 import BurgerConstructorStyles from "../burger-constructor.module.css";
 import { CONSTRUCTOR_REORDER, CONSTRUCTOR_DELETE } from "../../../services/constructor-ingredients/constructor-actions";
 import PropTypes from "prop-types";
+import { TItem } from "../../../utils/types";
+import type { Identifier } from 'dnd-core'
 
-const MainsAndSauces = ({ ingredient, index }) => {
+
+interface IMains{
+  ingredient: TItem;
+  index: number
+}
+
+interface DragObject {
+  index: number
+}
+
+interface CollectedProps {
+  handlerId: Identifier | null;
+}
+
+const MainsAndSauces:FC <IMains> = ({ ingredient, index }) => {
 const dispatch = useDispatch();
-const ref = useRef(null);
+const ref = useRef<HTMLLIElement>(null);
 
-const [{handlerId}, drop] = useDrop({
+const [{handlerId}, drop] = useDrop<DragObject, undefined, CollectedProps>({
     accept: ["SORT_INGREDIENT"],
     collect(monitor) {
         return {
@@ -24,6 +40,9 @@ const [{handlerId}, drop] = useDrop({
         }
     },
     hover(item, monitor) {
+      if (!ref.current){
+        return
+      }
         const dragIndex = item.index;
         const hoverIndex = index;
         if (dragIndex === hoverIndex) {
@@ -32,7 +51,7 @@ const [{handlerId}, drop] = useDrop({
         const hoverBoundRect = ref.current?.getBoundingClientRect();
         const hoverMiddleY = (hoverBoundRect.bottom - hoverBoundRect.top) / 2;
         const clientOffset = monitor.getClientOffset();
-        const hoverClientY = clientOffset.y - hoverBoundRect.top;
+        const hoverClientY = clientOffset!.y - hoverBoundRect.top;
         if ( dragIndex < hoverIndex && hoverClientY < hoverMiddleY){
             return
         }
@@ -84,11 +103,5 @@ const [{handlerId}, drop] = useDrop({
   );
 };
 
-
-
-MainsAndSauces.propTypes = {
-  ingredient: PropTypes.object,
-  index: PropTypes.number
-}
 
 export default React.memo(MainsAndSauces);

@@ -10,22 +10,11 @@ import {
 import styles from "./app-header.module.css";
 import { NavLink, useLocation } from "react-router-dom";
 
-class MenuItem extends React.Component {
-  render() {
-    return (
-      <li className={styles.menu_item}>
-        {this.props.icon}
-        <p className="text text_type_main-default text_color_inactive">
-          {this.props.text}
-        </p>
-      </li>
-    );
-  }
-}
+
 
 export default function AppHeader() {
   const location = useLocation();
-  const setProfileActive = (url) => {
+  const setProfileActive = (url: string) => {
     if (location.pathname === "/profile" && url === "/profile") {
       return true;
     } else {
@@ -33,7 +22,7 @@ export default function AppHeader() {
     }
   };
 
-  const setCounstructorActive = (url) => {
+  const setCounstructorActive = (url: string) => {
     if (location.pathname === "/" && url === "/") {
       return true;
     } else {
@@ -41,7 +30,7 @@ export default function AppHeader() {
     }
   };
 
-  const setOrderActive = (url) => {
+  const setOrderActive = (url: string) => {
     if (location.pathname === "/login" && url === "/login") {
       return true;
     } else {
@@ -89,7 +78,3 @@ export default function AppHeader() {
   );
 }
 
-MenuItem.propTypes = {
-  icon: PropTypes.object.isRequired,
-  text: PropTypes.string.isRequired,
-};

@@ -11,16 +11,16 @@ const LoginContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const fromPage = location.state?.from?.pathname || "/";
   const directoFromLogin = () => navigate(fromPage, { replace: true });
 
-  const handleChangeEmail = (e) => {
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-  const handleChangePassword = (e) => {
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
@@ -29,7 +29,7 @@ const LoginContainer = () => {
     password,
   };
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.KeyboardEvent) => {
     e.preventDefault();
     dispatch(onLogintart(user));
     setTimeout(() => directoFromLogin(), 1000);

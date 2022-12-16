@@ -9,22 +9,23 @@ import {
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import appStyles from "./app.module.css";
-import AppHeader from "../../components/app-header/app-header";
-import Modal from "../../components/modal/modal";
-import IngredientDetails from "../../components/ingredient-details/ingredient-details";
+import AppHeader from "../app-header/app-header";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import { closeDetails } from "../../services/ingredient-details/details-actions";
-import OrderDetails from "../../components/order-details/order-details";
+import OrderDetails from "../order-details/order-details";
 import { closeOrderDetails } from "../../services/order/order-actions";
-import Home from "../home-page/home";
-import { ProtectedRoute } from "../../components/protected-route";
-import LoginContainer from "../login-page/login-container";
-import RegisterContainer from "../register-page/register-container";
-import RestoreContainer from "../restore-page/restore-container";
-import ResetContainer from "../reset-page/reset-container";
-import ProfileContainer from "../profile-page/profile-container";
+import Home from "../../pages/home-page/home";
+import ProtectedRoute from "../protected-route";
+import LoginContainer from "../../pages/login-page/login-container";
+import RegisterContainer from "../../pages/register-page/register-container";
+import RestoreContainer from "../../pages/restore-page/restore-container";
+import ResetContainer from "../../pages/reset-page/reset-container";
+import ProfileContainer from "../../pages/profile-page/profile-container";
 import { loadIngredientsStart } from "../../services/ingredients/ingredients-actions";
-import { IngredientPage } from "../ingredient-page/ingredient";
-import { ProtectedRouteOrder } from "../../components/protected-route-order";
+import IngredientPage from "../../pages/ingredient-page/ingredient";
+import  ProtectedRouteOrder  from "../protected-route-order";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -34,21 +35,20 @@ function App() {
   useEffect(() => {
     dispatch(loadIngredientsStart());
   }, [dispatch]);
-  const params = useParams();
-  // console.log(params)
+
   const background = location.state && location.state.background;
 
   const goBack = () => navigate(-1);
 
   //Modal Ingredient
-  const { showModal } = useSelector((state) => state.details);
+  const { showModal } = useSelector((state: any) => state.details);
   const handleClick = () => {
     dispatch(closeDetails());
     goBack();
   };
 
   //ModalOrder
-  const { showOrderModal } = useSelector((state) => state.orderReducer);
+  const { showOrderModal } = useSelector((state: any) => state.orderReducer);
   const handleClickOrder = () => {
     dispatch(closeOrderDetails());
  
@@ -107,7 +107,7 @@ function App() {
 
         <Route
           path="ingredients/:_id"
-          element={<IngredientPage background={background} />}
+          element={<IngredientPage />}
         ></Route>
       </Routes>
 
@@ -115,7 +115,7 @@ function App() {
         <Routes>
           <Route
             path="ingredients/:_id"
-            location={background}
+            
             element={
               <Modal
                 title="Детали ингредиента"

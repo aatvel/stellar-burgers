@@ -7,22 +7,19 @@ import { onRestoreStart } from "../../services/restore-password/restore-actions"
 
 
 const RestoreContainer = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState<string>("");
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
   const goResetPassword = () => navigate("/reset-password", {state: 123});
 
-  // useEffect(() => {
-  //   dispatch(getCurrentUserStart());
-  // }, []);
 
-  const handleClick = (e) => {
+
+  const handleClick = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(onRestoreStart({ email: value }));
     setTimeout(() => goResetPassword(), 1000);

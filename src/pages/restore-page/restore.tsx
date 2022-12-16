@@ -1,41 +1,34 @@
+import React, {  FC } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Reset = ({
-  value,
-  code,
-  handleChangePassword,
-  handleChangeCode,
-  handleClick,
-}) => {
+interface IRestore {
+  handleChange: any,
+  value: string, 
+  handleClick: any;
+}
+
+const Restore: FC<IRestore> = ({ handleChange, value, handleClick }) => {
   return (
     <>
       <div className="login-wrapper">
         <div className="sign-in">
           <div className="sign-in-header">Восстановление пароля</div>
           <form className="inputs-wrapper" onSubmit={handleClick}>
-            <PasswordInput
-              placeholder="Пароль"
-              onChange={handleChangePassword}
+            <EmailInput
+              placeholder="E-mail"
               extraClass="mb-2"
-              minLength="5"
               value={value}
+              onChange={handleChange}
             />
-            <Input
-              extraClass="mb-2"
-              placeholder="Код из письма"
-              required
-              value={code}
-              onChange={handleChangeCode}
-            />
-            <Button
+           <Button
                 htmlType="submit"
                 type="primary"
                 size="large"
                 extraClass="ml-2"
               >
-                Восстановить
+                Далее
               </Button>
           </form>
           <div className="register-forget">
@@ -50,11 +43,10 @@ const Reset = ({
   );
 };
 
-Reset.propTypes = {
-  code: PropTypes.string.isRequired,
+Restore.propTypes = {
+  value: PropTypes.string.isRequired,
+  handleChange: PropTypes.func,
   handleClick: PropTypes.func.isRequired,
-  handleChangePassword: PropTypes.func.isRequired,
-  handleChangeCode: PropTypes.func.isRequired,
 };
 
-export default Reset;
+export default Restore;

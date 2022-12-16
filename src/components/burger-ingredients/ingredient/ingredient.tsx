@@ -1,8 +1,8 @@
-import React from "react";
+import React, {FC, useCallback} from "react";
 import IngredientsStyles from "./ingredient.module.css";
 import PropTypes from "prop-types";
-import { Link, useLocation, Outlet } from "react-router-dom";
-import { ingredientType } from "../../../utils/types";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ingredientType, TItem } from "../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd/dist/hooks";
 import {
@@ -11,17 +11,32 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { showDetails } from "../../../services/ingredient-details/details-actions";
 
-const Ingredient = (props) => {
+interface IingredientData {
+  ingredientData: TItem
+}
+
+const Ingredient: FC<IingredientData> = (props) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { ingredientData } = props;
   const { buns, mainsAndSauces } = useSelector(
-    (state) => state.constructorReducer
+    (state: any) => state.constructorReducer
+    
   );
+
   const dispatch = useDispatch();
 
   const handleClick = () => {
     dispatch(showDetails(ingredientData));
+
   };
+
+  const showIngredientDetails = useCallback((item: TItem) => {
+    navigate(
+        `ingredients/${item._id}`,
+        { state: { background:  location } }
+    );
+}, [navigate]);
 
   const [, dragRef] = useDrag({
     type: "ingredient",
@@ -30,7 +45,7 @@ const Ingredient = (props) => {
 
   const counter = React.useMemo(() => {
     return ingredientData.type !== "bun"
-      ? mainsAndSauces.filter((item) => item._id === ingredientData._id).length
+      ? mainsAndSauces.filter((item: TItem) => item._id === ingredientData._id).length
       : buns?._id === ingredientData._id
       ? 2
       : 0;
@@ -65,7 +80,7 @@ const Ingredient = (props) => {
             {ingredientData.price}
           </span>
           <span className={IngredientsStyles.currency}>
-            <CurrencyIcon />
+            <CurrencyIcon type="primary"/>
           </span>
         </div>
         <p className="text text text_type_main-default">
@@ -77,8 +92,6 @@ const Ingredient = (props) => {
   );
 };
 
-Ingredient.propTypes = {
-  ingredientData: ingredientType.isRequired,
-};
+
 
 export default React.memo(Ingredient);

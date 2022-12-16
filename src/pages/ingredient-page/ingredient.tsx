@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { FC , CSSProperties  } from "react";
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 
 
-const styleIngredient = {
+const styleIngredient: CSSProperties  = {
   width: 720,
   padding: "0 80px",
   margin: "0 auto",
@@ -12,11 +12,13 @@ const styleIngredient = {
   
 };
 
-export function IngredientPage(background) {
+const  IngredientPage:FC = () =>{
   return (
     <div style={styleIngredient}>
       <h1 className="text text_type_main-large">Детали ингредиента</h1>
-      <IngredientDetails  />
+      <IngredientDetails background={null} />
     </div>
   );
 }
+
+export default IngredientPage

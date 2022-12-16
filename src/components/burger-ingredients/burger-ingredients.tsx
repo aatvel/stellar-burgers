@@ -13,21 +13,18 @@ import { INGREDIENT_TYPES } from "../../utils/consts";
 import { loadIngredientsStart } from "../../services/ingredients/ingredients-actions";
 
 export default function BurgerIngredients({}) {
-  const [current, setCurrent] = React.useState("bun");
+  const [current, setCurrent] = React.useState<string>("bun");
   const dispatch = useDispatch();
-  const { data, loading } = useSelector((state) => state.ingredients);
+  const { data, loading } = useSelector((state: any) => state.ingredients);
 
-  // useEffect(() => {
-  //   dispatch(loadIngredientsStart());
-  // }, [dispatch]);
 
-  const onTabClick = (tab) => {
+  const onTabClick = (tab: string) => {
     setCurrent(tab);
     const element = document.getElementById(tab);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
-  const scrollTab = (e) => {
+  const scrollTab = (e: any) => {
     const scroll = e.target.scrollTop;
     scroll <= 220
       ? setCurrent(INGREDIENT_TYPES.BUN)

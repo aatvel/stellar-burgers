@@ -1,9 +1,8 @@
-import React from "react";
+import React, {FC} from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
 import {
   PasswordInput,
   EmailInput,
@@ -12,14 +11,18 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { onEditStart } from "../../services/edit-user/edit-actions";
 
-const Profile = ({ currentUser, handleClickLogout }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+interface IProfile {
+  currentUser: any;
+  handleClickLogout: any; 
+}
+
+const Profile: FC<IProfile> = ({ currentUser, handleClickLogout }) => {
+
   const dispatch = useDispatch();
 
-  const [name, setName] = useState(currentUser?.name || "");
-  const [email, setEmail] = useState(currentUser?.email || "");
-  const [password, setPassword] = useState("******");
+  const [name, setName] = useState<string>(currentUser?.name || "");
+  const [email, setEmail] = useState<string>(currentUser?.email || "");
+  const [password, setPassword] = useState<string>("******");
 
   const user = {
     email,
@@ -27,26 +30,26 @@ const Profile = ({ currentUser, handleClickLogout }) => {
     name,
   };
 
-  const handleChangeName = (e) => {
+  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
 
-  const handleChangeEmail = (e) => {
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const handleChangePassword = (e) => {
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     
     setPassword(e.target.value);
   };
 
-  const handleSave = (e) => {
+  const handleSave = (e: React.ChangeEvent<HTMLFormElement>) => {
     console.log(user);
     e.preventDefault();
     dispatch(onEditStart(user));
   };
 
-  const handleReset = (e) => {
+  const handleReset = () => {
     setName(currentUser?.name);
     setEmail(currentUser?.email);
   };
@@ -82,7 +85,7 @@ const Profile = ({ currentUser, handleClickLogout }) => {
                     value={name}
                     name={"name"}
                     placeholder="Логин"
-                    icon={"EditIcon"}
+                
                     extraClass="mb-2"
                   />
                 </div>
@@ -93,7 +96,6 @@ const Profile = ({ currentUser, handleClickLogout }) => {
                     value={email}
                     name={"email"}
                     placeholder="Почта"
-                    icon={"EditIcon"}
                     extraClass="mb-2"
                   />
                 </div>
@@ -104,7 +106,7 @@ const Profile = ({ currentUser, handleClickLogout }) => {
                     value={password}
                     name={"password"}
                     placeholder="Пароль"
-                    icon={"EditIcon"}  
+                
                     extraClass="mb-2"                 
                   />
                 </div>
@@ -147,9 +149,6 @@ const Profile = ({ currentUser, handleClickLogout }) => {
   );
 };
 
-Profile.propTypes = {
-  currentUser: PropTypes.object,
-  handleClickLogout: PropTypes.func,
-};
+
 
 export default Profile;

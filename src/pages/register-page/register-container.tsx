@@ -10,9 +10,9 @@ const RegisterContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const fromPage = location.state?.from?.pathname || "/";
   const directoFromLogin = () => navigate(fromPage, { replace: true });
@@ -23,17 +23,17 @@ const RegisterContainer = () => {
     name,
   };
 
-  const handleChangeName = (e) => {
+  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
-  const handleChangeEmail = (e) => {
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-  const handleChangePassword = (e) => {
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(onRegisterStart(user));
     setTimeout(() => directoFromLogin(), 1000);

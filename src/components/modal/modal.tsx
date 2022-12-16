@@ -1,22 +1,26 @@
-import React from "react";
+import React, {FC} from "react";
 import { createPortal } from "react-dom";
-import {useNavigate } from "react-router-dom";
 import modalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
 
-const Modal = ({ title, children, closeModal }) => {
+interface IModal {
+  title?: string;
+  closeModal: () => void;
+  children: JSX.Element
+}
 
-  const modalRoot = document.getElementById("modals");
+const Modal: FC<IModal> = ({ title, children, closeModal }) => {
+
+  const modalRoot = document.getElementById("modals") as HTMLElement;
 
 
   React.useEffect(() => {
-    const handleEsc = (e) => {
+    const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
         closeModal();
-
       }
     };
 
@@ -25,6 +29,7 @@ const Modal = ({ title, children, closeModal }) => {
       document.removeEventListener("keydown", handleEsc);
     };
   }, [modalRoot]);
+
 
   return createPortal(
 
@@ -57,8 +62,7 @@ const Modal = ({ title, children, closeModal }) => {
 
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-  title: PropTypes.string,
+  children: PropTypes.element.isRequired
 };
 
 export default React.memo(Modal);
