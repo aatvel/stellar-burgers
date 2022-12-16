@@ -1,28 +1,49 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import { Link } from "react-router-dom";
 import AppHeader from "../../components/app-header/app-header";
 import PropTypes from "prop-types";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCurrentUserStart,
+  onLogintart,
+} from "../../services/login/login-actions";
 import {
   Button,
   EmailInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-interface ILogin {
-  email: string ,
-  password: string,
-  handleChangePassword: any,
-  handleChangeEmail:  any;
-  handleClick:  any,
-}
 
-const Login: FC<ILogin> = ({
-  email,
-  password,
-  handleChangePassword,
-  handleChangeEmail,
-  handleClick,
-}) => {
+
+const Login: FC = ({}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const fromPage = location.state?.from?.pathname || "/";
+  const directoFromLogin = () => navigate(fromPage, { replace: true });
+
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const user = {
+    email,
+    password,
+  };
+
+  const handleClick = (e: React.FormEvent ) => {
+    e.preventDefault();
+    dispatch(onLogintart(user));
+    setTimeout(() => directoFromLogin(), 1000);
+  };
+
   return (
     <>
       <div className="login-wrapper">
@@ -73,12 +94,6 @@ const Login: FC<ILogin> = ({
   );
 };
 
-Login.propTypes = {
-  email: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  handleChangePassword: PropTypes.func.isRequired,
-  handleChangeEmail: PropTypes.func.isRequired,
-  handleClick: PropTypes.func.isRequired,
-};
+
 
 export default Login;

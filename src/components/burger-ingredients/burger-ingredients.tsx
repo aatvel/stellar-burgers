@@ -24,8 +24,9 @@ export default function BurgerIngredients({}) {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
-  const scrollTab = (e: any) => {
-    const scroll = e.target.scrollTop;
+
+  const scrollTab: React.UIEventHandler<HTMLSpanElement> = (e) => {
+    const scroll = e.currentTarget.scrollTop;
     scroll <= 220
       ? setCurrent(INGREDIENT_TYPES.BUN)
       : scroll <= 720

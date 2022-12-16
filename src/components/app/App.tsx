@@ -17,14 +17,14 @@ import OrderDetails from "../order-details/order-details";
 import { closeOrderDetails } from "../../services/order/order-actions";
 import Home from "../../pages/home-page/home";
 import ProtectedRoute from "../protected-route";
-import LoginContainer from "../../pages/login-page/login-container";
-import RegisterContainer from "../../pages/register-page/register-container";
-import RestoreContainer from "../../pages/restore-page/restore-container";
-import ResetContainer from "../../pages/reset-page/reset-container";
+import Login  from "../../pages/login-page/login";
 import ProfileContainer from "../../pages/profile-page/profile-container";
 import { loadIngredientsStart } from "../../services/ingredients/ingredients-actions";
 import IngredientPage from "../../pages/ingredient-page/ingredient";
 import  ProtectedRouteOrder  from "../protected-route-order";
+import Register from "../../pages/register-page/register";
+import Reset from "../../pages/reset-page/reset";
+import Restore from "../../pages/restore-page/restore";
 
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
           path="login"
           element={
             <ProtectedRoute>
-              <LoginContainer />
+              <Login />
             </ProtectedRoute>
           }
         />
@@ -73,7 +73,7 @@ function App() {
           path="register"
           element={
             <ProtectedRoute>
-              <RegisterContainer />
+              <Register />
             </ProtectedRoute>
           }
         />
@@ -82,7 +82,7 @@ function App() {
           path="restore-password"
           element={
             <ProtectedRoute>
-              <RestoreContainer />
+              <Restore />
             </ProtectedRoute>
           }
         />
@@ -91,7 +91,7 @@ function App() {
           path="reset-password"
           element={
             <ProtectedRoute>
-              <ResetContainer />
+              <Reset />
             </ProtectedRoute>
           }
         />

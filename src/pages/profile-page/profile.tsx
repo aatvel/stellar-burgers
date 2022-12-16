@@ -9,19 +9,24 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useNavigate, useLocation } from "react-router-dom";
 import { onEditStart } from "../../services/edit-user/edit-actions";
+import {
+  getCurrentUserStart,
+  onLogoutStart,
+} from "../../services/login/login-actions";
 
 interface IProfile {
-  currentUser: any;
-  handleClickLogout: any; 
+  currentUser: {name: string, email: string};
 }
 
-const Profile: FC<IProfile> = ({ currentUser, handleClickLogout }) => {
-
+const Profile: FC<IProfile> = ({ currentUser }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
 
-  const [name, setName] = useState<string>(currentUser?.name || "");
-  const [email, setEmail] = useState<string>(currentUser?.email || "");
+  const [name, setName] = useState(currentUser?.name || "");
+  const [email, setEmail] = useState(currentUser?.email || "");
   const [password, setPassword] = useState<string>("******");
 
   const user = {
@@ -43,7 +48,7 @@ const Profile: FC<IProfile> = ({ currentUser, handleClickLogout }) => {
     setPassword(e.target.value);
   };
 
-  const handleSave = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSave = (e: React.FormEvent ) => {
     console.log(user);
     e.preventDefault();
     dispatch(onEditStart(user));
@@ -52,6 +57,15 @@ const Profile: FC<IProfile> = ({ currentUser, handleClickLogout }) => {
   const handleReset = () => {
     setName(currentUser?.name);
     setEmail(currentUser?.email);
+  };
+
+  const fromPage = location.state?.from?.pathname || "/";
+  const directToPage = () => navigate(fromPage, { replace: true });
+
+  const handleClickLogout = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(onLogoutStart());
+    directToPage();
   };
 
   return (

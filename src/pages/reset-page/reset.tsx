@@ -2,22 +2,39 @@ import React, {  FC } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState } from "react";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { onResetStart } from "../../services/reset-password/reset-actions";
 
-interface Ireset {
-  value: string,
-  code: string,
-  handleChangePassword: any,
-  handleChangeCode: any,
-  handleClick: any,
-}
+const Reset: FC = ({}) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [value, setValue] = useState<string>("");
+  const [code, setCode] = useState<string>("");
 
-const Reset: FC<Ireset> = ({
-  value,
-  code,
-  handleChangePassword,
-  handleChangeCode,
-  handleClick,
-}) => {
+  const goToProfilePage = () => navigate("/profile");
+
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+  const handleChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCode(e.target.value);
+  };
+
+  const handleClick = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(onResetStart({ password: value, token: code }));
+    setTimeout(() => goToProfilePage(), 1000);
+  };
+
+
+  const { state } = useLocation();
+  {
+    if (state !== 123 ) {
+      return <Navigate to="/" />;
+    }
+  }
   return (
     <>
       <div className="login-wrapper">
@@ -59,11 +76,5 @@ const Reset: FC<Ireset> = ({
   );
 };
 
-Reset.propTypes = {
-  code: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
-  handleChangePassword: PropTypes.func.isRequired,
-  handleChangeCode: PropTypes.func.isRequired,
-};
 
 export default Reset;

@@ -7,26 +7,46 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { onRegisterStart } from "../../services/register/register-actions";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
+import { getCurrentUserStart } from "../../services/login/login-actions";
 
-interface IRegister {
-  name: string,
-  email: string,
-  password: string,
-  handleChangeName: any,
-  handleChangeEmail: any,
-  handleChangePassword: any,
-  handleClick: any,
-}
 
-const Register: FC<IRegister> = ({
-  name,
-  email,
-  password,
-  handleChangeName,
-  handleChangeEmail,
-  handleChangePassword,
-  handleClick,
-}) => {
+const Register: FC = ({}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const fromPage = location.state?.from?.pathname || "/";
+  const directoFromLogin = () => navigate(fromPage, { replace: true });
+
+  const user = {
+    email,
+    password,
+    name,
+  };
+
+  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleClick = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(onRegisterStart(user));
+    setTimeout(() => directoFromLogin(), 1000);
+  };
+ 
   return (
     <>
       <div className="login-wrapper">
@@ -77,14 +97,6 @@ const Register: FC<IRegister> = ({
     </>
   );
 };
-Register.propTypes = {
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  handleChangeName: PropTypes.func.isRequired,
-  handleChangeEmail: PropTypes.func.isRequired,
-  handleChangePassword: PropTypes.func.isRequired,
-  handleClick: PropTypes.func,
-};
+
 
 export default Register;

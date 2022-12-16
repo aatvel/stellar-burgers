@@ -1,15 +1,29 @@
-import React, {  FC } from "react";
-import { Link } from "react-router-dom";
+import React, {  FC, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { onRestoreStart } from "../../services/restore-password/restore-actions";
 
-interface IRestore {
-  handleChange: any,
-  value: string, 
-  handleClick: any;
-}
 
-const Restore: FC<IRestore> = ({ handleChange, value, handleClick }) => {
+const Restore: FC = ({ }) => {
+   const [value, setValue] = useState<string>("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
+  const goResetPassword = () => navigate("/reset-password", {state: 123});
+
+
+
+  const handleClick = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(onRestoreStart({ email: value }));
+    setTimeout(() => goResetPassword(), 1000);
+  };
   return (
     <>
       <div className="login-wrapper">
@@ -43,10 +57,5 @@ const Restore: FC<IRestore> = ({ handleChange, value, handleClick }) => {
   );
 };
 
-Restore.propTypes = {
-  value: PropTypes.string.isRequired,
-  handleChange: PropTypes.func,
-  handleClick: PropTypes.func.isRequired,
-};
 
 export default Restore;
