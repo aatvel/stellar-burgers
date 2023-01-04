@@ -1,13 +1,20 @@
-import React from "react";
+import React, {FC} from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import Ingredient from "../burger-ingredients/ingredient/ingredient";
 import categoryStyles from "./ingredients-category.module.css";
 import { Link, useLocation } from "react-router-dom";
+import { TItem } from "../../utils/types";
 
-const IngredientCategory = ({ title, titleId, ingredients }) => {
-  const { data } = useSelector((state) => state.ingredients);
-  const orderedMains = data && data.filter((item) => item.type === ingredients);
+interface ICategory{
+  title: string;
+  titleId: string;
+  ingredients:string
+}
+
+const IngredientCategory: FC<ICategory> = ({ title, titleId, ingredients }) => {
+  const { data } = useSelector((state: any) => state.ingredients);
+  const orderedMains = data && data.filter((item: TItem) => item.type === ingredients);
 
   return (
     <div>
@@ -15,16 +22,12 @@ const IngredientCategory = ({ title, titleId, ingredients }) => {
         {title}
       </h3>
       <section className={categoryStyles.items}>
-        {orderedMains.map((ingredient) => (
+        {orderedMains.map((ingredient:TItem) => (
           <Ingredient ingredientData={ingredient} key={ingredient._id} />
         ))}
       </section>
     </div>
   );
 };
-IngredientCategory.propTypes = {
-  ingredients: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  titleId: PropTypes.string.isRequired,
-};
+
 export { IngredientCategory };

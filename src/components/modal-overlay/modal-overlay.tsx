@@ -1,8 +1,12 @@
-import React from "react";
+import React, {FC} from "react";
 import modalOverlayStyles from "./modal-overlay.module.css";
 import PropTypes from "prop-types";
 
-const ModalOverlay = ({ toggleModal }) => {
+interface IModal {
+  toggleModal: () => void;
+}
+
+const ModalOverlay: FC<IModal>= ({ toggleModal }) => {
   return (
     <div
       className={modalOverlayStyles.modalOverlay}
