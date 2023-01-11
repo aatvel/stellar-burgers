@@ -8,20 +8,26 @@ import {
 } from "./order-actions";
 import { IOrderActions } from "./order-actions";
 
-const initialState = {
-  order: null,
+type TOrderState = {
+  order: number | undefined,
+  loading: boolean,
+  error: boolean,
+  showOrderModal: boolean,
+}
+const initialState: TOrderState = {
+  order: undefined,
   loading: false,
   error: false,
   showOrderModal: false,
 };
 
-export const orderReducer = (state = initialState, { type, payload }: IOrderActions) => {
-  switch (type) {
+export const orderReducer = (state = initialState, actions: IOrderActions) => {
+  switch (actions.type) {
     case SHOW_ORDER_DETAILS: {
-      return { showOrderModal: true, order: payload };
+      return { showOrderModal: true, order: actions.payload };
     }
     case CLOSE_ORDER_DETAILS: {
-      return { showOrderModal: false, order: null };
+      return { showOrderModal: false, order: undefined };
     }
     case LOAD_ORDER_START: {
       return { ...state, loading: true };
@@ -30,7 +36,7 @@ export const orderReducer = (state = initialState, { type, payload }: IOrderActi
       return {
         ...state,
         showOrderModal: true,
-        order: payload,
+        order: actions.payload,
         loading: false,
       };
     }

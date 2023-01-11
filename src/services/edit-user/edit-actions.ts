@@ -1,15 +1,23 @@
+import { IEditUser } from "../../utils/types";
+
 export const EDIT_USER_REQUEST: 'EDIT_USER_REQUEST' = "EDIT_USER_REQUEST";
 export const EDIT_USER_SUCCESS: 'EDIT_USER_SUCCESS' = "EDIT_USER_SUCCESS";
 export const EDIT_USER_ERROR: 'EDIT_USER_ERROR' = "EDIT_USER_ERROR";
 
+export interface IUser {
+  email?: string;
+  password?: string;
+  name?: string
+}
+
 export interface IonEditStart {
   readonly type: typeof EDIT_USER_REQUEST;
-  readonly payload: { email: string; password: string; name: string; }
+  readonly payload: IUser
 }
 
 export interface IonEditSuccess {
   readonly type: typeof EDIT_USER_SUCCESS;
-  readonly payload: any
+  readonly payload: IEditUser
 }
 
 export interface IonEditError {
@@ -17,17 +25,17 @@ export interface IonEditError {
   readonly payload: any
 }
 
-export const onEditStart = (user: { email: string; password: string; name: string; }) => ({
+export const onEditStart = (user: IUser): IonEditStart => ({
   type: EDIT_USER_REQUEST,
   payload: user
 })
 
-export const onEditSuccess= (res: any) => ({
+export const onEditSuccess= (res: IEditUser): IonEditSuccess => ({
   type: EDIT_USER_SUCCESS,
   payload: res
 })
 
-export const onEditError = (error: any) => ({
+export const onEditError = (error: string): IonEditError => ({
   type: EDIT_USER_ERROR,
   payload: error
 })

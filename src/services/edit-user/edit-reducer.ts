@@ -2,25 +2,32 @@ import {
   EDIT_USER_REQUEST,
   EDIT_USER_SUCCESS,
   EDIT_USER_ERROR,
-
+  IUser
 } from "./edit-actions";
+
 import { TEditActions } from "./edit-actions";
 
-const initialState = {
+type TEditUserState = {
+  userInfo: IUser,
+  loading: boolean,
+  error: boolean,
+}
+
+const initialState: TEditUserState = {
   userInfo: {},
   loading: false,
   error: false,
 };
 
-export const editReducer = (state = initialState, { type, payload}: TEditActions) => {
-  switch (type) {
+export const editReducer = (state = initialState, actions: TEditActions)=> {
+  switch (actions.type) {
     case EDIT_USER_REQUEST: {
       return { ...state, loading: true };
     }
     case EDIT_USER_SUCCESS: {
       return {
         ...state,
-        userInfo: payload,
+        userInfo: actions.payload,
         loading: false,
       };
     }

@@ -9,26 +9,33 @@ export const CONSTRUCTOR_DELETE: 'CONSTRUCTOR_DELETE' = 'CONSTRUCTOR_DELETE'
 export const CONSTRUCTOR_REORDER: 'CONSTRUCTOR_REORDER' = 'CONSTRUCTOR_REORDER'
 export const CONSTRUCTOR_RESET: 'CONSTRUCTOR_RESET' = 'CONSTRUCTOR_RESET'
 
+interface IItemAndId extends TItem {
+    id: string;
+}
+
+interface IItemAndIdTo { 
+    from: number,
+    to: number 
+}
+
 export interface ISetBunAction {
     readonly type: typeof SET_BUN;
-    readonly payload: TItem
+    readonly buns: IItemAndId
 }
 
 export interface IsetMainsAndSaucesAction {
     readonly type: typeof SET_MAINS_AND_SAUCES;
-    readonly payload: TItem
+    readonly mainsAndSauces: IItemAndId
 }
 
 export interface IConstructorDeleteAction {
     readonly type: typeof CONSTRUCTOR_DELETE;
-    readonly payload: number
+    readonly index: number
 }
 
 export interface IConstructorReorderAction {
     readonly type: typeof CONSTRUCTOR_REORDER;
-    readonly payload: any
-    readonly to: number;
-    readonly from: number
+    readonly mainsAndSauces: IItemAndIdTo
 }
 
 export interface IConstructorResetAction {
@@ -37,16 +44,30 @@ export interface IConstructorResetAction {
 }
 
 
-export const setBun = (bun: TItem) => ({
+
+
+export const setBun = (bun: TItem): ISetBunAction => ({
     type: SET_BUN,
-    payload: {...bun, id: uuid()}
+    buns: {...bun, id: uuid()}
 })
 
-export const setMainsAndSauces = (item: TItem) => {
+export const setMainsAndSauces = (mainsAndSauces: TItem): IsetMainsAndSaucesAction => {
     return {
     type: SET_MAINS_AND_SAUCES,
-    payload: {...item, id: uuid()}
+    mainsAndSauces: {...mainsAndSauces, id: uuid()}
 }}
+
+export const reoderItem = (mainsAndSauces: IItemAndIdTo ): IConstructorReorderAction => ({
+    type: CONSTRUCTOR_REORDER,
+    mainsAndSauces  
+})
+
+export const deleteItem = (index: number): IConstructorDeleteAction => ({
+    type: CONSTRUCTOR_DELETE,
+    index   
+})
+
+
 
 export type TConstructorActions = ISetBunAction | IsetMainsAndSaucesAction | IConstructorDeleteAction | IConstructorResetAction | IConstructorReorderAction
 

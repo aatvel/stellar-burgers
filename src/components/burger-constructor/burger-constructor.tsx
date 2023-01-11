@@ -19,26 +19,24 @@ import {
 } from "../../services/constructor-ingredients/constructor-actions";
 import emptyImg from "../../images/empty_space.png";
 import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
-import { TItem } from "../../utils/types";
+import { TItem, useAppDispatch, useAppSelector } from "../../utils/types";
 
 
 const BurgerConstructor: FC = () => {
-  const dispatch = useDispatch();
-  // const { showOrderModal } = useSelector((state) => state.orderReducer);
-  const { buns, mainsAndSauces } = useSelector(
+  const dispatch = useAppDispatch();
+
+  const { buns, mainsAndSauces } = useAppSelector(
     (s: any) => s.constructorReducer
   );
   const isBunAdded = buns !== undefined;
 
   //Modal Ingredient
-  const notBunsId: any[] = [];
+  const notBunsId:  Array<string>  = [];
 
 
   mainsAndSauces.forEach((element: {_id: string}) => {
     notBunsId.push(element._id);
   });
-
-
 
   const navigate = useNavigate();
   const auth = localStorage.getItem("refreshToken")

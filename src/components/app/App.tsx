@@ -8,6 +8,8 @@ import {
   useParams,
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/types";
+
 import appStyles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
@@ -28,7 +30,7 @@ import Restore from "../../pages/restore-page/restore";
 
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -41,14 +43,14 @@ function App() {
   const goBack = () => navigate(-1);
 
   //Modal Ingredient
-  const { showModal } = useSelector((state: any) => state.details);
+  const { showModal } = useAppSelector((state: any) => state.details);
   const handleClick = () => {
     dispatch(closeDetails());
     goBack();
   };
 
   //ModalOrder
-  const { showOrderModal } = useSelector((state: any) => state.orderReducer);
+  const { showOrderModal } = useAppSelector((state: any) => state.orderReducer);
   const handleClickOrder = () => {
     dispatch(closeOrderDetails());
  

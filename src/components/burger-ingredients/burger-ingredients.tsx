@@ -1,20 +1,16 @@
 import React from "react";
-import { useState, useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector } from "../../utils/types";
+
 import BurgerIngredientsStyles from "./burger-ingredients.module.css";
-
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import { IngredientCategory } from "../ingredients-category/ingredients-category";
-
 import { PreLoader } from "../app/preloader";
-
 import { INGREDIENT_TYPES } from "../../utils/consts";
 
 
 export default function BurgerIngredients({}) {
   const [current, setCurrent] = React.useState<string>("bun");
-  const { data, loading } = useSelector((state: any) => state.ingredients);
+  const { loading } = useAppSelector((state: any) => state.ingredients);
 
 
   const onTabClick = (tab: string) => {

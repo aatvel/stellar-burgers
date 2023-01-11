@@ -1,20 +1,19 @@
 import React, { useEffect, FC } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import styles from "./ingredient-details.module.css";
 import { showPageDetailStart } from "../../services/ingredients/ingredients-actions";
 import { PreLoader } from "../app/preloader";
+import { TItem, useAppDispatch, useAppSelector } from "../../utils/types";
 
 export interface IBackground {
   background: object | null;
 }
 
 const IngredientDetails: FC<IBackground> = ({ background }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { ingredient } = useSelector((s: any) => s.details);
-  const { pageIngredient, loading } = useSelector((s: any) => s.ingredients);
-
+  const { ingredient } = useAppSelector((s: any) => s.details);
+  const { pageIngredient, loading } = useAppSelector<{pageIngredient: Array<TItem>; loading: string}>((s) => s.ingredients);
   const { _id } = useParams();
 
   useEffect(() => {

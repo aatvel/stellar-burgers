@@ -5,21 +5,26 @@ import {
 } from "./restore-actions";
 import { TRestoreActions } from "./restore-actions";
 
-const initialState = {
+type TRestoreState = {
+  email: string | null,
+  loading: boolean,
+  error: boolean
+}
+const initialState: TRestoreState = {
   email: null,
   loading: false,
   error: false
 };
 
-export const restoreReducer = (state = initialState, { type, payload }: TRestoreActions) => {
-  switch (type) {
+export const restoreReducer = (state = initialState, actions: TRestoreActions) => {
+  switch (actions.type) {
     case RESTORE_PASSWORD_REQUEST: {
       return { ...state, loading: true };
     }
     case RESTORE_PASSWORD_SUCCESS: {
       return {
         ...state,
-        email: payload,
+        email: actions.payload,
         loading: false,
       };
     }

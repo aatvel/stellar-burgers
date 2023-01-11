@@ -5,9 +5,14 @@ import {
     CONSTRUCTOR_REORDER,
     CONSTRUCTOR_RESET
 } from './constructor-actions'
+import { TItem } from '../../utils/types'
 import type { TConstructorActions } from './constructor-actions'
 
 
+type TConstrucorState = {
+    buns: null | TItem;
+    mainsAndSauces: ReadonlyArray<TItem>
+}
 
 
 const initialState = {
@@ -15,24 +20,24 @@ const initialState = {
     mainsAndSauces: [],
 }
 
-export const constructorReducer = (state = initialState, {type, payload}: TConstructorActions ) => {
-    switch (type) {
-        case SET_BUN: {return {...state, buns: payload} }
-        case SET_MAINS_AND_SAUCES: {return {...state, mainsAndSauces: [ ...state.mainsAndSauces, payload]} }
+export const constructorReducer = (state = initialState, actions: TConstructorActions): TConstrucorState => {
+    switch (actions.type) {
+        case SET_BUN: {return {...state, buns: actions.buns} }
+        case SET_MAINS_AND_SAUCES: {return {...state, mainsAndSauces: [ ...state.mainsAndSauces, actions.mainsAndSauces]} }
         case CONSTRUCTOR_DELETE: {
             return {
             ...state, 
             mainsAndSauces: [
-                ...state.mainsAndSauces.slice(0, payload),
-                ...state.mainsAndSauces.slice(payload + 1),
+                ...state.mainsAndSauces.slice(0, actions.index),
+                ...state.mainsAndSauces.slice(actions.index + 1),
             ],
         };}
         case CONSTRUCTOR_REORDER: {
             const mainsAndSauces = [...state.mainsAndSauces];
             mainsAndSauces.splice(
-                payload.to,
+                actions.mainsAndSauces.to,
                 0,
-                mainsAndSauces.splice(payload.from, 1)[0]
+                mainsAndSauces.splice(actions.mainsAndSauces.from, 1)[0]
             )
             return {...state, mainsAndSauces,}
         }

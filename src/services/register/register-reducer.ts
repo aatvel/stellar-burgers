@@ -4,22 +4,29 @@ import {
   REGISTER_USER_ERROR,
 } from "./register-actions";
 import { IRegisterActions } from "./register-actions";
+import { TUser } from "../../utils/types";
 
-const initialState = {
+type TRegisterState = {
+  user: TUser | {}
+  loading: boolean,
+  error: boolean
+}
+
+const initialState: TRegisterState = {
   user: {},
   loading: false,
   error: false
 };
 
-export const registerReducer = (state = initialState, { type, payload }: IRegisterActions) => {
-  switch (type) {
+export const registerReducer = (state = initialState, actions: IRegisterActions) => {
+  switch (actions.type) {
     case REGISTER_USER_REQUEST: {
       return { ...state, loading: true };
     }
     case REGISTER_USER_SUCCESS: {
       return {
         ...state,
-        user: payload,
+        user: actions.payload,
         loading: false,
       };
     }

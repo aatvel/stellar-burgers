@@ -19,5 +19,7 @@ const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
 
 export const store = createStore(rootReducer, enhancer);
 
+export type RootState = ReturnType<typeof store.getState>; 
+export type AppDispatch = typeof store.dispatch
 
 sagaMiddleware.run(rootSaga)

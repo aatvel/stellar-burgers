@@ -1,8 +1,7 @@
 import React, {FC} from "react";
-import { useSelector } from "react-redux";
 import Ingredient from "../burger-ingredients/ingredient/ingredient";
 import categoryStyles from "./ingredients-category.module.css";
-import { TItem } from "../../utils/types";
+import { TItem, useAppSelector } from "../../utils/types";
 
 interface ICategory{
   title: string;
@@ -11,7 +10,7 @@ interface ICategory{
 }
 
 const IngredientCategory: FC<ICategory> = ({ title, titleId, ingredients }) => {
-  const { data } = useSelector((state: any) => state.ingredients);
+  const { data } = useAppSelector<{data: Array<TItem>}>((state) => state.ingredients);
   const orderedMains = data && data.filter((item: TItem) => item.type === ingredients);
 
   return (

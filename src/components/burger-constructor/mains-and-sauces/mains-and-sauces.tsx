@@ -1,16 +1,13 @@
 import React, {FC} from "react";
 import { useRef } from 'react';
-import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import {
   ConstructorElement,
-  Button,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "../burger-constructor.module.css";
-import { CONSTRUCTOR_REORDER, CONSTRUCTOR_DELETE } from "../../../services/constructor-ingredients/constructor-actions";
-
-import { TItem } from "../../../utils/types";
+import { deleteItem, reoderItem } from "../../../services/constructor-ingredients/constructor-actions";
+import { TItem, useAppDispatch } from "../../../utils/types";
 import type { Identifier } from 'dnd-core'
 
 
@@ -28,7 +25,7 @@ interface CollectedProps {
 }
 
 const MainsAndSauces:FC <IMains> = ({ ingredient, index }) => {
-const dispatch = useDispatch();
+const dispatch = useAppDispatch();
 const ref = useRef<HTMLLIElement>(null);
 
 const [{handlerId}, drop] = useDrop<DragObject, undefined, CollectedProps>({
@@ -55,13 +52,12 @@ const [{handlerId}, drop] = useDrop<DragObject, undefined, CollectedProps>({
             return
         }
 
-        dispatch({
-            type: CONSTRUCTOR_REORDER,
-            payload: {
-                from: dragIndex,
-                to: hoverIndex
-            }
-        });
+        dispatch(reoderItem(
+          {
+             from: dragIndex,
+             to: hoverIndex
+         }
+     ));
         item.index = hoverIndex;
     }
     
@@ -92,10 +88,7 @@ const [{handlerId}, drop] = useDrop<DragObject, undefined, CollectedProps>({
         price={ingredient.price}
         thumbnail={ingredient.image_mobile}
         handleClose={() =>
-            dispatch({
-                type: CONSTRUCTOR_DELETE,
-                payload: index,
-            })
+          dispatch(deleteItem(index))
         }
       />
     </li>

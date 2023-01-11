@@ -1,10 +1,10 @@
 import stylesOrderDetails from "./order-details.module.css";
 import tickImg from "../../images/tick.png";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../utils/types";
 
 const OrderDetails = () => {
 
-  const { order } = useSelector((state: any) => state.orderReducer);
+  const { order } = useAppSelector((state) => state.orderReducer);
 
   return (
     <div className={`${stylesOrderDetails.content} pt-9`}>

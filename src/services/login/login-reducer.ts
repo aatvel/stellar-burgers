@@ -10,8 +10,17 @@ import {
   LOGOUT_USER_ERROR,
 } from "./login-actions";
 import { TLoginActions } from "./login-actions";
+import { TUser } from "../../utils/types";
 
-const initialState = {
+type TLoginState = {
+  tokenUser: string | null,
+  currentUser: TUser | null,
+  loading: boolean,
+  error: boolean,
+  isLoggedIn: boolean
+}
+
+const initialState: TLoginState = {
   tokenUser: null,
   currentUser: null,
   loading: false,
@@ -19,15 +28,15 @@ const initialState = {
   isLoggedIn: false
 };
 
-export const loginReducer = (state = initialState, { type, payload }: TLoginActions) => {
-  switch (type) {
+export const loginReducer = (state = initialState, actions: TLoginActions) => {
+  switch (actions.type) {
     case LOGIN_USER_REQUEST: {
       return { ...state, loading: true };
     }
     case LOGIN_USER_SUCCESS: {
       return {
         ...state,
-        tokenUser: payload,
+        tokenUser: actions.payload,
         loading: false,
         isLoggedIn: true
       };
@@ -51,7 +60,7 @@ export const loginReducer = (state = initialState, { type, payload }: TLoginActi
       return {
         ...state,
         loading: false,
-        currentUser: payload,
+        currentUser: actions.payload,
         isLoggedIn: true
       };
     }

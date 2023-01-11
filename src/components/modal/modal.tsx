@@ -15,7 +15,6 @@ const Modal: FC<IModal> = ({ title, children, closeModal }) => {
 
   const modalRoot = document.getElementById("modals") as HTMLElement;
 
-
   React.useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -29,7 +28,6 @@ const Modal: FC<IModal> = ({ title, children, closeModal }) => {
       document.removeEventListener("keydown", handleEsc);
     };
   }, [modalRoot]);
-
 
   return createPortal(
 

@@ -6,35 +6,41 @@ import {
     LOAD_INGREDIENTS_ERROR
 } from './ingredients-const'
 import { TIngredientsActions } from './ingredients-actions'
+import { TItem } from "../../utils/types"
 
+type TIngredientsState = {
+    data: Array<TItem> 
+    pageIngredient: Array<TItem>
+    loading: boolean
+    error: boolean
+}
 
-
-const initialState = {
+const initialState: TIngredientsState = {
     data: [],
     pageIngredient: [],
     loading: true,
     error: false
 }
 
-export const ingredientsReducer = (state = initialState, {type, payload}: TIngredientsActions) => {
-    switch (type) {
+export const ingredientsReducer = (state = initialState, actions: TIngredientsActions) => {
+    switch (actions.type) {
         case LOAD_INGREDIENTS_START: {
           return{ ...state, loading: true}  
         }
         case LOAD_INGREDIENTS_SUCCESS: {
             return {
-                ...state, data: payload, loading: false
+                ...state, data: actions.payload, loading: false
             }
         }
         case LOAD_INGREDIENTS_ERROR: {
             return {
-                ...state, error: payload
+                ...state, error: actions.payload
             }
         }
         case SHOW_PAGE_DETAIL_SUCCESS: {
             return{
-                ...state, pageIngredient: payload
-                // pageIngredient: state.data.filter((data) => data.id === payload)
+                ...state, pageIngredient: actions.payload
+                
             }
         }
         

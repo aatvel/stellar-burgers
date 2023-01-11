@@ -20,6 +20,7 @@ import { CONSTRUCTOR_RESET } from "../constructor-ingredients/constructor-action
 import { editUser } from "../api";
 import {
   EDIT_USER_REQUEST,
+  IonEditStart,
   onEditError,
   onEditSuccess,
 } from "../edit-user/edit-actions";
@@ -39,6 +40,7 @@ import {
   getCurrentUserError,
   getCurrentUserSuccess,
   GET_CURRENT_USER_START,
+  IonLogintart,
   LOGIN_USER_REQUEST,
   LOGOUT_USER_REQUEST,
   onLoginError,
@@ -47,30 +49,35 @@ import {
 } from "../login/login-actions";
 import { logoutUser } from "../api";
 import {
+  IonLoadingStart,
   LOAD_ORDER_START,
   onLoadingError,
   onLoadingSuccess,
 } from "../order/order-actions";
 import { registerUser } from "../api"
 import {
+  IonRegisterStart,
   onRegisterError,
   onRegisterSuccess,
   REGISTER_USER_REQUEST,
 } from "../register/register-actions";
 import { passwordReset } from "../api";
 import {
+  IonResetStart,
   onResetError,
   onResetSuccess,
   RESET_PASSWORD_REQUEST,
 } from "../reset-password/reset-actions";
 import { passwordRestore } from "../api";
 import {
+  IonRestoreStart,
   onRestoreError,
   onRestoreSuccess,
   RESTORE_PASSWORD_REQUEST,
 } from "../restore-password/restore-actions";
 import { updateUser } from "../api";
-import { TItem } from "../../utils/types";
+import { IRegister, TItem } from "../../utils/types";
+import { IShowDetails } from "../ingredient-details/details-actions";
 
 interface IIngredients {
   data: TItem[]
@@ -98,14 +105,15 @@ function* onLoadIngredients() {
 
 interface IOrder {
   success: string
-  order: any
-  number: number
+  order: {
+    number: number
+  }
 }
 
-function* onLoadOrderStart({ payload }: any) {
+function* onLoadOrderStart(action: IonLoadingStart) {
   try {
     // console.log(payload)
-    const response: IOrder = yield call(fetchOrder, payload);
+    const response: IOrder = yield call(fetchOrder, action.payload);
     // console.log(response)
     if (response.success) {
       yield putResolve(onLoadingSuccess(response.order.number));
@@ -125,9 +133,9 @@ interface IRestore {
   success: string
 }
 
-function* goRestorePassword({ payload }: any) {
+function* goRestorePassword(action: IonRestoreStart) {
   try {
-    const response: IRestore = yield call(passwordRestore, payload);
+    const response: IRestore = yield call(passwordRestore,  action.payload);
     if (response.success) {
       yield put(onRestoreSuccess(response));
     }
@@ -144,9 +152,9 @@ function* restorePassword() {
 interface IReset {
   success: string
 }
-function* goResetPassword({ payload }: any) {
+function* goResetPassword(action: IonResetStart) {
   try {
-    const response: IReset = yield call(passwordReset, payload);
+    const response: IReset = yield call(passwordReset, action.payload);
     if (response.success) {
       yield put(onResetSuccess(response));
     }
@@ -160,14 +168,11 @@ function* ResetPassword() {
 }
 
 //REGISTER
-interface IRegister {
-  success: string
-}
 
-function* goRegisterUser({ payload }: any) {
+function* goRegisterUser(action: IonRegisterStart) {
   // console.log(payload);
   try {
-    const response: IRegister = yield call(registerUser, payload);
+    const response: IRegister = yield call(registerUser, action.payload);
     // console.log(response);
     if (response.success) {
       yield put(onRegisterSuccess(response));
@@ -188,10 +193,10 @@ interface ILogin {
   accessToken: string
 }
 
-function* goLoginUser({ payload }: any) {
+function* goLoginUser(action: IonLogintart) {
   // console.log(payload);
   try {
-    const response: ILogin = yield call(loginUser, payload);
+    const response: ILogin = yield call(loginUser, action.payload);
 
     if (response.success) {
       const { refreshToken, accessToken } = response;
@@ -210,62 +215,57 @@ function* loginUsers() {
 }
 
 //Get user
+
 interface IGetUser {
-  success: string | undefined
-  refreshToken: string | undefined
-  accessToken: string | undefined
-  updateToken: string | undefined
-  token: string | undefined
-  message: any 
-  user: any 
+  success: string
+  accessToken: string
+  refreshToken: string
+  message: string
 }
 
-function* getUserStart(): any {
+function* getUserStart() {
   // console.log(getCookie("accessToken"));
-  const response: IGetUser = yield call(getUser);
-
+  const response: IRegister = yield call(getUser);
   const token = {
     token: localStorage.getItem("refreshToken"),
   };
 
   if (response.success) {
-    yield put(getCurrentUserSuccess(response.user));  
-    yield call(setCookie,'isLoggedIn', true)
+    yield put(getCurrentUserSuccess(response.user));
+    yield call(setCookie, "isLoggedIn", true);
   } else if (
     localStorage.getItem("refreshToken") &&
     !getCookie("accessToken")
   ) {
-    const updateToken = yield call(updateUser, token);
+    const updateToken: IRegister = yield call(updateUser, token);
     const { accessToken, refreshToken } = updateToken;
     yield call(saveTokenToLocalStorage, refreshToken);
     yield call(setCookie, "accessToken", accessToken);
-
-    const response: IGetUser = yield call(getUser);
-    console.log(response);
+    const response: IRegister = yield call(getUser);
+  
     if (response.success) {
       yield put(getCurrentUserSuccess(response.user));
     } else {
       yield put(getCurrentUserError(response.message));
-      console.log(response)
+   
     }
   } else if (!response.success) {
     yield put(getCurrentUserError(response.message));
-    console.log(response)
+  
   }
 
   if (response.message === "jwt expired") {
     const token = {
       token: localStorage.getItem("refreshToken"),
     };
-    const updateToken = yield call(updateUser, token);
+    const updateToken: IGetUser = yield call(updateUser, token);
     const { accessToken, refreshToken } = updateToken;
     yield call(saveTokenToLocalStorage, refreshToken);
     yield call(setCookie, "accessToken", accessToken);
-
-    const response: IGetUser = yield call(getUser);
+    const response: IRegister = yield call(getUser);
     if (response.success) {
       yield put(getCurrentUserSuccess(response.user));
-      console.log(response);
+      // console.log(response);
     }
   }
 }
@@ -279,10 +279,10 @@ interface ILogout{
   refreshToken: string
 }
 
-function* goLogoutUser(): any {
+function* goLogoutUser() {
   const token = { token: localStorage.getItem("refreshToken") };
   try {
-    const response = yield call(logoutUser, token);
+    const response: IRestore = yield call(logoutUser, token);
     // console.log(response);
     if (response) {
       yield put(onLogoutSuccess());
@@ -302,9 +302,9 @@ function* logoutUsers() {
 interface IEdit {
   success: string
 }
-function* goEditUser({ payload }: any) {
+function* goEditUser(action: IonEditStart) {
   try {
-    const response: IEdit = yield call(editUser, payload);
+    const response: IEdit = yield call(editUser, action.payload);
 
     if (response.success) {
       yield put(onEditSuccess(response));
@@ -319,14 +319,14 @@ function* editUsers() {
 }
 
 //Page Ingredient
-function* goPageIngredient({ payload }: any) {
+function* goPageIngredient(action: IShowDetails) {
   try {
     const response: IIngredients = yield call(getIngredients);
     if (response) {
       yield delay(1000);
       yield put(loadIngredientsSuccess(response.data));
 
-      const hook = response.data.filter((data: any) => data._id === payload);
+      const hook = response.data.filter((data: any) => data._id === action.payload);
       // console.log(hook);
       yield put(showPageDetailSuccess(hook));
     }

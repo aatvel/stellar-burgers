@@ -5,22 +5,29 @@ RESET_PASSWORD_ERROR
 } from "./reset-actions";
 import { TResetActions } from "./reset-actions";
 
-const initialState = {
+type TResetState = {
+  password: string | null,
+  token: string | null,
+  loading: boolean,
+  error: boolean
+}
+const initialState: TResetState = {
   password: null,
   token: null,
   loading: false,
   error: false
 };
 
-export const resetReducer = (state = initialState, { type, payload }: TResetActions) => {
-  switch (type) {
+
+export const resetReducer = (state = initialState, actions: TResetActions) => {
+  switch (actions.type) {
     case RESET_PASSWORD_REQUEST: {
       return { ...state, loading: true };
     }
     case RESET_PASSWORD_SUCCESS: {
       return {
         ...state,
-        password: payload,
+        password: actions.payload,
         loading: false,
       };
     }
