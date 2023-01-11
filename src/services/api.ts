@@ -3,6 +3,9 @@ import { checkResponse } from "../utils/api-ingredients";
 import { BURGER_API_URL } from "../utils/consts";
 import { getCookie, setCookie } from "../utils/cookie";
 import { request } from "../utils/api-ingredients";
+import { IUser } from "./edit-user/edit-actions";
+import { TUser } from "../utils/types";
+
 
 
 export const fetchOrder = (data: any) => {
@@ -17,7 +20,7 @@ export const fetchOrder = (data: any) => {
 
 
 
-export const passwordRestore = (form: any) => {
+export const passwordRestore = (form: { email: string}) => {
   return request(`${BURGER_API_URL}/password-reset`, {
     method: "POST",
     mode: "cors",
@@ -34,7 +37,8 @@ export const passwordRestore = (form: any) => {
 
 
 
-export const passwordReset = (form: any) => {
+export const passwordReset = (form: {password: string;
+  token: string}) => {
   return request(`${BURGER_API_URL}/password-reset/reset`, {
     method: "POST",
     mode: "cors",
@@ -51,7 +55,7 @@ export const passwordReset = (form: any) => {
 
 
 
-export const registerUser = (form: any) => {
+export const registerUser = (form: TUser) => {
   return request(`${BURGER_API_URL}/auth/register`, {
     method: "POST",
     mode: "cors",
@@ -67,7 +71,7 @@ export const registerUser = (form: any) => {
 }
 
 
-export const loginUser = (form: any) => {
+export const loginUser = (form: TUser) => {
   return request(`${BURGER_API_URL}/auth/login`, {
     method: "POST",
     mode: "cors",
@@ -83,7 +87,7 @@ export const loginUser = (form: any) => {
 }
 
 // Отправляем данные формы на сервер для РЕГИСТРАЦИИ
-export const logoutUserRequest = async (refreshToken: any) => {
+export const logoutUserRequest = async (refreshToken: string) => {
   return await fetch(`${BURGER_API_URL}/auth/logout`, {
     method: "POST",
     headers: {
@@ -159,7 +163,7 @@ export const getUser = async () => {
 
 
 
-export const editUser = (form: any) => {
+export const editUser = (form: IUser) => {
   const accToken: any =  getCookie("accessToken")
   return request(`${BURGER_API_URL}/auth/user`, {
     method: "PATCH",

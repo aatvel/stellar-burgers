@@ -103,7 +103,7 @@ function* onLoadIngredients() {
 
 //make order
 
-interface IOrder {
+export interface IOrder {
   success: string
   order: {
     number: number
@@ -187,7 +187,7 @@ function* registerUsers() {
 }
 
 //LOGIN
-interface ILogin {
+export interface ILogin {
   success: string
   refreshToken: string
   accessToken: string
