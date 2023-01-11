@@ -9,6 +9,7 @@ import {
   LOGOUT_USER_SUCCESS,
   LOGOUT_USER_ERROR,
 } from "./login-actions";
+import { TLoginActions } from "./login-actions";
 
 const initialState = {
   tokenUser: null,
@@ -18,7 +19,7 @@ const initialState = {
   isLoggedIn: false
 };
 
-export const loginReducer = (state = initialState, { type, payload }) => {
+export const loginReducer = (state = initialState, { type, payload }: TLoginActions) => {
   switch (type) {
     case LOGIN_USER_REQUEST: {
       return { ...state, loading: true };

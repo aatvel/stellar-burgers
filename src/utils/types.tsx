@@ -1,4 +1,14 @@
 import PropTypes from "prop-types";
+import { TConstructorActions } from '../services/constructor-ingredients/constructor-actions';
+import { TEditActions } from '../services/edit-user/edit-actions';
+import { TDetailsActions } from '../services/ingredient-details/details-actions';
+import { TIngredientsActions } from '../services/ingredients/ingredients-actions';
+import { TLoginActions } from '../services/login/login-actions';
+import { IOrderActions } from '../services/order/order-actions';
+import { IRegisterActions } from '../services/register/register-actions';
+import { TResetActions } from '../services/reset-password/reset-actions';
+import { TRestoreActions } from '../services/restore-password/restore-actions';
+import { store } from "../services/store";
 
 export const ingredientType = PropTypes.shape({
   _id: PropTypes.string.isRequired,
@@ -30,3 +40,10 @@ export type TItem = {
   index?: number,
   count: number,
 };
+
+export type AppActions = TConstructorActions | TEditActions 
+| TDetailsActions | TIngredientsActions | TLoginActions
+| IOrderActions | IRegisterActions | TResetActions | TRestoreActions
+
+// Типизация описания хранилища
+export type RootState = ReturnType<typeof store.getState>;

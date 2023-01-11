@@ -1,9 +1,7 @@
 import React, {FC} from "react";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import Ingredient from "../burger-ingredients/ingredient/ingredient";
 import categoryStyles from "./ingredients-category.module.css";
-import { Link, useLocation } from "react-router-dom";
 import { TItem } from "../../utils/types";
 
 interface ICategory{

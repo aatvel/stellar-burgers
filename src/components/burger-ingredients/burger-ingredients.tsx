@@ -10,11 +10,10 @@ import { IngredientCategory } from "../ingredients-category/ingredients-category
 import { PreLoader } from "../app/preloader";
 
 import { INGREDIENT_TYPES } from "../../utils/consts";
-import { loadIngredientsStart } from "../../services/ingredients/ingredients-actions";
+
 
 export default function BurgerIngredients({}) {
   const [current, setCurrent] = React.useState<string>("bun");
-  const dispatch = useDispatch();
   const { data, loading } = useSelector((state: any) => state.ingredients);
 
 

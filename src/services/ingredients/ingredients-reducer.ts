@@ -5,6 +5,7 @@ import {
     LOAD_INGREDIENTS_SUCCESS,
     LOAD_INGREDIENTS_ERROR
 } from './ingredients-const'
+import { TIngredientsActions } from './ingredients-actions'
 
 
 
@@ -15,7 +16,7 @@ const initialState = {
     error: false
 }
 
-export const ingredientsReducer = (state = initialState, {type, payload}) => {
+export const ingredientsReducer = (state = initialState, {type, payload}: TIngredientsActions) => {
     switch (type) {
         case LOAD_INGREDIENTS_START: {
           return{ ...state, loading: true}  

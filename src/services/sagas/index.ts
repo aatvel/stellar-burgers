@@ -70,35 +70,48 @@ import {
   RESTORE_PASSWORD_REQUEST,
 } from "../restore-password/restore-actions";
 import { updateUser } from "../api";
+import { TItem } from "../../utils/types";
+
+interface IIngredients {
+  data: TItem[]
+}
 
 function* onLoadIngredientsStart() {
   try {
-    const response = yield call(getIngredients);
+    const response: IIngredients = yield call(getIngredients);
     // console.log(response)
     if (response) {
       yield delay(1000);
       yield put(loadIngredientsSuccess(response.data));
     }
-  } catch (error) {
+  } catch (error: any) {
     yield put(loadIngredientsError(error.message));
   }
 }
+
 
 function* onLoadIngredients() {
   yield takeEvery(LOAD_INGREDIENTS_START, onLoadIngredientsStart);
 }
 
 //make order
-function* onLoadOrderStart({ payload }) {
+
+interface IOrder {
+  success: string
+  order: any
+  number: number
+}
+
+function* onLoadOrderStart({ payload }: any) {
   try {
     // console.log(payload)
-    const response = yield call(fetchOrder, payload);
+    const response: IOrder = yield call(fetchOrder, payload);
     // console.log(response)
     if (response.success) {
       yield putResolve(onLoadingSuccess(response.order.number));
       yield put({ type: CONSTRUCTOR_RESET });
     }
-  } catch (error) {
+  } catch (error: any) {
     yield put(onLoadingError(error.message));
   }
 }
@@ -108,13 +121,17 @@ function* onLoadOrder() {
 }
 
 //Restore Password
-function* goRestorePassword({ payload }) {
+interface IRestore {
+  success: string
+}
+
+function* goRestorePassword({ payload }: any) {
   try {
-    const response = yield call(passwordRestore, payload);
+    const response: IRestore = yield call(passwordRestore, payload);
     if (response.success) {
       yield put(onRestoreSuccess(response));
     }
-  } catch (error) {
+  } catch (error: any) {
     yield put(onRestoreError(error.message));
   }
 }
@@ -124,13 +141,16 @@ function* restorePassword() {
 }
 
 //RESET PASSWORD
-function* goResetPassword({ payload }) {
+interface IReset {
+  success: string
+}
+function* goResetPassword({ payload }: any) {
   try {
-    const response = yield call(passwordReset, payload);
+    const response: IReset = yield call(passwordReset, payload);
     if (response.success) {
       yield put(onResetSuccess(response));
     }
-  } catch (error) {
+  } catch (error: any) {
     yield put(onResetError(error.message));
   }
 }
@@ -140,15 +160,19 @@ function* ResetPassword() {
 }
 
 //REGISTER
-function* goRegisterUser({ payload }) {
+interface IRegister {
+  success: string
+}
+
+function* goRegisterUser({ payload }: any) {
   // console.log(payload);
   try {
-    const response = yield call(registerUser, payload);
+    const response: IRegister = yield call(registerUser, payload);
     // console.log(response);
     if (response.success) {
       yield put(onRegisterSuccess(response));
     }
-  } catch (error) {
+  } catch (error: any) {
     yield put(onRegisterError(error.message));
   }
 }
@@ -158,10 +182,16 @@ function* registerUsers() {
 }
 
 //LOGIN
-function* goLoginUser({ payload }) {
+interface ILogin {
+  success: string
+  refreshToken: string
+  accessToken: string
+}
+
+function* goLoginUser({ payload }: any) {
   // console.log(payload);
   try {
-    const response = yield call(loginUser, payload);
+    const response: ILogin = yield call(loginUser, payload);
 
     if (response.success) {
       const { refreshToken, accessToken } = response;
@@ -170,7 +200,7 @@ function* goLoginUser({ payload }) {
       yield call(setCookie, "accessToken", accessToken);
       yield call(setCookie,'isLoggedIn', true)
     }
-  } catch (error) {
+  } catch (error: any) {
     yield put(onLoginError(error.message));
   }
 }
@@ -179,9 +209,21 @@ function* loginUsers() {
   yield takeEvery(LOGIN_USER_REQUEST, goLoginUser);
 }
 
-function* getUserStart() {
+//Get user
+interface IGetUser {
+  success: string | undefined
+  refreshToken: string | undefined
+  accessToken: string | undefined
+  updateToken: string | undefined
+  token: string | undefined
+  message: any 
+  user: any 
+}
+
+function* getUserStart(): any {
   // console.log(getCookie("accessToken"));
-  const response = yield call(getUser);
+  const response: IGetUser = yield call(getUser);
+
   const token = {
     token: localStorage.getItem("refreshToken"),
   };
@@ -197,7 +239,8 @@ function* getUserStart() {
     const { accessToken, refreshToken } = updateToken;
     yield call(saveTokenToLocalStorage, refreshToken);
     yield call(setCookie, "accessToken", accessToken);
-    const response = yield call(getUser);
+
+    const response: IGetUser = yield call(getUser);
     console.log(response);
     if (response.success) {
       yield put(getCurrentUserSuccess(response.user));
@@ -218,7 +261,8 @@ function* getUserStart() {
     const { accessToken, refreshToken } = updateToken;
     yield call(saveTokenToLocalStorage, refreshToken);
     yield call(setCookie, "accessToken", accessToken);
-    const response = yield call(getUser);
+
+    const response: IGetUser = yield call(getUser);
     if (response.success) {
       yield put(getCurrentUserSuccess(response.user));
       console.log(response);
@@ -231,19 +275,23 @@ function* onGetUser() {
 }
 
 //LOGOUT
-function* goLogoutUser() {
+interface ILogout{
+  refreshToken: string
+}
+
+function* goLogoutUser(): any {
   const token = { token: localStorage.getItem("refreshToken") };
   try {
     const response = yield call(logoutUser, token);
     // console.log(response);
     if (response) {
       yield put(onLogoutSuccess());
-      const refreshToken = localStorage.getItem("refreshToken");
-      localStorage.removeItem("refreshToken", refreshToken);
+      // const refreshToken = localStorage.getItem("refreshToken") ;
+      localStorage.removeItem("refreshToken");
       yield call( deleteCookie, 'accessToken');
       yield call( deleteCookie, 'isLoggedIn');
      
-  }} catch (error) {}
+  }} catch (error: any) {}
 }
 
 function* logoutUsers() {
@@ -251,14 +299,17 @@ function* logoutUsers() {
 }
 
 //edit User
-function* goEditUser({ payload }) {
+interface IEdit {
+  success: string
+}
+function* goEditUser({ payload }: any) {
   try {
-    const response = yield call(editUser, payload);
+    const response: IEdit = yield call(editUser, payload);
 
     if (response.success) {
       yield put(onEditSuccess(response));
     }
-  } catch (error) {
+  } catch (error: any) {
     yield put(onEditError(error.message));
   }
 }
@@ -267,18 +318,19 @@ function* editUsers() {
   yield takeEvery(EDIT_USER_REQUEST, goEditUser);
 }
 
-function* goPageIngredient({ payload }) {
+//Page Ingredient
+function* goPageIngredient({ payload }: any) {
   try {
-    const response = yield call(getIngredients);
+    const response: IIngredients = yield call(getIngredients);
     if (response) {
       yield delay(1000);
       yield put(loadIngredientsSuccess(response.data));
 
-      const hook = response.data.filter((data) => data._id === payload);
+      const hook = response.data.filter((data: any) => data._id === payload);
       // console.log(hook);
       yield put(showPageDetailSuccess(hook));
     }
-  } catch (error) {
+  } catch (error: any) {
     yield put(loadIngredientsError(error.message));
   }
 }

@@ -1,16 +1,14 @@
 import React, {FC} from "react";
-import { useLocation, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useDrag, useDrop } from "react-dnd";
+import {  useDrop } from "react-dnd";
 import {
   CurrencyIcon,
   ConstructorElement,
   Button,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
-import OrderDetails from "../order-details/order-details";
-import Modal from "../modal/modal";
+
 import {
 
   onLoadingStart
@@ -41,7 +39,7 @@ const BurgerConstructor: FC = () => {
   });
 
 
-  const location = useLocation();
+
   const navigate = useNavigate();
   const auth = localStorage.getItem("refreshToken")
 

@@ -6,16 +6,18 @@ import createSagaMiddleware from 'redux-saga'
 // import thunk from 'redux-thunk';
 import rootSaga from "./sagas";
 
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 
 const sagaMiddleware = createSagaMiddleware()
 
-const composeEnhancers =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
 
 export const store = createStore(rootReducer, enhancer);
+
 
 sagaMiddleware.run(rootSaga)

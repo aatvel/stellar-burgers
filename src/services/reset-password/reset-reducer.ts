@@ -3,6 +3,7 @@ import {
 RESET_PASSWORD_SUCCESS,
 RESET_PASSWORD_ERROR
 } from "./reset-actions";
+import { TResetActions } from "./reset-actions";
 
 const initialState = {
   password: null,
@@ -11,7 +12,7 @@ const initialState = {
   error: false
 };
 
-export const resetReducer = (state = initialState, { type, payload }) => {
+export const resetReducer = (state = initialState, { type, payload }: TResetActions) => {
   switch (type) {
     case RESET_PASSWORD_REQUEST: {
       return { ...state, loading: true };

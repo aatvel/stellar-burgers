@@ -6,6 +6,7 @@ import {
   LOAD_ORDER_ERROR,
   RESET_ORDER
 } from "./order-actions";
+import { IOrderActions } from "./order-actions";
 
 const initialState = {
   order: null,
@@ -14,7 +15,7 @@ const initialState = {
   showOrderModal: false,
 };
 
-export const orderReducer = (state = initialState, { type, payload }) => {
+export const orderReducer = (state = initialState, { type, payload }: IOrderActions) => {
   switch (type) {
     case SHOW_ORDER_DETAILS: {
       return { showOrderModal: true, order: payload };

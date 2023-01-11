@@ -5,6 +5,9 @@ import {
     CONSTRUCTOR_REORDER,
     CONSTRUCTOR_RESET
 } from './constructor-actions'
+import type { TConstructorActions } from './constructor-actions'
+
+
 
 
 const initialState = {
@@ -12,7 +15,7 @@ const initialState = {
     mainsAndSauces: [],
 }
 
-export const constructorReducer = (state = initialState, {type, payload}) => {
+export const constructorReducer = (state = initialState, {type, payload}: TConstructorActions ) => {
     switch (type) {
         case SET_BUN: {return {...state, buns: payload} }
         case SET_MAINS_AND_SAUCES: {return {...state, mainsAndSauces: [ ...state.mainsAndSauces, payload]} }

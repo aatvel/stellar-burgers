@@ -3,6 +3,7 @@ import {
   RESTORE_PASSWORD_SUCCESS,
   RESTORE_PASSWORD_ERROR,
 } from "./restore-actions";
+import { TRestoreActions } from "./restore-actions";
 
 const initialState = {
   email: null,
@@ -10,7 +11,7 @@ const initialState = {
   error: false
 };
 
-export const restoreReducer = (state = initialState, { type, payload }) => {
+export const restoreReducer = (state = initialState, { type, payload }: TRestoreActions) => {
   switch (type) {
     case RESTORE_PASSWORD_REQUEST: {
       return { ...state, loading: true };

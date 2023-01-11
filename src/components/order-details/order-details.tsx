@@ -1,6 +1,5 @@
 import stylesOrderDetails from "./order-details.module.css";
 import tickImg from "../../images/tick.png";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 const OrderDetails = () => {

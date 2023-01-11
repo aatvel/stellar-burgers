@@ -1,8 +1,7 @@
 import React, {FC, useCallback} from "react";
 import IngredientsStyles from "./ingredient.module.css";
-import PropTypes from "prop-types";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ingredientType, TItem } from "../../../utils/types";
+import { TItem } from "../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd/dist/hooks";
 import {

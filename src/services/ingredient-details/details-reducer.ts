@@ -1,11 +1,12 @@
 import { SHOW_DETAILS, CLOSE_DETAILS } from "./details-actions"
+import { TDetailsActions } from "./details-actions"
 
 const initialState = {
     ingredient: {},
     showModal: false
 }
 
-export const detailsReducer = (state = initialState, {type, payload}) => {
+export const detailsReducer = (state = initialState, {type, payload}: TDetailsActions) => {
     switch (type)
     {
         case SHOW_DETAILS:  {return {showModal: true, ingredient: payload}}

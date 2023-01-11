@@ -5,7 +5,7 @@ import { getCookie, setCookie } from "../utils/cookie";
 import { request } from "../utils/api-ingredients";
 
 
-export const fetchOrder = (data) => {
+export const fetchOrder = (data: any) => {
   return request(`${BURGER_API_URL}/orders`, {
         method: "POST",
         headers: {
@@ -17,7 +17,7 @@ export const fetchOrder = (data) => {
 
 
 
-export const passwordRestore = (form) => {
+export const passwordRestore = (form: any) => {
   return request(`${BURGER_API_URL}/password-reset`, {
     method: "POST",
     mode: "cors",
@@ -34,7 +34,7 @@ export const passwordRestore = (form) => {
 
 
 
-export const passwordReset = (form) => {
+export const passwordReset = (form: any) => {
   return request(`${BURGER_API_URL}/password-reset/reset`, {
     method: "POST",
     mode: "cors",
@@ -51,7 +51,7 @@ export const passwordReset = (form) => {
 
 
 
-export const registerUser = (form) => {
+export const registerUser = (form: any) => {
   return request(`${BURGER_API_URL}/auth/register`, {
     method: "POST",
     mode: "cors",
@@ -67,7 +67,7 @@ export const registerUser = (form) => {
 }
 
 
-export const loginUser = (form) => {
+export const loginUser = (form: any) => {
   return request(`${BURGER_API_URL}/auth/login`, {
     method: "POST",
     mode: "cors",
@@ -83,7 +83,7 @@ export const loginUser = (form) => {
 }
 
 // Отправляем данные формы на сервер для РЕГИСТРАЦИИ
-export const logoutUserRequest = async (refreshToken) => {
+export const logoutUserRequest = async (refreshToken: any) => {
   return await fetch(`${BURGER_API_URL}/auth/logout`, {
     method: "POST",
     headers: {
@@ -93,7 +93,7 @@ export const logoutUserRequest = async (refreshToken) => {
   });
 };
 
-export const logoutUser = (refreshToken) => {
+export const logoutUser = (refreshToken: any) => {
   return request(`${BURGER_API_URL}/auth/logout`, {
     method: "POST",
     headers: {
@@ -104,7 +104,7 @@ export const logoutUser = (refreshToken) => {
 }
 
 
-export const updateUser = (token) => {
+export const updateUser = (token: any) => {
   return request(`${BURGER_API_URL}/auth/token`, {
     method: "POST",
     mode: "cors",
@@ -121,6 +121,7 @@ export const updateUser = (token) => {
 
 // // Отправляем данные формы на сервер для РЕГИСТРАЦИИ
 export const getUserRequest = async () => {
+  const accToken: any =  getCookie("accessToken")
   return await fetch(`${BURGER_API_URL}/auth/user`, {
     method: "GET",
     mode: "cors",
@@ -128,7 +129,7 @@ export const getUserRequest = async () => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-      authorization: getCookie("accessToken"),
+      authorization: accToken,
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
@@ -158,7 +159,8 @@ export const getUser = async () => {
 
 
 
-export const editUser = (form) => {
+export const editUser = (form: any) => {
+  const accToken: any =  getCookie("accessToken")
   return request(`${BURGER_API_URL}/auth/user`, {
     method: "PATCH",
     mode: "cors",
@@ -167,7 +169,7 @@ export const editUser = (form) => {
     headers: {
       accept: "application/json",
       "Content-Type": "application/json",
-      authorization: getCookie("accessToken"),
+      authorization: accToken,
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",

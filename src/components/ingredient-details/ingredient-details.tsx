@@ -1,11 +1,9 @@
 import React, { useEffect, FC } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./ingredient-details.module.css";
 import { showPageDetailStart } from "../../services/ingredients/ingredients-actions";
 import { PreLoader } from "../app/preloader";
-import {  useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 
 export interface IBackground {
   background: object | null;
@@ -13,8 +11,7 @@ export interface IBackground {
 
 const IngredientDetails: FC<IBackground> = ({ background }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
+
   const { ingredient } = useSelector((s: any) => s.details);
   const { pageIngredient, loading } = useSelector((s: any) => s.ingredients);
 

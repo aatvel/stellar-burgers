@@ -13,6 +13,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { onEditStart } from "../../services/edit-user/edit-actions";
 import {
   getCurrentUserStart,
+  LOGOUT_USER_REQUEST,
   onLogoutStart,
 } from "../../services/login/login-actions";
 
@@ -64,7 +65,7 @@ const Profile: FC<IProfile> = ({ currentUser }) => {
 
   const handleClickLogout = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(onLogoutStart());
+    dispatch({type: LOGOUT_USER_REQUEST});
     directToPage();
   };
 

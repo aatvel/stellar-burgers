@@ -4,6 +4,7 @@ import {
   EDIT_USER_ERROR,
 
 } from "./edit-actions";
+import { TEditActions } from "./edit-actions";
 
 const initialState = {
   userInfo: {},
@@ -11,7 +12,7 @@ const initialState = {
   error: false,
 };
 
-export const editReducer = (state = initialState, { type, payload }) => {
+export const editReducer = (state = initialState, { type, payload}: TEditActions) => {
   switch (type) {
     case EDIT_USER_REQUEST: {
       return { ...state, loading: true };

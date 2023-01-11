@@ -1,16 +1,15 @@
 import React, {FC} from "react";
-import { useState, useRef, useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useRef } from 'react';
+import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import {
-  CurrencyIcon,
   ConstructorElement,
   Button,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "../burger-constructor.module.css";
 import { CONSTRUCTOR_REORDER, CONSTRUCTOR_DELETE } from "../../../services/constructor-ingredients/constructor-actions";
-import PropTypes from "prop-types";
+
 import { TItem } from "../../../utils/types";
 import type { Identifier } from 'dnd-core'
 
