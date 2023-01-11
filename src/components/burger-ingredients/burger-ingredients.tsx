@@ -10,7 +10,7 @@ import { INGREDIENT_TYPES } from "../../utils/consts";
 
 export default function BurgerIngredients({}) {
   const [current, setCurrent] = React.useState<string>("bun");
-  const { loading } = useAppSelector((state: any) => state.ingredients);
+  const { loading } = useAppSelector((state) => state.ingredients);
 
 
   const onTabClick = (tab: string) => {

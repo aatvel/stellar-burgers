@@ -94,7 +94,7 @@ const BurgerConstructor: FC = () => {
 
         <ul className={BurgerConstructorStyles.scroll}>
           {mainsAndSauces.length > 0 ? (
-            mainsAndSauces.map((ingredient: any | null | undefined, index: number  ) => {
+            mainsAndSauces.map((ingredient: any , index: number  ) => {
               return (
                 <MainsAndSauces
                   key={ingredient.id}

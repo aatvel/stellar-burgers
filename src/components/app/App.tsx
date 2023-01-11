@@ -43,14 +43,14 @@ function App() {
   const goBack = () => navigate(-1);
 
   //Modal Ingredient
-  const { showModal } = useAppSelector((state: any) => state.details);
+  const { showModal } = useAppSelector((state) => state.details);
   const handleClick = () => {
     dispatch(closeDetails());
     goBack();
   };
 
   //ModalOrder
-  const { showOrderModal } = useAppSelector((state: any) => state.orderReducer);
+  const { showOrderModal } = useAppSelector((state) => state.orderReducer);
   const handleClickOrder = () => {
     dispatch(closeOrderDetails());
  

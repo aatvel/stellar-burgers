@@ -22,7 +22,7 @@ export interface IonEditSuccess {
 
 export interface IonEditError {
   readonly type: typeof EDIT_USER_ERROR;
-  readonly payload: any
+  readonly payload: string
 }
 
 export const onEditStart = (user: IUser): IonEditStart => ({
