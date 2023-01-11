@@ -1,6 +1,5 @@
 import React, {FC} from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import {  useDrop } from "react-dnd";
 import {
   CurrencyIcon,
@@ -10,7 +9,6 @@ import {
 import BurgerConstructorStyles from "./burger-constructor.module.css";
 
 import {
-
   onLoadingStart
 } from "../../services/order/order-actions";
 import {

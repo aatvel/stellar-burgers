@@ -8,12 +8,13 @@ import {
   onLogoutStart,
 } from "../../services/login/login-actions";
 import { PreLoader } from "../../components/app/preloader";
+import { useAppSelector } from "../../utils/types";
 
 
 const ProfileContainer = () => {
 
   const dispatch = useDispatch();
-  const { currentUser, loading } = useSelector((s: any) => s.loginReducer);
+  const { currentUser, loading } = useAppSelector((s) => s.loginReducer);
 
   useEffect(() => {
     dispatch(getCurrentUserStart());
