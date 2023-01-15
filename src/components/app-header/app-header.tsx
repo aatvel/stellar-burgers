@@ -51,7 +51,7 @@ export default function AppHeader() {
             <p className="text text_type_main-default">Конструктор</p>
           </NavLink>
 
-          <NavLink className={styles.menu_item} to={{ pathname: "/order" }}>
+          <NavLink className={styles.menu_item} to={{ pathname: "/feed" }}>
             <ListIcon
               type={setOrderActive(location.pathname) ? "primary" : "secondary"}
             />

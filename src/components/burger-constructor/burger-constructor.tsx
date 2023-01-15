@@ -24,7 +24,7 @@ const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
 
   const { buns, mainsAndSauces } = useAppSelector(
-    (s: any) => s.constructorReducer
+    (s) => s.constructorReducer
   );
   const isBunAdded = buns !== undefined;
 
@@ -41,7 +41,9 @@ const BurgerConstructor: FC = () => {
 
   const handleSubmitOrder = () => {
     if(auth){
-    dispatch(onLoadingStart({ingredients: [buns._id, ...notBunsId, buns._id]}))}
+      if(buns !== null){
+        dispatch(onLoadingStart({ingredients: [buns._id, ...notBunsId, buns._id]}))}
+      }
     else {
       navigate('/login', { replace: true })
     }
@@ -135,7 +137,7 @@ const BurgerConstructor: FC = () => {
       <section className={BurgerConstructorStyles.info}>
         <span className={BurgerConstructorStyles.price}>
           <span className={"text text_type_digits-medium"}>
-            {totalPrice + 2 * (buns && buns.price)}
+          {buns ? (totalPrice + 2 * (buns.price)) : totalPrice}
           </span>
           <span className={BurgerConstructorStyles.currency}>
             <CurrencyIcon type="primary" />

@@ -15,12 +15,12 @@ type TConstrucorState = {
 }
 
 
-const initialState = {
+const initialState: TConstrucorState = {
     buns: null,
     mainsAndSauces: [],
 }
 
-export const constructorReducer = (state = initialState, actions: TConstructorActions): TConstrucorState => {
+export const constructorReducer = (state = initialState, actions: TConstructorActions) => {
     switch (actions.type) {
         case SET_BUN: {return {...state, buns: actions.buns} }
         case SET_MAINS_AND_SAUCES: {return {...state, mainsAndSauces: [ ...state.mainsAndSauces, actions.mainsAndSauces]} }

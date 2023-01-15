@@ -7,9 +7,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../utils/types";
-
 import appStyles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
@@ -27,6 +25,8 @@ import  ProtectedRouteOrder  from "../protected-route-order";
 import Register from "../../pages/register-page/register";
 import Reset from "../../pages/reset-page/reset";
 import Restore from "../../pages/restore-page/restore";
+import Orders from "../../pages/profile-orders/profile-orders";
+import ProfileOrders from "../../pages/profile-orders/profile-orders";
 
 
 function App() {
@@ -103,6 +103,15 @@ function App() {
           element={
             <ProtectedRoute anonymous={false}>
               <ProfileContainer />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="profile/orders"
+          element={
+            <ProtectedRoute>
+             <ProfileOrders />
             </ProtectedRoute>
           }
         />

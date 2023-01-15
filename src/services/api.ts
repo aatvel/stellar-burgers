@@ -4,11 +4,11 @@ import { BURGER_API_URL } from "../utils/consts";
 import { getCookie, setCookie } from "../utils/cookie";
 import { request } from "../utils/api-ingredients";
 import { IUser } from "./edit-user/edit-actions";
-import { TUser } from "../utils/types";
+import { IOnLoading, TUser } from "../utils/types";
 
 
 
-export const fetchOrder = (data: any) => {
+export const fetchOrder = (data: IOnLoading) => {
   return request(`${BURGER_API_URL}/orders`, {
         method: "POST",
         headers: {

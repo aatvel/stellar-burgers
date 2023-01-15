@@ -1,5 +1,4 @@
 import React, {FC} from "react";
-import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,9 +11,7 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import { onEditStart } from "../../services/edit-user/edit-actions";
 import {
-  getCurrentUserStart,
-  LOGOUT_USER_REQUEST,
-  onLogoutStart,
+  LOGOUT_USER_REQUEST
 } from "../../services/login/login-actions";
 
 interface IProfile {
@@ -75,11 +72,11 @@ const Profile: FC<IProfile> = ({ currentUser }) => {
         <div className="login-wrapper">
           <div className="profile-container">
             <div className="info-container">
-              <NavLink to="/profile" className="info-type">
+              <NavLink to="/profile" className="info-type" type="primary">
                 Профиль
               </NavLink>
 
-              <NavLink to="/profile/orders" className="info-type">
+              <NavLink to="orders" className="info-type">
                 История заказов
               </NavLink>
 
@@ -163,7 +160,5 @@ const Profile: FC<IProfile> = ({ currentUser }) => {
     )
   );
 };
-
-
 
 export default Profile;

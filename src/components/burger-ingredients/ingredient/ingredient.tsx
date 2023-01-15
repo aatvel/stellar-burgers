@@ -18,8 +18,7 @@ const Ingredient: FC<IingredientData> = (props) => {
   const navigate = useNavigate();
   const { ingredientData } = props;
   const { buns, mainsAndSauces } = useAppSelector(
-    (state: any) => state.constructorReducer
-    
+    (state) => state.constructorReducer    
   );
 
   const dispatch = useAppDispatch();
@@ -28,13 +27,6 @@ const Ingredient: FC<IingredientData> = (props) => {
     dispatch(showDetails(ingredientData));
 
   };
-
-//   const showIngredientDetails = useCallback((item: TItem) => {
-//     navigate(
-//         `ingredients/${item._id}`,
-//         { state: { background:  location } }
-//     );
-// }, [navigate]);
 
   const [, dragRef] = useDrag({
     type: "ingredient",

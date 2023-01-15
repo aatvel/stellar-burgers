@@ -13,6 +13,7 @@ import { resetReducer } from './reset-password/reset-reducer';
 import { registerReducer } from './register/register-reducer';
 import { loginReducer } from './login/login-reducer';
 import { editReducer } from './edit-user/edit-reducer';
+import { wsReducer } from './ws/ws-reducer';
 
 
 
@@ -26,7 +27,8 @@ export const rootReducer = combineReducers({
     resetReducer,
     registerReducer,
     loginReducer,
-    editReducer
+    editReducer,
+    wsReducer    
 });
    
 
