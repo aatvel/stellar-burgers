@@ -15,7 +15,6 @@ const FeedList: FC<IFeed> = () => {
     <>
     <h1 className="text text_type_main-large  pt-10 ">Лента заказов</h1>
       <section className={styles.container}>
-      {/* <h1 className="text text_type_main-large mb-5 pt-10 ">Лента заказов</h1> */}
         {message?.orders ? (
           <div className={styles.scroll} >
             {message.orders.map((order) => (
@@ -23,16 +22,12 @@ const FeedList: FC<IFeed> = () => {
             ))}
           </div>
         ) : null}
-        
+
         <div className={styles.info}>
         <FeedInfo />
         </div>
         
       </section>
-
-      {/* <section className={styles.info}>
-        <FeedInfo />
-      </section> */}
     </>
   );
 };

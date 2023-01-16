@@ -1,8 +1,6 @@
 import type { FC } from "react";
 import styles from "./feed-info.module.css";
 
-import { useMemo } from "react";
-
 import { StatusCodes, useAppSelector } from "../../../utils/types";
 
 const FeedInfo: FC = () => {
