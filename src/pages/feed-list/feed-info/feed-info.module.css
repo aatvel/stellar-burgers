@@ -1,0 +1,27 @@
+.container {
+    display: grid;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-left: 40px;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(3, auto);
+}
+
+.done_list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(5, auto);
+    grid-row-gap: 4px;
+}
+
+.orders_total {
+    margin-top: 24px;
+    grid-column: 1 / span 2;
+}
+
+
+.order_numbers {
+    text-shadow: 0 0 16px rgba(51, 51, 255, 0.25),
+        0 0 8px rgba(51, 51, 255, 0.25),
+        0 4px 32px rgba(51, 51, 255, 0.5);
+}

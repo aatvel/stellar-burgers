@@ -6,16 +6,30 @@ import {
   getCurrentUserStart,
   LOGOUT_USER_REQUEST,
 } from "../../services/login/login-actions";
-import IngredientDetails from "../../components/ingredient-details/ingredient-details";
+
 import { PreLoader } from "../../components/app/preloader";
+import { wsConnectionStart } from "../../services/ws/ws-actions";
+import { wsUrl } from "../../utils/consts";
+import { getAccessToken, getCookie } from "../../utils/cookie";
 
 const ProfileOrders: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const { message } = useAppSelector((state) => state.wsReducer);
+
+  const orders = message?.orders;
 
   const fromPage = location.state?.from?.pathname || "/";
   const directToPage = () => navigate(fromPage, { replace: true });
+
+  const tokenn = getAccessToken();
+  // console.log(tokenn)
+
+  useEffect(() => {
+    dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
+  }, []);
+  console.log(orders, message);
 
   const handleClickLogout = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -36,11 +50,11 @@ const ProfileOrders: FC = () => {
         <div className="login-wrapper">
           <div className="profile-container">
             <div className="info-container">
-              <NavLink to="/profile" className="info-type">
+              <NavLink to="/profile" className="info-type" type="secondary">
                 Профиль
               </NavLink>
 
-              <NavLink to={location} className="info-type" type="primary">
+              <NavLink to="" className="info-type" type="primary">
                 История заказов
               </NavLink>
 
@@ -49,11 +63,7 @@ const ProfileOrders: FC = () => {
               </NavLink>
             </div>
 
-            <div className="sign-in" style={{ margin: "0" }}>
-              <div style={{ width: "100%", position: "relative" }}>
-                
-              </div>
-            </div>
+            <div className="sign-in" style={{ margin: "0" }}></div>
           </div>
         </div>
       </>

@@ -89,7 +89,7 @@ const [{handlerId}, drop] = useDrop<DragObject, undefined, CollectedProps>({
         thumbnail={ingredient.image_mobile}
         handleClose={() =>
           dispatch(deleteItem(index))
-        }
+      }
       />
     </li>
   );

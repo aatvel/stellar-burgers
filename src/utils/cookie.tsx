@@ -43,3 +43,7 @@ export function deleteCookie(name: string) {
 export const saveTokenToLocalStorage = (refreshToken: string ) => {
   localStorage.setItem('refreshToken', refreshToken)
 } 
+
+export const getAccessToken = () => {
+  return String(getCookie('accessToken')).replace(/^Bearer\s/, '');
+};

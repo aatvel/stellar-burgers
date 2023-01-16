@@ -9,14 +9,17 @@ import { IOnLoading, TUser } from "../utils/types";
 
 
 export const fetchOrder = (data: IOnLoading) => {
+  const accToken: any =  getCookie("accessToken")
   return request(`${BURGER_API_URL}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': accToken
         },
         body: JSON.stringify(data),
       })
 }
+
 
 
 

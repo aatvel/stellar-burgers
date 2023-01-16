@@ -1,6 +1,5 @@
 .container{
-    height: 100vh;
-    min-width: 70%;
+
     overflow-y: hidden;
     display: flex;
 }

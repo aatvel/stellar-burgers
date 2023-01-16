@@ -27,6 +27,7 @@ import Reset from "../../pages/reset-page/reset";
 import Restore from "../../pages/restore-page/restore";
 import Orders from "../../pages/profile-orders/profile-orders";
 import ProfileOrders from "../../pages/profile-orders/profile-orders";
+import Feed from "../../pages/feed/feed";
 
 
 function App() {
@@ -110,9 +111,16 @@ function App() {
         <Route
           path="profile/orders"
           element={
-            <ProtectedRoute>
+            
              <ProfileOrders />
-            </ProtectedRoute>
+      
+          }
+        />
+
+<Route
+          path="feed"
+          element={
+              <Feed />
           }
         />
 

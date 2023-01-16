@@ -86,6 +86,7 @@ export enum StatusCodes {
 
 export interface IOrder {
   readonly ingredients: ReadonlyArray<string>;
+  readonly data: ReadonlyArray<string>;
   readonly _id: string;
   readonly status: StatusCodes;
   readonly number: number;
