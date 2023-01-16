@@ -104,6 +104,7 @@ function* onLoadIngredients() {
 //make order
 
 export interface IOrder {
+  [x: string]: any;
   success: string
   order: {
     number: number

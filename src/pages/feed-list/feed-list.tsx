@@ -4,11 +4,7 @@ import FeedInfo from "./feed-info/feed-info";
 import FeedItem from "./feed-item/feed-item";
 import styles from "./feed.module.css";
 
-interface IFeed {
-  title?: string;
-}
-
-const FeedList: FC<IFeed> = () => {
+const FeedList: FC = () => {
   const { message } = useAppSelector((s) => s.wsReducer);
 
   return (

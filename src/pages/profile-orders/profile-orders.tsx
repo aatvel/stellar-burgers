@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from "react";
+import styles from "./profile-orders.module.css";
 import { useAppDispatch, useAppSelector } from "../../utils/types";
 import { Link, NavLink } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -6,30 +7,25 @@ import {
   getCurrentUserStart,
   LOGOUT_USER_REQUEST,
 } from "../../services/login/login-actions";
-
 import { PreLoader } from "../../components/app/preloader";
-import { wsConnectionStart } from "../../services/ws/ws-actions";
-import { wsUrl } from "../../utils/consts";
+import Order from "./profile-order/order";
 import { getAccessToken, getCookie } from "../../utils/cookie";
+import { wsUrl } from "../../utils/consts";
+import { wsConnectionStart } from "../../services/ws/ws-actions";
+
+// interface IOrderListItem {
+//   order?: IOrder;
+// }
 
 const ProfileOrders: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const { message } = useAppSelector((state) => state.wsReducer);
 
-  const orders = message?.orders;
+  const { message } = useAppSelector((state) => state.wsReducer);
 
   const fromPage = location.state?.from?.pathname || "/";
   const directToPage = () => navigate(fromPage, { replace: true });
-
-  const tokenn = getAccessToken();
-  // console.log(tokenn)
-
-  useEffect(() => {
-    dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
-  }, []);
-  console.log(orders, message);
 
   const handleClickLogout = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -39,31 +35,47 @@ const ProfileOrders: FC = () => {
 
   const { currentUser, loading } = useAppSelector((s) => s.loginReducer);
   useEffect(() => {
-    // dispatch(getCurrentUserStart());
+    dispatch(getCurrentUserStart());
   }, []);
+
+  const orders = message?.orders;
+  const tokenn = getAccessToken();
+  useEffect(() => {
+    dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
+  }, []);
+  console.log(orders);
 
   return loading ? (
     <PreLoader />
   ) : (
     currentUser && (
       <>
-        <div className="login-wrapper">
-          <div className="profile-container">
-            <div className="info-container">
-              <NavLink to="/profile" className="info-type" type="secondary">
-                Профиль
-              </NavLink>
+        <div className={styles.container}>
+          <div className={styles.profile}>
+            <NavLink to="/profile" className="info-type" type="secondary">
+              Профиль
+            </NavLink>
 
-              <NavLink to="" className="info-type" type="primary">
-                История заказов
-              </NavLink>
+            <NavLink to="" className="info-type" type="primary">
+              История заказов
+            </NavLink>
 
-              <NavLink to="/" className="info-type" onClick={handleClickLogout}>
-                Выход
-              </NavLink>
-            </div>
+            <NavLink to="/" className="info-type" onClick={handleClickLogout}>
+              Выход
+            </NavLink>
+          </div>
 
-            <div className="sign-in" style={{ margin: "0" }}></div>
+          <div className={styles.order}>
+            {message?.orders ? (
+              <div className={styles.scroll}>
+                {message.orders
+                  .slice(0)
+                  .reverse()
+                  .map((order) => (
+                    <Order key={order._id} order={order} />
+                  ))}
+              </div>
+            ) : null}
           </div>
         </div>
       </>

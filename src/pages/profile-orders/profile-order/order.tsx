@@ -1,30 +1,37 @@
-import { FC} from "react";
-import styles from "./feed-item.module.css";
-import { Link, useLocation } from "react-router-dom";
-import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IOrder, TItem } from "../../../utils/types";
-import { useAppSelector } from "../../../utils/types";
+import React, { FC, useEffect } from "react";
+import styles from "./order.module.css";
+import { TItem, useAppDispatch, useAppSelector } from "../../../utils/types";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import {
+  FormattedDate,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import { IOrder } from "../../../utils/types";
 
 interface IOrderListItem {
   order: IOrder;
 }
 
-const FeedItem: FC<IOrderListItem> = ({ order }) => {
+const Order: FC<IOrderListItem> = ({ order }) => {
+  const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useAppDispatch();
 
   const { data } = useAppSelector<{ data: Array<TItem> }>(
     (state) => state.ingredients
   );
-  
+
   const orderIngredients = order.ingredients.map((id: string) =>
     data.find((ingredient: TItem) => ingredient._id === id)
   );
 
-  const totalPrice =  orderIngredients.reduce((acc, curr) => acc + (curr?.price || 0), 0)
+  const totalPrice = orderIngredients.reduce(
+    (acc, curr) => acc + (curr?.price || 0),
+    0
+  );
 
   return (
     <div className={`${styles.container} p-6 mr-4`}>
-        
       <div className={styles.description}>
         <div className={`${styles.number} text text_type_digits-default`}>
           {order.number}
@@ -48,7 +55,6 @@ const FeedItem: FC<IOrderListItem> = ({ order }) => {
         </div>
       </div>
       <div className={styles.ingredients}>
-        
         <div className={styles.images}>
           {orderIngredients
             .slice(0, 5)
@@ -56,14 +62,16 @@ const FeedItem: FC<IOrderListItem> = ({ order }) => {
               (orderIngredient, index) =>
                 orderIngredient && (
                   <img
-                    src={orderIngredient.image_mobile} className={styles.ingredient} key={index}/>
+                    src={orderIngredient.image_mobile}
+                    className={styles.ingredient}
+                    key={index}
+                  />
                 )
             )}
         </div>
-        <div className={`${styles.ingredinets_left} text text_type_main-default mr-2`}>{orderIngredients.length - 5 > 0 ? '+': null}{orderIngredients.length - 5 > 0 ? orderIngredients.length - 5 : null}</div>
         <div className={styles.price}>
           <span className="text text_type_digits-default mr-2">
-            { totalPrice}
+            {totalPrice}
           </span>
           <CurrencyIcon type="primary" />
         </div>
@@ -72,4 +80,4 @@ const FeedItem: FC<IOrderListItem> = ({ order }) => {
   );
 };
 
-export default FeedItem;
+export default Order;
