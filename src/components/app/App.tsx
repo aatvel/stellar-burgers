@@ -27,7 +27,7 @@ import Reset from "../../pages/reset-page/reset";
 import Restore from "../../pages/restore-page/restore";
 import Orders from "../../pages/profile-orders/profile-orders";
 import ProfileOrders from "../../pages/profile-orders/profile-orders";
-import Feed from "../../pages/feed/feed";
+import FeedList from "../../pages/feed-list/feed-list";
 
 
 function App() {
@@ -120,7 +120,7 @@ function App() {
 <Route
           path="feed"
           element={
-              <Feed />
+              <FeedList />
           }
         />
 

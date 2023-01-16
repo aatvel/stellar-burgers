@@ -9,13 +9,10 @@ import {
 } from "../../services/login/login-actions";
 import { PreLoader } from "../../components/app/preloader";
 import Order from "./profile-order/order";
-import { getAccessToken, getCookie } from "../../utils/cookie";
+import { getAccessToken } from "../../utils/cookie";
 import { wsUrl } from "../../utils/consts";
 import { wsConnectionStart } from "../../services/ws/ws-actions";
 
-// interface IOrderListItem {
-//   order?: IOrder;
-// }
 
 const ProfileOrders: FC = () => {
   const navigate = useNavigate();
