@@ -10,13 +10,10 @@ const FeedList: FC = () => {
   const { message } = useAppSelector((s) => s.wsReducer);
 
   const dispatch = useAppDispatch();
-
-  const orders = message?.orders;
-
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}/orders/all`));
   }, []);
-  console.log(orders);
+  // console.log(orders);
 
   return (
     <>

@@ -39,8 +39,9 @@ const FeedItem: FC<IOrderListItem> = ({ order }) => {
         <div className={`${styles.name} text text_type_main-medium`}>
           <Link
             to={{
-              pathname: `${location.pathname}/${order._id}`,
+              pathname: `/feed/${order._id}`,
             }}
+            state={{ background: location }}
             className={styles.link}
           >
             {order.name}
@@ -63,7 +64,7 @@ const FeedItem: FC<IOrderListItem> = ({ order }) => {
         <div className={`${styles.ingredinets_left} text text_type_main-default mr-2`}>{orderIngredients.length - 5 > 0 ? '+': null}{orderIngredients.length - 5 > 0 ? orderIngredients.length - 5 : null}</div>
         <div className={styles.price}>
           <span className="text text_type_digits-default mr-2">
-            { totalPrice}
+            {totalPrice}
           </span>
           <CurrencyIcon type="primary" />
         </div>

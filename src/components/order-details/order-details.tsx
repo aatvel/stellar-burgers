@@ -1,12 +1,14 @@
 import stylesOrderDetails from "./order-details.module.css";
 import tickImg from "../../images/tick.png";
 import { useAppSelector } from "../../utils/types";
+import { PreLoader } from "../app/preloader";
 
 const OrderDetails = () => {
 
-  const { order } = useAppSelector((state) => state.orderReducer);
+  const { order, loading } = useAppSelector((state) => state.orderReducer);
 
   return (
+    loading ? <PreLoader /> :
     <div className={`${stylesOrderDetails.content} pt-9`}>
       <h2 className={`${stylesOrderDetails.title} text text_type_digits-large`}>
       {order}

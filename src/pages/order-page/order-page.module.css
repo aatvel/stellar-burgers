@@ -1,0 +1,21 @@
+.header {
+  align-items: center;
+}
+
+.images {
+  display: flex;
+  transform-style: preserve-3d;
+  margin: 10px;
+}
+
+
+
+.ingredient {
+  background: linear-gradient(#131316, #131316) padding-box,
+  linear-gradient(to right, #801ab2, #4c4cff) border-box;
+  border: 2px solid transparent;
+  border-radius: 80px;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}

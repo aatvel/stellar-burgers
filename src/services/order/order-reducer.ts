@@ -30,7 +30,7 @@ export const orderReducer = (state = initialState, actions: IOrderActions) => {
       return { showOrderModal: false, order: undefined };
     }
     case LOAD_ORDER_START: {
-      return { ...state, loading: true };
+      return { ...state, loading: true , showOrderModal: true};
     }
     case LOAD_ORDER_SUCCESS: {
       return {

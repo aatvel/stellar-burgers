@@ -46,9 +46,10 @@ const Order: FC<IOrderListItem> = ({ order }) => {
         <div className={`${styles.name} text text_type_main-medium`}>
           <Link
             to={{
-              pathname: `${location.pathname}/${order._id}`,
+              pathname: `/feed/${order._id}`,
             }}
             className={styles.link}
+            state={{ background: location }}
           >
             {order.name}
           </Link>

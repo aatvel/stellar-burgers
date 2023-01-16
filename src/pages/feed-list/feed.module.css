@@ -2,8 +2,7 @@
   display: flex;
   justify-content: space-between;
   overflow-y: hidden;
-  /* list-style-type: none; */
-  /* padding: 0; */
+
 }
 
 .scroll {

@@ -40,7 +40,7 @@ const ProfileOrders: FC = () => {
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
   }, []);
-  console.log(orders);
+  // console.log(orders);
 
   return loading ? (
     <PreLoader />

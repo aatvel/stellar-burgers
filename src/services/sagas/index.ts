@@ -112,9 +112,12 @@ export interface IOrder {
 }
 
 function* onLoadOrderStart(action: IonLoadingStart) {
+
   try {
     // console.log(payload)
+    yield put({ type: CONSTRUCTOR_RESET });
     const response: IOrder = yield call(fetchOrder, action.payload);
+
     // console.log(response)
     if (response.success) {
       yield putResolve(onLoadingSuccess(response.order.number));

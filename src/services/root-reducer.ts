@@ -14,6 +14,7 @@ import { registerReducer } from './register/register-reducer';
 import { loginReducer } from './login/login-reducer';
 import { editReducer } from './edit-user/edit-reducer';
 import { wsReducer } from './ws/ws-reducer';
+import { modalReducer } from './modal/modal-reducer';
 
 
 
@@ -28,7 +29,8 @@ export const rootReducer = combineReducers({
     registerReducer,
     loginReducer,
     editReducer,
-    wsReducer    
+    wsReducer,
+    modalReducer    
 });
    
 
