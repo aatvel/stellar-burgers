@@ -11,7 +11,7 @@ import { PreLoader } from "../../components/app/preloader";
 import Order from "./profile-order/order";
 import { getAccessToken } from "../../utils/cookie";
 import { wsUrl } from "../../utils/consts";
-import { wsConnectionStart } from "../../services/ws/ws-actions";
+import { wsConnectionClosed, wsConnectionStart } from "../../services/ws/ws-actions";
 
 
 const ProfileOrders: FC = () => {
@@ -39,7 +39,11 @@ const ProfileOrders: FC = () => {
   const tokenn = getAccessToken();
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
-  }, []);
+      return ()=> {
+        dispatch(wsConnectionClosed())
+      }
+    
+  }, [ orders, tokenn]);
   // console.log(orders);
 
   return loading ? (

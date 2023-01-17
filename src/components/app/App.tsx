@@ -63,6 +63,7 @@ function App() {
     dispatch({ type: CLOSE_FEED_DETAILS });
     goBack();
   };
+ 
 
   return (
     <div className={appStyles.page}>
@@ -116,6 +117,7 @@ function App() {
         />
 
         <Route path="profile/orders" element={<ProfileOrders />} />
+        <Route path="profile/orders/:_id" element={<OrderPage background={background} />} />
 
         <Route path="feed" element={<FeedList />} />
         <Route path="feed/:_id" element={<OrderPage background={null} />} />
@@ -150,6 +152,20 @@ function App() {
         <Routes>
           <Route
             path="feed/:_id"
+            element={
+              <Modal
+                closeModal={handleClickFeed}
+                children={<OrderPage background={background} />}
+              />
+            }
+          />
+        </Routes>
+      )}
+
+      {showFeedModal && (
+        <Routes>
+          <Route
+            path="profile/orders/:_id"
             element={
               <Modal
                 closeModal={handleClickFeed}

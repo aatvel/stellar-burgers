@@ -7,6 +7,8 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IOrder } from "../../../utils/types";
+import { SHOW_FEED_DETAILS } from "../../../services/modal/modal-reducer";
+
 
 interface IOrderListItem {
   order: IOrder;
@@ -16,6 +18,8 @@ const Order: FC<IOrderListItem> = ({ order }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
+
+  
 
   const { data } = useAppSelector<{ data: Array<TItem> }>(
     (state) => state.ingredients
@@ -30,8 +34,12 @@ const Order: FC<IOrderListItem> = ({ order }) => {
     0
   );
 
+    const handleClick = () => {
+    dispatch({type: SHOW_FEED_DETAILS})
+  }
+
   return (
-    <div className={`${styles.container} p-6 mr-4`}>
+    <div className={`${styles.container} p-6 mr-4`} >
       <div className={styles.description}>
         <div className={`${styles.number} text text_type_digits-default`}>
           {order.number}
@@ -46,10 +54,11 @@ const Order: FC<IOrderListItem> = ({ order }) => {
         <div className={`${styles.name} text text_type_main-medium`}>
           <Link
             to={{
-              pathname: `/feed/${order._id}`,
+              pathname: `/profile/orders/${order._id}`,
             }}
             className={styles.link}
             state={{ background: location }}
+            onClick={handleClick}
           >
             {order.name}
           </Link>

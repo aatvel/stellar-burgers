@@ -9,7 +9,9 @@ import { StatusCodes, TItem } from "../../utils/types";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { wsUrl } from "../../utils/consts";
-import { wsConnectionStart } from "../../services/ws/ws-actions";
+import { wsConnectionClosed, wsConnectionStart } from "../../services/ws/ws-actions";
+import { PreLoader } from "../../components/app/preloader";
+import { getAccessToken } from "../../utils/cookie";
 
 const styleIngredient: CSSProperties = {
   width: 720,
@@ -25,51 +27,60 @@ export interface IBackground {
 }
 
 const OrderPage: FC<IBackground> = ({ background }) => {
+  
+
   const { message } = useAppSelector((s) => s.wsReducer);
   const { _id } = useParams();
   const dispatch = useAppDispatch();
-
-  const currentOrder = message?.orders.filter((order) => order._id === _id);
-  //   console.log(currentOrder);
-
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}/orders/all`));
+    return ()=> {
+      dispatch(wsConnectionClosed())
+    }
+  
   }, []);
 
+  // const tokenn = getAccessToken();
+  // useEffect(() => {
+  //   dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
+  //     return ()=> {
+  //       dispatch(wsConnectionClosed())
+  //     }
+    
+  // }, [ tokenn]);
+
+  const currentOrder = message?.orders.filter((order) => order._id === _id);
 
   const { data } = useAppSelector<{ data: Array<TItem> }>(
     (state) => state.ingredients
   );
 
   const orderIngredients =
-    currentOrder &&
+    currentOrder ?
     currentOrder[0].ingredients.map((id: string) =>
       data.filter((ingredient: TItem) => ingredient._id === id)
-    );
-  if (currentOrder) {
-    console.log(currentOrder);
-  }
-  //   console.log(orderIngredients);
+    ): null;
+ 
 //   const totalPrice = orderIngredients?.reduce(
 //     (acc, curr) => acc + (curr[0].price || 0),
 //     0
 //   );
 
- 
 
-
-  let counter = 1;
-  return currentOrder ? (
+  return  currentOrder ? (
     <div className={styles.container}>
       <div>
-        <div className={`${styles.orderNumber} text text_type_digits-default mb-10`}>{"#"}
+        <div
+          className={`${styles.orderNumber} text text_type_digits-default mb-10`}
+        >
+          {"#"}
           {currentOrder[0].number}
         </div>
         <div className={` ${styles.orderName} text text_type_main-medium mb-3`}>
           {currentOrder[0].name}
         </div>
         {currentOrder[0].status === StatusCodes.done ? (
-          <div className={` ${styles.done}text text_type_main-default `}>
+          <div className={` ${styles.done}text text_type_main-default text_color_success mb-10 `} >
             Выполнен
           </div>
         ) : (
@@ -99,10 +110,10 @@ const OrderPage: FC<IBackground> = ({ background }) => {
                       {image.name}
                     </p>
                   </div>
-            
+
                   <div className={styles.orderPrice}>
                     <span className="text text_type_digits-default mr-2">
-                      {/* {`${ingredient.length} x ${image.price}`} */}
+                      {`${ingredient.length} x ${image.price}`}
                     </span>
                     <CurrencyIcon type="primary" />
                   </div>
@@ -114,16 +125,15 @@ const OrderPage: FC<IBackground> = ({ background }) => {
 
       <div className={styles.orderPriceDetails}>
         <p className="text text_type_main-small text_color_inactive">
-        <FormattedDate date={new Date(currentOrder[0].createdAt)} />
+          <FormattedDate date={new Date(currentOrder[0].createdAt)} />
         </p>
         <div className={styles.orderPriceDetails}>
-          <p className="text text_type_digits-default"></p>
+          <p className="text text_type_digits-default">{}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>
-
     </div>
   ) : null;
 };
 
-export default OrderPage
+export default OrderPage;

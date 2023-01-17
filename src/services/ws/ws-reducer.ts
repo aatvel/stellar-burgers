@@ -18,7 +18,7 @@ type TOrderListState = {
 const initialState: TOrderListState = {
     connected: false,
     message: null,
-    error: null
+    error: null,
 };
 
 export const wsReducer = (state = initialState, action: TWSActions) => {
@@ -35,7 +35,7 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
             return {
                 ...state,
                 connected: true,
-                error: null
+                error: null,
             };
         }
         case WS_CONNECTION_ERROR: {
@@ -54,7 +54,7 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
         case WS_GET_MESSAGE: {
             return {
                 ...state,
-                message: { ...action.payload }
+                message: { ...action.payload },
             };
         }
         default: {

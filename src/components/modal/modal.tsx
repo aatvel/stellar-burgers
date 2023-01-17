@@ -34,9 +34,9 @@ const Modal: FC<IModal> = ({ title, children, closeModal }) => {
         <>
           <div className={`${modalStyles.container} pt-15 pr-10 pl-10 pb-15`}>
             <div className={modalStyles.header}>
-              <h2 className={`${modalStyles.title} text text_type_main-large`}>
+             {title ? <h2 className={`${modalStyles.title} text text_type_main-large`}>
                 {title}
-              </h2>
+              </h2> : null} 
 
               <button
                 className={modalStyles.closeButton}

@@ -1,9 +1,11 @@
 .container {
-  margin-top: 100px;
-  width: 60%;
-  justify-content: center;
+  margin-top: 2%;
+  /* width: 100%; */
   overflow-y: hidden;
-  transform: translateX(40%);
+  justify-content: space-evenly;
+  
+  /* max-width: 800px; */
+
 }
 .orderNumber {
   text-align: center;
@@ -12,11 +14,10 @@
   text-align: start;
   max-width: 640px;
 }
-.images {
+/* .images {
   display: flex;
-  transform-style: preserve-3d;
   margin: 10px;
-}
+} */
 .done {
   color: aliceblue;
 }

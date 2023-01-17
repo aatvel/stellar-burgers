@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { wsConnectionStart } from "../../services/ws/ws-actions";
+import { wsConnectionClosed, wsConnectionStart } from "../../services/ws/ws-actions";
 import { wsUrl } from "../../utils/consts";
 import { useAppDispatch, useAppSelector } from "../../utils/types";
 import FeedInfo from "./feed-info/feed-info";
@@ -12,6 +12,10 @@ const FeedList: FC = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}/orders/all`));
+    return ()=> {
+      dispatch(wsConnectionClosed())
+    }
+  
   }, []);
   // console.log(orders);
 
