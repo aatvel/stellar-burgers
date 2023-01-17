@@ -1,0 +1,6 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    padding-top: 11.1%;
+    width: 320px;
+  }

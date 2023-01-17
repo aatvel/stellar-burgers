@@ -40,14 +40,6 @@ const OrderPage: FC<IBackground> = ({ background }) => {
   
   }, []);
 
-  // const tokenn = getAccessToken();
-  // useEffect(() => {
-  //   dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
-  //     return ()=> {
-  //       dispatch(wsConnectionClosed())
-  //     }
-    
-  // }, [ tokenn]);
 
   const currentOrder = message?.orders.filter((order) => order._id === _id);
 

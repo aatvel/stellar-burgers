@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import { NavLink } from "react-router-dom";
+import styles from './profile.module.css'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,6 +13,7 @@ import { onEditStart } from "../../services/edit-user/edit-actions";
 import {
   LOGOUT_USER_REQUEST
 } from "../../services/login/login-actions";
+import ProfileNav from "../profile-nav/profile-nav";
 
 interface IProfile {
   currentUser: {name: string, email: string};
@@ -70,20 +71,10 @@ const Profile: FC<IProfile> = ({ currentUser }) => {
     currentUser && (
       <>
         <div className="login-wrapper">
-          <div className="profile-container">
-            <div className="info-container">
-              <NavLink to="/profile" className="info-type" type="primary">
-                Профиль
-              </NavLink>
+          <div className={styles.container}>
 
-              <NavLink to="orders" className="info-type">
-                История заказов
-              </NavLink>
 
-              <NavLink to="/" className="info-type" onClick={handleClickLogout}>
-                Выход
-              </NavLink>
-            </div>
+            <ProfileNav />
 
             <div className="sign-in" style={{ margin: "0" }}>
               <form

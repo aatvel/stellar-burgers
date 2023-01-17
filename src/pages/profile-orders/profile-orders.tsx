@@ -12,6 +12,7 @@ import Order from "./profile-order/order";
 import { getAccessToken } from "../../utils/cookie";
 import { wsUrl } from "../../utils/consts";
 import { wsConnectionClosed, wsConnectionStart } from "../../services/ws/ws-actions";
+import ProfileNav from "../profile-nav/profile-nav";
 
 
 const ProfileOrders: FC = () => {
@@ -44,7 +45,8 @@ const ProfileOrders: FC = () => {
       }
     
   }, [ orders, tokenn]);
-  // console.log(orders);
+
+  
 
   return loading ? (
     <PreLoader />
@@ -52,19 +54,8 @@ const ProfileOrders: FC = () => {
     currentUser && (
       <>
         <div className={styles.container}>
-          <div className={styles.profile}>
-            <NavLink to="/profile" className="info-type" type="secondary">
-              Профиль
-            </NavLink>
-
-            <NavLink to="" className="info-type" type="primary">
-              История заказов
-            </NavLink>
-
-            <NavLink to="/" className="info-type" onClick={handleClickLogout}>
-              Выход
-            </NavLink>
-          </div>
+         
+          <ProfileNav />
 
           <div className={styles.order}>
             {message?.orders ? (
