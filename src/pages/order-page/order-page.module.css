@@ -1,11 +1,10 @@
 .container {
-  margin-top: 2%;
-  /* width: 100%; */
+  padding-top: 2%;
   overflow-y: hidden;
   justify-content: space-evenly;
-  
-  /* max-width: 800px; */
-
+  max-width: 700px;
+  display: table;
+  margin: 0 auto;
 }
 .orderNumber {
   text-align: center;
@@ -14,10 +13,7 @@
   text-align: start;
   max-width: 640px;
 }
-/* .images {
-  display: flex;
-  margin: 10px;
-} */
+
 .done {
   color: aliceblue;
 }
@@ -33,6 +29,7 @@
 }
 
 .ingredientsList {
+  
   margin-top: 0;
   padding: 0;
   display: flex;
@@ -44,6 +41,7 @@
 }
 
 .ingredient {
+   overflow-y: hidden;
   padding: 0;
   list-style-type: none;
   display: flex;
@@ -53,17 +51,19 @@
 
 .image {
   display: flex;
+   overflow-y: hidden;
 }
 
 .ingredientName {
   width: 400px;
+  margin-top: 20px;
 }
 
 .orderPrice{
   display: flex;
  justify-content: end;
- transform: translateY(-200%);
-   /* gap: 9px; */
+ transform: translateY(-210%);
+ 
 }
 
 .orderPriceDetails {
@@ -71,4 +71,8 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 9px;
+  overflow-y: hidden;
 }
+
+
+

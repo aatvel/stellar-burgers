@@ -63,7 +63,6 @@ function App() {
     dispatch({ type: CLOSE_FEED_DETAILS });
     goBack();
   };
- 
 
   return (
     <div className={appStyles.page}>
@@ -116,8 +115,18 @@ function App() {
           }
         />
 
-        <Route path="profile/orders" element={<ProfileOrders />} />
-        <Route path="profile/orders/:_id" element={<OrderPage background={background} />} />
+        <Route
+          path="profile/orders"
+          element={
+            <ProtectedRoute anonymous={false}>
+              <ProfileOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="profile/orders/:_id"
+          element={<OrderPage background={background} />}
+        />
 
         <Route path="feed" element={<FeedList />} />
         <Route path="feed/:_id" element={<OrderPage background={null} />} />

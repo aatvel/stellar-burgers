@@ -1,17 +1,16 @@
-import React, { FC, CSSProperties, useEffect } from "react";
+import React, { FC, CSSProperties, useEffect, useMemo } from "react";
 import styles from "./order-page.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/currency-icon";
-import { useAppDispatch, useAppSelector } from "../../utils/types";
+import { IOrder, useAppDispatch, useAppSelector } from "../../utils/types";
 import { useParams } from "react-router-dom";
-
 import { StatusCodes, TItem } from "../../utils/types";
-
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import { wsUrl } from "../../utils/consts";
-import { wsConnectionClosed, wsConnectionStart } from "../../services/ws/ws-actions";
-import { PreLoader } from "../../components/app/preloader";
-import { getAccessToken } from "../../utils/cookie";
+import {
+  wsConnectionClosed,
+  wsConnectionStart,
+} from "../../services/ws/ws-actions";
+import OrderItem from "./order-item";
 
 const styleIngredient: CSSProperties = {
   width: 720,
@@ -27,39 +26,62 @@ export interface IBackground {
 }
 
 const OrderPage: FC<IBackground> = ({ background }) => {
-  
-
   const { message } = useAppSelector((s) => s.wsReducer);
   const { _id } = useParams();
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(wsConnectionStart(`${wsUrl}/orders/all`));
-    return ()=> {
-      dispatch(wsConnectionClosed())
-    }
-  
-  }, []);
-
-
-  const currentOrder = message?.orders.filter((order) => order._id === _id);
-
   const { data } = useAppSelector<{ data: Array<TItem> }>(
     (state) => state.ingredients
   );
+  const currentOrder = message?.orders.filter(
+    (order: IOrder) => order._id === _id
+  );
 
-  const orderIngredients =
-    currentOrder ?
-    currentOrder[0].ingredients.map((id: string) =>
-      data.filter((ingredient: TItem) => ingredient._id === id)
-    ): null;
- 
-//   const totalPrice = orderIngredients?.reduce(
-//     (acc, curr) => acc + (curr[0].price || 0),
-//     0
-//   );
+  const uniqueIngredients = useMemo(
+    () =>
+      data?.filter(
+        (item: TItem) =>
+          currentOrder && currentOrder[0].ingredients.includes(item._id)
+      ),
+    [currentOrder, data]
+  );
 
+  console.log(uniqueIngredients);
 
-  return  currentOrder ? (
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(wsConnectionStart(`${wsUrl}/orders/all`));
+    return () => {
+      dispatch(wsConnectionClosed());
+    };
+  }, []);
+
+  const orderIngredients = useMemo(
+    () =>
+      currentOrder &&
+      currentOrder[0].ingredients.map((ingredient: string) => {
+        // Существуют заказы в массиве id которых есть null
+        if (ingredient !== null && ingredient !== undefined) {
+          const orderItem = data.filter(
+            (item: TItem) => ingredient && item._id === ingredient
+          );
+          return orderItem[0];
+        }
+      }),
+    [currentOrder, data]
+  );
+
+  const totalPrice = useMemo(
+    () =>
+      orderIngredients?.reduce((sum, elem) => {
+        if (elem) {
+          return elem.price + sum;
+        } else {
+          return 0;
+        }
+      }, 0),
+    [orderIngredients]
+  );
+
+  return currentOrder ? (
     <div className={styles.container}>
       <div>
         <div
@@ -72,7 +94,9 @@ const OrderPage: FC<IBackground> = ({ background }) => {
           {currentOrder[0].name}
         </div>
         {currentOrder[0].status === StatusCodes.done ? (
-          <div className={` ${styles.done}text text_type_main-default text_color_success mb-10 `} >
+          <div
+            className={` ${styles.done}text text_type_main-default text_color_success mb-10 `}
+          >
             Выполнен
           </div>
         ) : (
@@ -85,34 +109,9 @@ const OrderPage: FC<IBackground> = ({ background }) => {
       <div className={`text text_type_main-medium mb-6`}>Состав:</div>
 
       <ul className={`${styles.ingredientsList} mb-10 custom-scroll`}>
-        <li className={` mr-6`}>
-          {orderIngredients &&
-            orderIngredients.map((ingredient) =>
-              ingredient.map((image, index) => (
-                <>
-                  <div className={`${styles.image} pr-6`}>
-                    <img
-                      src={image.image}
-                      className={styles.ingredient}
-                      key={index}
-                    />
-                    <p
-                      className={`${styles.ingredientName} text text_type_main-default ml-4 mr-4`}
-                    >
-                      {image.name}
-                    </p>
-                  </div>
-
-                  <div className={styles.orderPrice}>
-                    <span className="text text_type_digits-default mr-2">
-                      {`${ingredient.length} x ${image.price}`}
-                    </span>
-                    <CurrencyIcon type="primary" />
-                  </div>
-                </>
-              ))
-            )}
-        </li>
+        {uniqueIngredients?.map((item, index) => (
+          <OrderItem key={index} order={currentOrder[0]} item={item} />
+        ))}
       </ul>
 
       <div className={styles.orderPriceDetails}>
@@ -120,7 +119,7 @@ const OrderPage: FC<IBackground> = ({ background }) => {
           <FormattedDate date={new Date(currentOrder[0].createdAt)} />
         </p>
         <div className={styles.orderPriceDetails}>
-          <p className="text text_type_digits-default">{}</p>
+          <p className="text text_type_digits-default">{totalPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>

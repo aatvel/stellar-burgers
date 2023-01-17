@@ -29,7 +29,7 @@ export default function AppHeader() {
   };
 
   const setOrderActive = (url: string) => {
-    if (location.pathname === "/login" && url === "/login") {
+    if (location.pathname === "/feed" && url === "/feed") {
       return true;
     } else {
       return false;
