@@ -128,7 +128,7 @@ export const updateUser = (token: any) => {
 
 // // Отправляем данные формы на сервер для РЕГИСТРАЦИИ
 export const getUserRequest = async () => {
-  const accToken: any =  getCookie("accessToken")
+  const accToken: any  =  getCookie("accessToken")
   return await fetch(`${BURGER_API_URL}/auth/user`, {
     method: "GET",
     mode: "cors",

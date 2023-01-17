@@ -11,6 +11,8 @@ import {
   wsConnectionStart,
 } from "../../services/ws/ws-actions";
 import OrderItem from "./order-item";
+import { PreLoader } from "../../components/app/preloader";
+import { getAccessToken } from "../../utils/cookie";
 
 const styleIngredient: CSSProperties = {
   width: 720,
@@ -28,11 +30,13 @@ export interface IBackground {
 const OrderPage: FC<IBackground> = ({ background }) => {
   const { message } = useAppSelector((s) => s.wsReducer);
   const { _id } = useParams();
+
   const { data } = useAppSelector<{ data: Array<TItem> }>(
     (state) => state.ingredients
   );
-  const currentOrder = message?.orders.filter(
-    (order: IOrder) => order._id === _id
+  const currentOrder = useMemo(
+    () => message?.orders.filter((order: IOrder) => order._id === _id),
+    [ ]
   );
 
   const uniqueIngredients = useMemo(
@@ -43,16 +47,6 @@ const OrderPage: FC<IBackground> = ({ background }) => {
       ),
     [currentOrder, data]
   );
-
-  console.log(uniqueIngredients);
-
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(wsConnectionStart(`${wsUrl}/orders/all`));
-    return () => {
-      dispatch(wsConnectionClosed());
-    };
-  }, []);
 
   const orderIngredients = useMemo(
     () =>
@@ -80,50 +74,70 @@ const OrderPage: FC<IBackground> = ({ background }) => {
     [orderIngredients]
   );
 
-  return currentOrder ? (
-    <div className={styles.container}>
-      <div>
-        <div
-          className={`${styles.orderNumber} text text_type_digits-default mb-10`}
-        >
-          {"#"}
-          {currentOrder[0].number}
-        </div>
-        <div className={` ${styles.orderName} text text_type_main-medium mb-3`}>
-          {currentOrder[0].name}
-        </div>
-        {currentOrder[0].status === StatusCodes.done ? (
-          <div
-            className={` ${styles.done}text text_type_main-default text_color_success mb-10 `}
-          >
-            Выполнен
+  const dispatch = useAppDispatch();
+  const tokenn = getAccessToken();
+  useEffect(() => {
+    dispatch(wsConnectionStart(`${wsUrl}/orders/all`));
+    // dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
+    return () => {
+      dispatch(wsConnectionClosed());
+    };
+  }, []);
+
+
+
+  return (
+    <>
+      {!currentOrder ? (
+        <PreLoader />
+      ) : (
+        <div className={styles.container}>
+          <div>
+            <div
+              className={`${styles.orderNumber} text text_type_digits-default mb-10`}
+            >
+              {"#"}
+              {currentOrder[0].number}
+            </div>
+            <div
+              className={` ${styles.orderName} text text_type_main-medium mb-3`}
+            >
+              {currentOrder[0].name}
+            </div>
+            {currentOrder[0].status === StatusCodes.done ? (
+              <div
+                className={` ${styles.done}text text_type_main-default text_color_success mb-10 `}
+              >
+                Выполнен
+              </div>
+            ) : (
+              <div className={`text text_type_main-default text_color_success`}>
+                В работе
+              </div>
+            )}
           </div>
-        ) : (
-          <div className={`text text_type_main-default text_color_success`}>
-            В работе
+
+          <div className={`text text_type_main-medium mb-6`}>Состав:</div>
+
+          <ul className={`${styles.ingredientsList} mb-10 custom-scroll`}>
+            {uniqueIngredients?.map((item, index) => (
+              <OrderItem key={index} order={currentOrder[0]} item={item} />
+            ))}
+          </ul>
+
+          <div className={styles.orderPriceDetails}>
+            <p className="text text_type_main-small text_color_inactive">
+              <FormattedDate date={new Date(currentOrder[0].createdAt)} />
+            </p>
+            <div className={styles.orderPriceDetails}>
+              <p className="text text_type_digits-default">{totalPrice}</p>
+              <CurrencyIcon type="primary" />
+            </div>
           </div>
-        )}
-      </div>
-
-      <div className={`text text_type_main-medium mb-6`}>Состав:</div>
-
-      <ul className={`${styles.ingredientsList} mb-10 custom-scroll`}>
-        {uniqueIngredients?.map((item, index) => (
-          <OrderItem key={index} order={currentOrder[0]} item={item} />
-        ))}
-      </ul>
-
-      <div className={styles.orderPriceDetails}>
-        <p className="text text_type_main-small text_color_inactive">
-          <FormattedDate date={new Date(currentOrder[0].createdAt)} />
-        </p>
-        <div className={styles.orderPriceDetails}>
-          <p className="text text_type_digits-default">{totalPrice}</p>
-          <CurrencyIcon type="primary" />
         </div>
-      </div>
-    </div>
-  ) : null;
+      )}
+    </>
+  );
 };
 
 export default OrderPage;

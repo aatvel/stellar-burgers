@@ -17,7 +17,6 @@ const FeedList: FC = () => {
     }
   
   }, []);
-  // console.log(orders);
 
   return (
     <>

@@ -48,7 +48,6 @@ const Profile: FC<IProfile> = ({ currentUser }) => {
   };
 
   const handleSave = (e: React.FormEvent ) => {
-    console.log(user);
     e.preventDefault();
     dispatch(onEditStart(user));
   };
