@@ -58,7 +58,6 @@ const OrderPage: FC<IBackground> = ({ background }) => {
     () =>
       currentOrder &&
       currentOrder[0].ingredients.map((ingredient: string) => {
-        // Существуют заказы в массиве id которых есть null
         if (ingredient !== null && ingredient !== undefined) {
           const orderItem = data.filter(
             (item: TItem) => ingredient && item._id === ingredient

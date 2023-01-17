@@ -88,6 +88,7 @@ const Order: FC<IOrderListItem> = ({ order }) => {
                 )
             )}
         </div>
+        <div className={`${styles.ingredinets_left} text text_type_main-default mr-2`}>{orderIngredients.length - 5 > 0 ? '+': null}{orderIngredients.length - 5 > 0 ? orderIngredients.length - 5 : null}</div>
         <div className={styles.price}>
           <span className="text text_type_digits-default mr-2">
             {totalPrice}
