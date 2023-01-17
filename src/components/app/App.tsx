@@ -29,7 +29,7 @@ import Orders from "../../pages/profile-orders/profile-orders";
 import ProfileOrders from "../../pages/profile-orders/profile-orders";
 import FeedList from "../../pages/feed-list/feed-list";
 import OrderPage from "../../pages/order-page/order-page";
-import { SHOW_FEED_DETAILS } from "../../services/modal/modal-reducer";
+import { CLOSE_FEED_DETAILS } from "../../services/modal/modal-reducer";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -60,7 +60,7 @@ function App() {
   //ModalFeed
   const { showFeedModal } = useAppSelector((state) => state.modalReducer);
   const handleClickFeed = () => {
-    dispatch({ type: SHOW_FEED_DETAILS });
+    dispatch({ type: CLOSE_FEED_DETAILS });
     goBack();
   };
 
@@ -152,7 +152,6 @@ function App() {
             path="feed/:_id"
             element={
               <Modal
-                title="Деталиа"
                 closeModal={handleClickFeed}
                 children={<OrderPage background={background} />}
               />

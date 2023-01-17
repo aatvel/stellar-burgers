@@ -12,6 +12,7 @@ import { IRegisterActions } from "../services/register/register-actions";
 import { TResetActions } from "../services/reset-password/reset-actions";
 import { TRestoreActions } from "../services/restore-password/restore-actions";
 import { TWSActions } from "../services/ws/ws-actions";
+import { ModalActions } from "../services/modal/modal-reducer";
 
 export const ingredientType = PropTypes.shape({
   _id: PropTypes.string.isRequired,
@@ -112,7 +113,8 @@ export type AppActions =
   | IRegisterActions
   | TResetActions
   | TRestoreActions
-  | TWSActions;
+  | TWSActions
+  | ModalActions;
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

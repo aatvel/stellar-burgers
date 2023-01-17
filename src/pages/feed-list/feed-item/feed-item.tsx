@@ -2,8 +2,9 @@ import { FC} from "react";
 import styles from "./feed-item.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IOrder, TItem } from "../../../utils/types";
+import { IOrder, TItem, useAppDispatch } from "../../../utils/types";
 import { useAppSelector } from "../../../utils/types";
+import { SHOW_FEED_DETAILS } from "../../../services/modal/modal-reducer";
 
 interface IOrderListItem {
   order: IOrder;
@@ -11,7 +12,7 @@ interface IOrderListItem {
 
 const FeedItem: FC<IOrderListItem> = ({ order }) => {
   const location = useLocation();
-
+const dispatch = useAppDispatch()
   const { data } = useAppSelector<{ data: Array<TItem> }>(
     (state) => state.ingredients
   );
@@ -22,8 +23,13 @@ const FeedItem: FC<IOrderListItem> = ({ order }) => {
 
   const totalPrice =  orderIngredients.reduce((acc, curr) => acc + (curr?.price || 0), 0)
 
+  const handleClick = () => {
+    dispatch({type: SHOW_FEED_DETAILS})
+  }
+  
+
   return (
-    <div className={`${styles.container} p-6 mr-4`}>
+    <div className={`${styles.container} p-6 mr-4`} onClick={handleClick}>
         
       <div className={styles.description}>
         <div className={`${styles.number} text text_type_digits-default`}>

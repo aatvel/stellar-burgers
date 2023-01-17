@@ -1,5 +1,4 @@
 import type { Middleware, MiddlewareAPI } from "redux";
-import { AppActions } from "../../utils/types";
 import type { RootState, AppDispatch } from "../store";
 import {
   wsConnectionStart,

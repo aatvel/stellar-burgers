@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 import styles from "./order.module.css";
-import { TItem, useAppDispatch, useAppSelector } from "../../../utils/types";
+import { StatusCodes, TItem, useAppDispatch, useAppSelector } from "../../../utils/types";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
   FormattedDate,
@@ -53,6 +53,15 @@ const Order: FC<IOrderListItem> = ({ order }) => {
           >
             {order.name}
           </Link>
+          {order.status === StatusCodes.done ? (
+          <div className={` ${styles.done}text text_type_main-default `}>
+            Выполнен
+          </div>
+        ) : (
+          <div className={`text text_type_main-default text_color_success`}>
+            В работе
+          </div>
+        )}
         </div>
       </div>
       <div className={styles.ingredients}>
