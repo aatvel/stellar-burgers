@@ -15,7 +15,6 @@ const Modal: FC<IModal> = ({ title, children, closeModal }) => {
 
   const modalRoot = document.getElementById("modals") as HTMLElement;
 
-
   React.useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -30,15 +29,14 @@ const Modal: FC<IModal> = ({ title, children, closeModal }) => {
     };
   }, [modalRoot]);
 
-
   return createPortal(
 
         <>
           <div className={`${modalStyles.container} pt-15 pr-10 pl-10 pb-15`}>
             <div className={modalStyles.header}>
-              <h2 className={`${modalStyles.title} text text_type_main-large`}>
+             {title ? <h2 className={`${modalStyles.title} text text_type_main-large`}>
                 {title}
-              </h2>
+              </h2> : null} 
 
               <button
                 className={modalStyles.closeButton}

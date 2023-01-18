@@ -40,6 +40,10 @@ export function deleteCookie(name: string) {
   setCookie(name, false, { expires: -1 });
 }
 
-export const saveTokenToLocalStorage = (refreshToken: string) => {
+export const saveTokenToLocalStorage = (refreshToken: string ) => {
   localStorage.setItem('refreshToken', refreshToken)
 } 
+
+export const getAccessToken = () => {
+  return String(getCookie('accessToken')).replace(/^Bearer\s/, '');
+};

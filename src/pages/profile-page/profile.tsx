@@ -1,6 +1,5 @@
 import React, {FC} from "react";
-import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import styles from './profile.module.css'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,9 +11,9 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import { onEditStart } from "../../services/edit-user/edit-actions";
 import {
-  getCurrentUserStart,
-  onLogoutStart,
+  LOGOUT_USER_REQUEST
 } from "../../services/login/login-actions";
+import ProfileNav from "../profile-nav/profile-nav";
 
 interface IProfile {
   currentUser: {name: string, email: string};
@@ -49,7 +48,6 @@ const Profile: FC<IProfile> = ({ currentUser }) => {
   };
 
   const handleSave = (e: React.FormEvent ) => {
-    console.log(user);
     e.preventDefault();
     dispatch(onEditStart(user));
   };
@@ -64,7 +62,7 @@ const Profile: FC<IProfile> = ({ currentUser }) => {
 
   const handleClickLogout = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(onLogoutStart());
+    dispatch({type: LOGOUT_USER_REQUEST});
     directToPage();
   };
 
@@ -72,20 +70,10 @@ const Profile: FC<IProfile> = ({ currentUser }) => {
     currentUser && (
       <>
         <div className="login-wrapper">
-          <div className="profile-container">
-            <div className="info-container">
-              <NavLink to="/profile" className="info-type">
-                Профиль
-              </NavLink>
+          <div className={styles.container}>
 
-              <NavLink to="/profile/orders" className="info-type">
-                История заказов
-              </NavLink>
 
-              <NavLink to="/" className="info-type" onClick={handleClickLogout}>
-                Выход
-              </NavLink>
-            </div>
+            <ProfileNav />
 
             <div className="sign-in" style={{ margin: "0" }}>
               <form
@@ -162,7 +150,5 @@ const Profile: FC<IProfile> = ({ currentUser }) => {
     )
   );
 };
-
-
 
 export default Profile;

@@ -12,7 +12,6 @@ export function request(url: RequestInfo | URL | string, options?: RequestInit |
   return fetch(url, options)
     .then(checkResponse)
     .then((data) => {
-      // console.log(data)
       if (data?.success) return data;
       
       return Promise.reject(data);

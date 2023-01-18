@@ -1,9 +1,7 @@
 import React, {FC, useCallback} from "react";
 import IngredientsStyles from "./ingredient.module.css";
-import PropTypes from "prop-types";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ingredientType, TItem } from "../../../utils/types";
-import { useDispatch, useSelector } from "react-redux";
+import { TItem, useAppDispatch, useAppSelector  } from "../../../utils/types";
 import { useDrag } from "react-dnd/dist/hooks";
 import {
   CurrencyIcon,
@@ -19,24 +17,16 @@ const Ingredient: FC<IingredientData> = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { ingredientData } = props;
-  const { buns, mainsAndSauces } = useSelector(
-    (state: any) => state.constructorReducer
-    
+  const { buns, mainsAndSauces } = useAppSelector(
+    (state) => state.constructorReducer    
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
     dispatch(showDetails(ingredientData));
 
   };
-
-  const showIngredientDetails = useCallback((item: TItem) => {
-    navigate(
-        `ingredients/${item._id}`,
-        { state: { background:  location } }
-    );
-}, [navigate]);
 
   const [, dragRef] = useDrag({
     type: "ingredient",

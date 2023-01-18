@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  padding-top: 11.1%;
+  width: 320px;
+}
+
+.order {
+  width: 100%;
+  padding-left: 150px;
+  /* transform: translateX(10%); */
+}
+
+.scroll {
+  display: flex;
+  flex-direction: row;
+  max-height: 75vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+
+  row-gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 80px;
+  /* transform: translateY(-5%); */
+}

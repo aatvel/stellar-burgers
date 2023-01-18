@@ -1,17 +1,13 @@
 import React, {FC} from "react";
-import { useState, useRef, useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useRef } from 'react';
 import { useDrag, useDrop } from "react-dnd";
 import {
-  CurrencyIcon,
   ConstructorElement,
-  Button,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "../burger-constructor.module.css";
-import { CONSTRUCTOR_REORDER, CONSTRUCTOR_DELETE } from "../../../services/constructor-ingredients/constructor-actions";
-import PropTypes from "prop-types";
-import { TItem } from "../../../utils/types";
+import { deleteItem, reoderItem } from "../../../services/constructor-ingredients/constructor-actions";
+import { TItem, useAppDispatch } from "../../../utils/types";
 import type { Identifier } from 'dnd-core'
 
 
@@ -29,7 +25,7 @@ interface CollectedProps {
 }
 
 const MainsAndSauces:FC <IMains> = ({ ingredient, index }) => {
-const dispatch = useDispatch();
+const dispatch = useAppDispatch();
 const ref = useRef<HTMLLIElement>(null);
 
 const [{handlerId}, drop] = useDrop<DragObject, undefined, CollectedProps>({
@@ -56,13 +52,12 @@ const [{handlerId}, drop] = useDrop<DragObject, undefined, CollectedProps>({
             return
         }
 
-        dispatch({
-            type: CONSTRUCTOR_REORDER,
-            payload: {
-                from: dragIndex,
-                to: hoverIndex
-            }
-        });
+        dispatch(reoderItem(
+          {
+             from: dragIndex,
+             to: hoverIndex
+         }
+     ));
         item.index = hoverIndex;
     }
     
@@ -93,11 +88,8 @@ const [{handlerId}, drop] = useDrop<DragObject, undefined, CollectedProps>({
         price={ingredient.price}
         thumbnail={ingredient.image_mobile}
         handleClose={() =>
-            dispatch({
-                type: CONSTRUCTOR_DELETE,
-                payload: index,
-            })
-        }
+          dispatch(deleteItem(index))
+      }
       />
     </li>
   );

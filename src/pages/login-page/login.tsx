@@ -1,11 +1,8 @@
-import React, {FC, useState} from "react";
+import React, { FC, useState } from "react";
 import { Link } from "react-router-dom";
-import AppHeader from "../../components/app-header/app-header";
-import PropTypes from "prop-types";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getCurrentUserStart,
   onLogintart,
 } from "../../services/login/login-actions";
 import {
@@ -13,8 +10,6 @@ import {
   EmailInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
-
 
 const Login: FC = ({}) => {
   const dispatch = useDispatch();
@@ -38,7 +33,7 @@ const Login: FC = ({}) => {
     password,
   };
 
-  const handleClick = (e: React.FormEvent ) => {
+  const handleClick = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(onLogintart(user));
     setTimeout(() => directoFromLogin(), 1000);
@@ -67,8 +62,12 @@ const Login: FC = ({}) => {
               minLength={5}
             />
 
-        
-            <Button htmlType="submit" type="primary" size="large" extraClass="ml-2">
+            <Button
+              htmlType="submit"
+              type="primary"
+              size="large"
+              extraClass="ml-2"
+            >
               Войти
             </Button>
           </form>
@@ -93,7 +92,5 @@ const Login: FC = ({}) => {
     </>
   );
 };
-
-
 
 export default Login;

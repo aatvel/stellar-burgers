@@ -1,7 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+
 import {
-  Button,
   BurgerIcon,
   ListIcon,
   Logo,
@@ -31,7 +29,7 @@ export default function AppHeader() {
   };
 
   const setOrderActive = (url: string) => {
-    if (location.pathname === "/login" && url === "/login") {
+    if (location.pathname === "/feed" && url === "/feed") {
       return true;
     } else {
       return false;
@@ -53,7 +51,7 @@ export default function AppHeader() {
             <p className="text text_type_main-default">Конструктор</p>
           </NavLink>
 
-          <NavLink className={styles.menu_item} to={{ pathname: "/order" }}>
+          <NavLink className={styles.menu_item} to={{ pathname: "/feed" }}>
             <ListIcon
               type={setOrderActive(location.pathname) ? "primary" : "secondary"}
             />

@@ -1,23 +1,19 @@
 import React, { useEffect, FC } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import styles from "./ingredient-details.module.css";
 import { showPageDetailStart } from "../../services/ingredients/ingredients-actions";
 import { PreLoader } from "../app/preloader";
-import {  useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
+import { TItem, useAppDispatch, useAppSelector } from "../../utils/types";
 
 export interface IBackground {
   background: object | null;
 }
 
 const IngredientDetails: FC<IBackground> = ({ background }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { ingredient } = useSelector((s: any) => s.details);
-  const { pageIngredient, loading } = useSelector((s: any) => s.ingredients);
+  const dispatch = useAppDispatch();
 
+  const { ingredient } = useAppSelector((s) => s.details);
+  const { pageIngredient, loading } = useAppSelector<{pageIngredient: Array<TItem>; loading: string}>((s) => s.ingredients);
   const { _id } = useParams();
 
   useEffect(() => {
@@ -32,13 +28,13 @@ const IngredientDetails: FC<IBackground> = ({ background }) => {
     <div className={styles.card}>
       <img
         className={`${styles.image} mt-3 `}
-        alt={background ? ingredient.name : pageIngredient[0]?.name}
+        alt={background ? ingredient?.name : pageIngredient[0]?.name}
         src={
-          background ? ingredient.image_large : pageIngredient[0]?.image_large
+          background ? ingredient?.image_large : pageIngredient[0]?.image_large
         }
       />
       <h3 className="text text_type_main-medium mt-4 ">
-        {background ? ingredient.name : pageIngredient[0]?.name}
+        {background ? ingredient?.name : pageIngredient[0]?.name}
       </h3>
       <ul className={`mt-8 ${styles.values}`}>
         <li className={styles.value}>
@@ -46,7 +42,7 @@ const IngredientDetails: FC<IBackground> = ({ background }) => {
             Калории,ккал
           </p>
           <p className="text text text_type_digits-default text_color_inactive">
-            {background ? ingredient.calories : pageIngredient[0]?.calories}
+            {background ? ingredient?.calories : pageIngredient[0]?.calories}
           </p>
         </li>
         <li className={styles.value}>
@@ -54,7 +50,7 @@ const IngredientDetails: FC<IBackground> = ({ background }) => {
             Белки, г
           </p>
           <p className="text text text_type_digits-default text_color_inactive">
-            {background ? ingredient.proteins : pageIngredient[0]?.proteins}
+            {background ? ingredient?.proteins : pageIngredient[0]?.proteins}
           </p>
         </li>
         <li className={styles.value}>
@@ -62,7 +58,7 @@ const IngredientDetails: FC<IBackground> = ({ background }) => {
             Жиры, г
           </p>
           <p className="text text text_type_digits-default text_color_inactive">
-            {background ? ingredient.fat : pageIngredient[0]?.fat}
+            {background ? ingredient?.fat : pageIngredient[0]?.fat}
           </p>
         </li>
         <li className={styles.value}>
@@ -71,7 +67,7 @@ const IngredientDetails: FC<IBackground> = ({ background }) => {
           </p>
           <p className="text text text_type_digits-default text_color_inactive">
             {background
-              ? ingredient.carbohydrates
+              ? ingredient?.carbohydrates
               : pageIngredient[0]?.carbohydrates}
           </p>
         </li>

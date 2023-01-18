@@ -1,59 +1,49 @@
-import React, {FC} from "react";
-import { useLocation, Navigate, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useDrag, useDrop } from "react-dnd";
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDrop } from "react-dnd";
 import {
   CurrencyIcon,
   ConstructorElement,
   Button,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "./burger-constructor.module.css";
-import OrderDetails from "../order-details/order-details";
-import Modal from "../modal/modal";
-import {
 
-  onLoadingStart
-} from "../../services/order/order-actions";
+import { onLoadingStart } from "../../services/order/order-actions";
 import {
   setBun,
   setMainsAndSauces,
 } from "../../services/constructor-ingredients/constructor-actions";
 import emptyImg from "../../images/empty_space.png";
 import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
-import { TItem } from "../../utils/types";
-
+import { TItem, useAppDispatch, useAppSelector } from "../../utils/types";
 
 const BurgerConstructor: FC = () => {
-  const dispatch = useDispatch();
-  // const { showOrderModal } = useSelector((state) => state.orderReducer);
-  const { buns, mainsAndSauces } = useSelector(
-    (s: any) => s.constructorReducer
-  );
+  const dispatch = useAppDispatch();
+
+  const { buns, mainsAndSauces } = useAppSelector((s) => s.constructorReducer);
   const isBunAdded = buns !== undefined;
 
   //Modal Ingredient
-  const notBunsId: any[] = [];
+  const notBunsId: Array<string> = [];
 
-
-  mainsAndSauces.forEach((element: {_id: string}) => {
+  mainsAndSauces.forEach((element: { _id: string }) => {
     notBunsId.push(element._id);
   });
 
-
-  const location = useLocation();
   const navigate = useNavigate();
-  const auth = localStorage.getItem("refreshToken")
+  const auth = localStorage.getItem("refreshToken");
 
   const handleSubmitOrder = () => {
-    if(auth){
-    dispatch(onLoadingStart({ingredients: [buns._id, ...notBunsId, buns._id]}))}
-    else {
-      navigate('/login', { replace: true })
+    if (auth) {
+      if (buns !== null) {
+        dispatch(
+          onLoadingStart({ ingredients: [buns._id, ...notBunsId, buns._id] })
+        );
+      }
+    } else {
+      navigate("/login", { replace: true });
     }
-    
   };
-
 
   //Drag n Drop
   const onDropHandler = (item: TItem) => {
@@ -70,9 +60,12 @@ const BurgerConstructor: FC = () => {
   });
 
   //totalPrice
-  const totalPrice = mainsAndSauces.reduce((acc: number, curr: { price: number; }) => {
-    return acc + curr.price;
-  }, 0);
+  const totalPrice = mainsAndSauces.reduce(
+    (acc: number, curr: { price: number }) => {
+      return acc + curr.price;
+    },
+    0
+  );
 
   return (
     <div ref={dropRef} className={`${BurgerConstructorStyles.container}  `}>
@@ -98,7 +91,7 @@ const BurgerConstructor: FC = () => {
 
         <ul className={BurgerConstructorStyles.scroll}>
           {mainsAndSauces.length > 0 ? (
-            mainsAndSauces.map((ingredient: any | null | undefined, index: number  ) => {
+            mainsAndSauces.map((ingredient: any, index: number) => {
               return (
                 <MainsAndSauces
                   key={ingredient.id}
@@ -141,13 +134,12 @@ const BurgerConstructor: FC = () => {
       <section className={BurgerConstructorStyles.info}>
         <span className={BurgerConstructorStyles.price}>
           <span className={"text text_type_digits-medium"}>
-            {totalPrice + 2 * (buns && buns.price)}
+            {buns ? totalPrice + 2 * buns.price : totalPrice}
           </span>
           <span className={BurgerConstructorStyles.currency}>
             <CurrencyIcon type="primary" />
           </span>
         </span>
-
 
         <Button
           htmlType="button"
@@ -164,7 +156,5 @@ const BurgerConstructor: FC = () => {
     </div>
   );
 };
-
-
 
 export default React.memo(BurgerConstructor);
