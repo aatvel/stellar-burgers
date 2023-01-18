@@ -34,10 +34,7 @@ const OrderPage: FC<IBackground> = ({ background }) => {
   const { data } = useAppSelector<{ data: Array<TItem> }>(
     (state) => state.ingredients
   );
-  const currentOrder = useMemo(
-    () => message?.orders.filter((order: IOrder) => order._id === _id),
-    [ ]
-  );
+  const currentOrder = message?.orders.filter((order: IOrder) => order._id === _id)
 
   const uniqueIngredients = useMemo(
     () =>
@@ -78,7 +75,7 @@ const OrderPage: FC<IBackground> = ({ background }) => {
   const tokenn = getAccessToken();
   useEffect(() => {
     dispatch(wsConnectionStart(`${wsUrl}/orders/all`));
-    // dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
+
     return () => {
       dispatch(wsConnectionClosed());
     };

@@ -103,6 +103,45 @@ export interface IWSMessage {
   readonly totalToday: number;
 }
 
+export type TOrderResponse = {
+  success: boolean;
+  name: string;
+  order: {
+    ingredients: TItem;
+    _id: string;
+    owner?: {
+      name: string;
+      email: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+    status: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    number: number;
+    price: number;
+  };
+};
+
+export type TCurrentOrderResponse = {
+  success: boolean;
+  orders: TCurrentOrder[];
+};
+
+export type TCurrentOrder = {
+  _id: string;
+  ingredients: string[];
+  owner: string;
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+  __v: number;
+};
+
+
 export type AppActions =
   | TConstructorActions
   | TEditActions

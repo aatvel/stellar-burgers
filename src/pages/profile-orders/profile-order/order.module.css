@@ -75,7 +75,7 @@
   .ingredinets_left {
     display: flex;
     margin: 30px;
-    transform: translateX(-260px);
+    transform: translateX(-255px);
     text-shadow: 2px 2px rgba(0, 0, 0, 0.589);
     align-items: center;  
   }

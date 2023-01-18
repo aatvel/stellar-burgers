@@ -11,9 +11,11 @@ import { PreLoader } from "../../components/app/preloader";
 import Order from "./profile-order/order";
 import { getAccessToken } from "../../utils/cookie";
 import { wsUrl } from "../../utils/consts";
-import { wsConnectionClosed, wsConnectionStart } from "../../services/ws/ws-actions";
+import {
+  wsConnectionClosed,
+  wsConnectionStart,
+} from "../../services/ws/ws-actions";
 import ProfileNav from "../profile-nav/profile-nav";
-
 
 const ProfileOrders: FC = () => {
   const navigate = useNavigate();
@@ -39,14 +41,13 @@ const ProfileOrders: FC = () => {
   const orders = message?.orders;
   const tokenn = getAccessToken();
   useEffect(() => {
-    dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
-      return ()=> {
-        dispatch(wsConnectionClosed())
-      }
-    
-  }, [ orders, tokenn]);
-
-  
+    if (!orders) {
+      dispatch(wsConnectionStart(`${wsUrl}/orders?token=${tokenn}`));
+    }
+    return () => {
+      dispatch(wsConnectionClosed());
+    };
+  }, [dispatch]);
 
   return loading ? (
     <PreLoader />
@@ -54,7 +55,6 @@ const ProfileOrders: FC = () => {
     currentUser && (
       <>
         <div className={styles.container}>
-         
           <ProfileNav />
 
           <div className={styles.order}>
