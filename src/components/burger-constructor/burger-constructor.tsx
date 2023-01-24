@@ -72,12 +72,9 @@ const BurgerConstructor: FC = () => {
       <section className={BurgerConstructorStyles.orderedItems}>
         <span className={BurgerConstructorStyles.itemBun}>
           {buns === null ? (
-            <ConstructorElement
-              text="Выберите булочку"
-              type="top"
-              thumbnail={emptyImg}
-              price={0}
-            />
+           <p className={`${BurgerConstructorStyles.placeholder} text text_type_main-medium`}>
+           Выберите булочку
+         </p>
           ) : (
             <ConstructorElement
               type="top"
@@ -102,11 +99,9 @@ const BurgerConstructor: FC = () => {
             })
           ) : (
             <li className={BurgerConstructorStyles.item}>
-              <ConstructorElement
-                text="Выберите начинку и соус"
-                thumbnail={emptyImg}
-                price={0}
-              />
+              <p className={`${BurgerConstructorStyles.placeholder} text text_type_main-medium`}>
+            Выберите начинку и соус
+          </p>
             </li>
           )}
         </ul>
@@ -121,12 +116,9 @@ const BurgerConstructor: FC = () => {
               thumbnail={buns && buns.image_mobile}
             />
           ) : (
-            <ConstructorElement
-              text="Выберите булочку"
-              type="bottom"
-              thumbnail={emptyImg}
-              price={0}
-            />
+            <p className={`${BurgerConstructorStyles.placeholder} text text_type_main-medium`}>
+            Выберите булочку
+          </p>
           )}
         </span>
       </section>
