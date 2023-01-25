@@ -15,7 +15,7 @@ type TIngredientsState = {
     error: boolean
 }
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
     data: [],
     pageIngredient: [],
     loading: true,

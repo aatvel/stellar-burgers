@@ -15,7 +15,7 @@ type TOrderListState = {
     error?: null | Event;
 };
 
-const initialState: TOrderListState = {
+export const initialState: TOrderListState = {
     connected: false,
     message: null,
     error: null,

@@ -11,13 +11,13 @@ type TResetState = {
   loading: boolean,
   error: boolean
 }
-const initialState: TResetState = {
+
+export const initialState: TResetState = {
   password: null,
   token: null,
   loading: false,
   error: false
 };
-
 
 export const resetReducer = (state = initialState, actions: TResetActions) => {
   switch (actions.type) {

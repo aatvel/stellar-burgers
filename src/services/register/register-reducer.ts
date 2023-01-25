@@ -12,7 +12,7 @@ type TRegisterState = {
   error: boolean
 }
 
-const initialState: TRegisterState = {
+export const initialState: TRegisterState = {
   user: {},
   loading: false,
   error: false

@@ -15,29 +15,29 @@ type TConstrucorState = {
 }
 
 
-const initialState: TConstrucorState = {
+export const initialState: TConstrucorState = {
     buns: null,
     mainsAndSauces: [],
 }
 
-export const constructorReducer = (state = initialState, actions: TConstructorActions) => {
-    switch (actions.type) {
-        case SET_BUN: {return {...state, buns: actions.buns} }
-        case SET_MAINS_AND_SAUCES: {return {...state, mainsAndSauces: [ ...state.mainsAndSauces, actions.mainsAndSauces]} }
+export const constructorReducer = (state = initialState, action: TConstructorActions) => {
+    switch (action.type) {
+        case SET_BUN: {return {...state, buns: action.buns} }
+        case SET_MAINS_AND_SAUCES: {return {...state, mainsAndSauces: [ ...state.mainsAndSauces, action.mainsAndSauces]} }
         case CONSTRUCTOR_DELETE: {
             return {
             ...state, 
             mainsAndSauces: [
-                ...state.mainsAndSauces.slice(0, actions.index),
-                ...state.mainsAndSauces.slice(actions.index + 1),
+                ...state.mainsAndSauces.slice(0, action.index),
+                ...state.mainsAndSauces.slice(action.index + 1),
             ],
         };}
         case CONSTRUCTOR_REORDER: {
             const mainsAndSauces = [...state.mainsAndSauces];
             mainsAndSauces.splice(
-                actions.mainsAndSauces.to,
+                action.mainsAndSauces.to,
                 0,
-                mainsAndSauces.splice(actions.mainsAndSauces.from, 1)[0]
+                mainsAndSauces.splice(action.mainsAndSauces.from, 1)[0]
             )
             return {...state, mainsAndSauces,}
         }

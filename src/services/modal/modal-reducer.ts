@@ -9,12 +9,13 @@ export interface ICloseFeed {
   readonly type: typeof CLOSE_FEED_DETAILS;
 }
 
-export type ModalActions = IFeed | ICloseFeed
+export type ModalActions = IFeed | ICloseFeed;
 
 type TOrderState = {
   showFeedModal: boolean;
 };
-const initialState: TOrderState = {
+
+export const initialState: TOrderState = {
   showFeedModal: false,
 };
 
@@ -30,6 +31,4 @@ export const modalReducer = (state = initialState, actions: ModalActions) => {
       return state;
     }
   }
- 
-
 };

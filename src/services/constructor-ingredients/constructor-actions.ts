@@ -40,21 +40,21 @@ export interface IConstructorReorderAction {
 
 export interface IConstructorResetAction {
     readonly type: typeof CONSTRUCTOR_RESET;
-    readonly payload: TItem
+    readonly payload: null
 }
 
 
 
-
+export const id =  uuid()
 export const setBun = (bun: TItem): ISetBunAction => ({
     type: SET_BUN,
-    buns: {...bun, id: uuid()}
+    buns: {...bun, id: id}
 })
 
 export const setMainsAndSauces = (mainsAndSauces: TItem): IsetMainsAndSaucesAction => {
     return {
     type: SET_MAINS_AND_SAUCES,
-    mainsAndSauces: {...mainsAndSauces, id: uuid()}
+    mainsAndSauces: {...mainsAndSauces, id: id}
 }}
 
 export const reoderItem = (mainsAndSauces: IItemAndIdTo ): IConstructorReorderAction => ({
@@ -65,6 +65,11 @@ export const reoderItem = (mainsAndSauces: IItemAndIdTo ): IConstructorReorderAc
 export const deleteItem = (index: number): IConstructorDeleteAction => ({
     type: CONSTRUCTOR_DELETE,
     index   
+})
+
+export const resetItem = (payload: null): IConstructorResetAction => ({
+    type: CONSTRUCTOR_RESET,
+    payload
 })
 
 

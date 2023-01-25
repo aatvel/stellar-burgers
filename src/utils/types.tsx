@@ -30,6 +30,7 @@ export const ingredientType = PropTypes.shape({
 
 export type TItem = {
   _id: string;
+  id?: string
   name: string;
   type: "bun" | "main" | "sauce";
   proteins: number;
