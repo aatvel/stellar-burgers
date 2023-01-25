@@ -13,7 +13,6 @@ import {
   setBun,
   setMainsAndSauces,
 } from "../../services/constructor-ingredients/constructor-actions";
-import emptyImg from "../../images/empty_space.png";
 import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
 import { TItem, useAppDispatch, useAppSelector } from "../../utils/types";
 
