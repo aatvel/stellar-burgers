@@ -4,9 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 
 # Deployed project
-stellar-burgers-aatvel.vercel.app
-stellar-burgers-git-main-aatvel.vercel.app
-stellar-burgers-seven.vercel.app
+
+Open [stellar-burgers-aatvel.vercel.app](http://localhost:3000) to view it in the browser.
 
 ## Available Scripts
 
