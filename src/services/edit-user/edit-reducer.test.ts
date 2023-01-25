@@ -1,7 +1,10 @@
-import { user } from "../../utils/test-const";
 import { onEditSuccess, onEditStart, onEditError } from "./edit-actions";
 import { editReducer as reducer, initialState as state } from "./edit-reducer";
 
+const user = {
+  name: "test",
+  email: "test@mail.ru",
+};
 
 describe("editReducer test", () => {
 
