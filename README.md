@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+# Deployed project
+stellar-burgers-aatvel.vercel.app
+stellar-burgers-git-main-aatvel.vercel.app
+stellar-burgers-seven.vercel.app
+
 ## Available Scripts
 
 In the project directory, you can run:
