@@ -6,11 +6,19 @@ import {
   wsConnectionSuccess,
   wsConnectionError,
   wsConnectionClosed,
-  wsGetMessage
+  wsGetMessage,
+  TWSActions
 } from "./ws-actions";
 import { wsReducer as reducer, initialState as state } from "./ws-reducer";
 
 describe("websockets reducer test", () => {
+
+  test('Проверка начального состояния', () => {
+    expect(reducer(undefined, {} as TWSActions)).toEqual(
+        state
+    );
+  });
+
   it(" ws connection start", () => {
     expect(reducer(state, wsConnectionStart(`${wsUrl}/orders/all`))).toEqual({
       ...state,
@@ -56,5 +64,5 @@ describe("websockets reducer test", () => {
       message: allOrders
     });
   });
-  
+
 });

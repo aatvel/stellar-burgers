@@ -9,6 +9,7 @@ import {
   getCurrentUserError,
   onLogoutError,
   onLogoutStart,
+  TLoginActions,
 } from "./login-actions";
 import {
   loginReducer as reducer,
@@ -18,6 +19,12 @@ import {
 
 
 describe("loginReducer test", () => {
+
+  test('Проверка начального состояния', () => {
+    expect(reducer(undefined, {} as TLoginActions)).toEqual(
+        state
+    );
+  });
 
   it("login start", () => {
     expect(reducer(state, onLogintart(user))).toEqual({

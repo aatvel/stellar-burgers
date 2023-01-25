@@ -3,7 +3,8 @@ import {
   setMainsAndSauces,
   reoderItem,
   deleteItem,
-  resetItem
+  resetItem,
+  TConstructorActions
 } from "./constructor-actions";
 import {
   pinkBun,
@@ -17,6 +18,13 @@ import {
 import { id } from "./constructor-actions";
 
 describe("burger-constructor reducer test", () => {
+
+  test('Проверка начального состояния', () => {
+    expect(reducer(undefined, {} as TConstructorActions)).toEqual(
+        state
+    );
+  });
+
   it("add a bun", () => {
     expect(reducer(state, setBun({ pinkBun, id } as any))).toEqual({
       ...state,

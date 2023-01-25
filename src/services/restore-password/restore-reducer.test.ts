@@ -2,12 +2,19 @@ import { user } from "../../utils/test-const";
 import {
   onRestoreStart,
   onRestoreSuccess,
-  onRestoreError
+  onRestoreError,
+  TRestoreActions
 } from "./restore-actions";
 import { restoreReducer as reducer, initialState as state } from "./restore-reducer";
 
 
 describe("restoreReducer test", () => {
+
+  test('Проверка начального состояния', () => {
+    expect(reducer(undefined, {} as TRestoreActions)).toEqual(
+        state
+    );
+  });
 
   it("restore user start", () => {
     expect(reducer(state, onRestoreStart(user.email as any))).toEqual({

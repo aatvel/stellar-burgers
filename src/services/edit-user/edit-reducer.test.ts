@@ -1,4 +1,4 @@
-import { onEditSuccess, onEditStart, onEditError } from "./edit-actions";
+import { onEditSuccess, onEditStart, onEditError, TEditActions } from "./edit-actions";
 import { editReducer as reducer, initialState as state } from "./edit-reducer";
 
 const user = {
@@ -7,6 +7,12 @@ const user = {
 };
 
 describe("editReducer test", () => {
+
+  test('Проверка начального состояния', () => {
+    expect(reducer(undefined, {} as TEditActions)).toEqual(
+        state
+    );
+  });
 
   it("edit user info", () => {
     expect(reducer(state, onEditStart(user))).toEqual({

@@ -3,6 +3,7 @@ import {
   loadIngredientsStart,
   loadIngredientsSuccess,
   showPageDetailSuccess,
+  TIngredientsActions,
 } from "./ingredients-actions";
 import {
   ingredientsReducer as reducer,
@@ -11,6 +12,12 @@ import {
 import { ingredients, pinkBun } from "../../utils/test-const";
 
 describe("ingredientsReducer test", () => {
+
+  test('Проверка начального состояния', () => {
+    expect(reducer(undefined, {} as TIngredientsActions)).toEqual(
+        state
+    );
+  });
 
   it("load ingredients start", () => {
     expect(reducer(state, loadIngredientsStart())).toEqual({

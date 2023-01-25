@@ -3,10 +3,17 @@ import {
   onRegisterStart,
   onRegisterSuccess,
   onRegisterError,
+  IRegisterActions,
 } from "./register-actions";
 import { registerReducer as reducer, initialState as state } from "./register-reducer";
 
 describe("registerReducer test", () => {
+
+  test('Проверка начального состояния', () => {
+    expect(reducer(undefined, {} as IRegisterActions)).toEqual(
+        state
+    );
+  });
 
   it("register user start", () => {
     expect(reducer(state, onRegisterStart(user))).toEqual({

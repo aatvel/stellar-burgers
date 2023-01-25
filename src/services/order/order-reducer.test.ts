@@ -2,6 +2,7 @@ import {
   ingredients,
 } from "../../utils/test-const";
 import {
+  IOrderActions,
   onLoadingError,
   onLoadingStart,
   onLoadingSuccess,
@@ -13,6 +14,12 @@ import {
 } from "./order-reducer";
 
 describe("orderReducer test", () => {
+
+  test('Проверка начального состояния', () => {
+    expect(reducer(undefined, {} as IOrderActions)).toEqual(
+        state
+    );
+  });
 
   it("load order start", () => {
     expect(reducer(state, onLoadingStart(ingredients as any))).toEqual({
