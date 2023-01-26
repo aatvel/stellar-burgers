@@ -10,7 +10,7 @@ WebSocket \
 ### Start
 
 ```
-  npm run start
+  npm start
 ```
 
 Runs the app in the development mode.
@@ -18,7 +18,7 @@ Runs the app in the development mode.
 ### Test
 
 ```
-  npm run test
+  npm test
 ```
 
 Launches the test runner in the interactive watch mode.
@@ -26,7 +26,7 @@ Launches the test runner in the interactive watch mode.
 ### Build
 
 ```
-  npm run build
+  npm build
 ```
 
 Builds the app for production to the build folder.
