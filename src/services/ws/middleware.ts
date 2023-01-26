@@ -2,6 +2,7 @@ import type { Middleware, MiddlewareAPI } from "redux";
 import type { RootState, AppDispatch } from "../store";
 
 import { TSocketMiddlewareActions } from "../../utils/types";
+import { wsSendMessage } from "./ws-actions";
 
 export const socketMiddleware = (
   wsUrl: string,
@@ -51,7 +52,8 @@ export const socketMiddleware = (
         });
         };
 
-        socket.send = (event) => {         
+        socket.send = (event) => {
+         
           let data = JSON.stringify(event)
           dispatch({
             type: sendMessage,

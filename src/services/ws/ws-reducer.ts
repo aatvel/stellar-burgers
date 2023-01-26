@@ -60,12 +60,12 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
                 message: { ...action.payload },
             };
         }
-        case WS_SEND_MESSAGE: {
-            return {
-                ...state,
-                data: payload
-            }
-        }
+        // case WS_SEND_MESSAGE: {
+        //     return {
+        //         ...state,
+        //         data: payload
+        //     }
+        // }
         default: {
             return state;
         }
