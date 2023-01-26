@@ -1,7 +1,8 @@
 describe("DnD and make order", () => {
+  const modal = '[class^="modal_container"]'
   beforeEach(() => {
     cy.viewport(1450, 1100);
-    cy.visit("http://localhost:3000");
+    cy.visit("baseUrl");
     cy.contains("Соберите бургер");
   });
 
@@ -24,18 +25,18 @@ describe("DnD and make order", () => {
         cy.wait(3000);
         cy.get("button").contains("Оформить заказ").click();
         cy.wait(17000);
-        cy.get('[class^="modal_container"]').should("exist");
+        cy.get(modal).should("exist");
         cy.get("body").contains("Ваш заказ начали готовить").should("exist");
         cy.wait(3000);
         cy.get("body").type("{esc}");
-        cy.get('[class^="modal_container"]').should("not.exist");
+        cy.get(modal).should("not.exist");
 
       } else {
-        cy.get('[class^="modal_container"]').should("exist");
+        cy.get(modal).should("exist");
         cy.contains("Ваш заказ начали готовить");
         cy.wait(3000);
         cy.get("body").type("{esc}");
-        cy.get('[class^="modal_container"]').should("not.exist");0
+        cy.get(modal).should("not.exist");0
       }
     });
   });

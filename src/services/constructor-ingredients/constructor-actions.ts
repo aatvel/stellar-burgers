@@ -46,15 +46,21 @@ export interface IConstructorResetAction {
 
 
 export const id =  uuid()
+
 export const setBun = (bun: TItem): ISetBunAction => ({
     type: SET_BUN,
-    buns: {...bun, id: id}
+    buns: {...bun, id: uuid()}
+})
+
+export const setBuns = (bun: TItem): ISetBunAction => ({
+    type: SET_BUN,
+    buns: {...bun, id: uuid()}
 })
 
 export const setMainsAndSauces = (mainsAndSauces: TItem): IsetMainsAndSaucesAction => {
     return {
     type: SET_MAINS_AND_SAUCES,
-    mainsAndSauces: {...mainsAndSauces, id: id}
+    mainsAndSauces: {...mainsAndSauces, id: uuid()}
 }}
 
 export const reoderItem = (mainsAndSauces: IItemAndIdTo ): IConstructorReorderAction => ({

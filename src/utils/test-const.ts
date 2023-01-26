@@ -1,4 +1,4 @@
-import { IWSMessage, TItem } from "./types";
+import { IWSMessage, TItem, TUniqueIngredient } from "./types";
 
 export const user = {
   name: "alina",
@@ -143,3 +143,4 @@ export const allOrders = {
   total: 7894654,
   totalToday: 158
 };
+

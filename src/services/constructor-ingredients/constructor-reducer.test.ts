@@ -16,9 +16,10 @@ import {
   constructorReducer as reducer,
 } from "./constructor-reducer";
 import { id } from "./constructor-actions";
+import { useAppSelector } from "../../utils/types";
 
 describe("burger-constructor reducer test", () => {
-
+  
   test('Проверка начального состояния', () => {
     expect(reducer(undefined, {} as TConstructorActions)).toEqual(
         state

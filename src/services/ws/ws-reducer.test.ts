@@ -44,10 +44,9 @@ describe("websockets reducer test", () => {
 
   it("ws connection error", () => {
     const err = 'err'
-    expect(reducer(state, wsConnectionError(err as any))).toEqual({
+    expect(reducer(state, wsConnectionError())).toEqual({
       ...state,
-      connected: false,
-      error: err
+      connected: false
     });
   });
 

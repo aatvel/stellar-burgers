@@ -23,7 +23,6 @@ export interface IWSConnectionSuccess {
 
 export interface IWSConnectionError {
     readonly type: typeof WS_CONNECTION_ERROR;
-    readonly payload: Event;
 }
 
 export interface IWSConnectionClosed {
@@ -62,9 +61,8 @@ export const wsConnectionSuccess = (): IWSConnectionSuccess => ({
     type: WS_CONNECTION_SUCCESS
 });
 
-export const wsConnectionError = (payload: Event): IWSConnectionError => ({
+export const wsConnectionError = (): IWSConnectionError => ({
     type: WS_CONNECTION_ERROR,
-    payload
 });
 
 export const wsConnectionClosed = (): IWSConnectionClosed => ({

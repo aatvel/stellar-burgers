@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { v4 as uuid } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { useDrop } from "react-dnd";
 import {
@@ -18,6 +19,7 @@ import { TItem, useAppDispatch, useAppSelector } from "../../utils/types";
 
 const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
+  const uniqueId =  uuid()
 
   const { buns, mainsAndSauces } = useAppSelector((s) => s.constructorReducer);
   const isBunAdded = buns !== undefined;
@@ -66,6 +68,8 @@ const BurgerConstructor: FC = () => {
     0
   );
 
+
+
   return (
     <div ref={dropRef} className={`${BurgerConstructorStyles.container}  `}>
       <section className={BurgerConstructorStyles.orderedItems}>
@@ -87,7 +91,7 @@ const BurgerConstructor: FC = () => {
 
         <ul className={BurgerConstructorStyles.scroll}>
           {mainsAndSauces.length > 0 ? (
-            mainsAndSauces.map((ingredient: any, index: number) => {
+            mainsAndSauces.map((ingredient, index) => {
               return (
                 <MainsAndSauces
                   key={ingredient.id}

@@ -1,15 +1,14 @@
 import React, {  FC, useState } from "react";
-import PropTypes from "prop-types";
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../utils/types";
 import { onRestoreStart } from "../../services/restore-password/restore-actions";
 
 
 const Restore: FC = ({ }) => {
    const [value, setValue] = useState<string>("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);

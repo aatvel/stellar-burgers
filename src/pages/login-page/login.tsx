@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/types";
 import {
   onLogintart,
 } from "../../services/login/login-actions";
@@ -12,7 +12,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const Login: FC = ({}) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const [email, setEmail] = useState<string>("");

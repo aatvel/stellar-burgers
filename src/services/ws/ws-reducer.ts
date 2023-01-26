@@ -41,8 +41,7 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
         case WS_CONNECTION_ERROR: {
             return {
                 ...state,
-                connected: false,
-                error: action.payload
+                connected: false
             };
         }
         case WS_CONNECTION_CLOSED: {

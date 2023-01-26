@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import styles from './profile.module.css'
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/types";
 import {
   PasswordInput,
   EmailInput,
@@ -22,7 +22,7 @@ interface IProfile {
 const Profile: FC<IProfile> = ({ currentUser }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [name, setName] = useState(currentUser?.name || "");
   const [email, setEmail] = useState(currentUser?.email || "");
