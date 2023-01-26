@@ -4,7 +4,9 @@ import {
   reoderItem,
   deleteItem,
   resetItem,
-  TConstructorActions
+  TConstructorActions,
+  SET_BUN,
+  SET_MAINS_AND_SAUCES
 } from "./constructor-actions";
 import {
   pinkBun,
@@ -27,30 +29,36 @@ describe("burger-constructor reducer test", () => {
   });
 
   it("add a bun", () => {
-    expect(reducer(state, setBun({ pinkBun, id } as any))).toEqual({
+    const action = {
+      type: SET_BUN,
+      buns: {...pinkBun, id: 123}
+    }
+    expect(reducer(state, action as any)).toEqual({
       ...state,
-      buns: { pinkBun, id },
+      buns: { ...pinkBun, id: 123 },
     });
   });
 
   it("add an ingredient", () => {
-    expect(
-      reducer(state, setMainsAndSauces({ ingredientMain, id } as any))
-    ).toEqual({
+    const action = {
+      type: SET_MAINS_AND_SAUCES,
+      mainsAndSauces: {...ingredientMain, id: 123}
+    }
+    expect(reducer(state, action as any)).toEqual({
       ...state,
-      mainsAndSauces: [...state.mainsAndSauces, { ingredientMain, id }],
+      mainsAndSauces: [{ ...ingredientMain, id: 123 }],
     });
   });
 
   it("add another ingredient", () => {
-    expect(
-      reducer({
-        ...state,
-        mainsAndSauces: [ingredientMain],
-      }, setMainsAndSauces({ galaxySauce, id } as any))
-    ).toEqual({
+    const action = {
+      type: SET_MAINS_AND_SAUCES,
+      mainsAndSauces: {...galaxySauce, id: 321}
+    }
+
+    expect(reducer({...state, mainsAndSauces: [ingredientMain]}, action as any)).toEqual({
       ...state,
-      mainsAndSauces: [ingredientMain, {galaxySauce, id}],
+      mainsAndSauces: [ingredientMain, {...galaxySauce, id: 321}],
     });
   });
 
