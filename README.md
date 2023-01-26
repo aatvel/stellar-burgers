@@ -18,7 +18,7 @@ Runs the app in the development mode.
 ### Test
 
 ```
-  npm test
+  npm run test
 ```
 
 Launches the test runner in the interactive watch mode.
@@ -39,4 +39,4 @@ Builds the app for production to the build folder.
 
 Runs to deploy this project.
 
-###  [Ссылка на проект](https://stellar-burgers-git-main-aatvel.vercel.app/) 
+
