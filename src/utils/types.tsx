@@ -9,7 +9,7 @@ import { IOrderActions } from "../services/order/order-actions";
 import { IRegisterActions } from "../services/register/register-actions";
 import { TResetActions } from "../services/reset-password/reset-actions";
 import { TRestoreActions } from "../services/restore-password/restore-actions";
-import { TWSActions, WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE } from "../services/ws/ws-actions";
+import { TWSActions, WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE, WS_SEND_MESSAGE } from "../services/ws/ws-actions";
 import { ModalActions } from "../services/modal/modal-reducer";
 
 export const ingredientType = PropTypes.shape({
@@ -102,9 +102,9 @@ export interface IOrder {
 
 export interface IWSMessage {
   readonly success: boolean;
-  readonly orders: ReadonlyArray<IOrder>;
-  readonly total: number;
-  readonly totalToday: number;
+  readonly orders: ReadonlyArray<IOrder> ;
+  readonly total: number ;
+  readonly totalToday: number ;
 }
 
 export type TOrderResponse = {
@@ -169,4 +169,5 @@ export type TSocketMiddlewareActions = {
   readonly onError: typeof WS_CONNECTION_ERROR
   readonly onClose: typeof WS_CONNECTION_CLOSED
   readonly onMessage: typeof WS_GET_MESSAGE
+  readonly sendMessage: typeof WS_SEND_MESSAGE
 }

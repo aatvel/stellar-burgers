@@ -2,7 +2,7 @@ describe("DnD and make order", () => {
   const modal = '[class^="modal_container"]'
   beforeEach(() => {
     cy.viewport(1450, 1100);
-    cy.visit("baseUrl");
+    cy.visit("");
     cy.contains("Соберите бургер");
   });
 

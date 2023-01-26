@@ -1,15 +1,6 @@
 import type { Middleware, MiddlewareAPI } from "redux";
 import type { RootState, AppDispatch } from "../store";
-import {
-  wsConnectionStart,
-  wsConnectionStop,
-  wsConnectionSuccess,
-  wsConnectionError,
-  wsConnectionClosed,
-  wsGetMessage,
-  wsSendMessage,
-  TWSActions,
-} from "./ws-actions";
+
 import { TSocketMiddlewareActions } from "../../utils/types";
 
 export const socketMiddleware = (
@@ -22,7 +13,7 @@ export const socketMiddleware = (
     return (next) => (action) => {
       const { dispatch } = store;
       const { type, payload } = action;
-      const { onStart, onOpen, onError, onMessage, onClose } = wsActions;
+      const { onStart, onOpen, onError, onMessage, onClose, sendMessage } = wsActions;
 
       if (type === onStart) {
         // объект класса WebSocket
@@ -54,17 +45,20 @@ export const socketMiddleware = (
           });
         };
         // функция, которая вызывается при закрытии соединения
-        socket.onclose = (event) => {
+        socket.onclose = () => {
           dispatch({
             type: onClose
         });
         };
 
-        if (type === wsSendMessage(payload).type) {
-          const message = payload;
-          // функция для отправки сообщения на сервер
-          socket.send(JSON.stringify(message));
+        socket.send = (event) => {         
+          let data = JSON.stringify(event)
+          dispatch({
+            type: sendMessage,
+            payload: data
+          })
         }
+
       }
 
       next(action);

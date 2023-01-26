@@ -6,7 +6,7 @@ import createSagaMiddleware from 'redux-saga'
 // import thunk from 'redux-thunk';
 import rootSaga from "./sagas";
 import { socketMiddleware } from "./ws/middleware";
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE } from "./ws/ws-actions";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE, WS_SEND_MESSAGE } from "./ws/ws-actions";
 import { wsUrl } from "../utils/consts";
 
 const wsActions = {
@@ -14,7 +14,8 @@ const wsActions = {
   onOpen: WS_CONNECTION_SUCCESS,
   onClose: WS_CONNECTION_CLOSED,
   onError: WS_CONNECTION_ERROR,
-  onMessage: WS_GET_MESSAGE
+  onMessage: WS_GET_MESSAGE,
+  sendMessage: WS_SEND_MESSAGE
 }
 
 declare global {
