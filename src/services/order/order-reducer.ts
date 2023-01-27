@@ -14,7 +14,7 @@ type TOrderState = {
   error: boolean,
   showOrderModal: boolean,
 }
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   order: undefined,
   loading: false,
   error: false,

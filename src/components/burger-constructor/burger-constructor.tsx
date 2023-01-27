@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { v4 as uuid } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { useDrop } from "react-dnd";
 import {
@@ -13,12 +14,12 @@ import {
   setBun,
   setMainsAndSauces,
 } from "../../services/constructor-ingredients/constructor-actions";
-import emptyImg from "../../images/empty_space.png";
 import MainsAndSauces from "./mains-and-sauces/mains-and-sauces";
 import { TItem, useAppDispatch, useAppSelector } from "../../utils/types";
 
 const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
+  const uniqueId =  uuid()
 
   const { buns, mainsAndSauces } = useAppSelector((s) => s.constructorReducer);
   const isBunAdded = buns !== undefined;
@@ -67,17 +68,16 @@ const BurgerConstructor: FC = () => {
     0
   );
 
+
+
   return (
     <div ref={dropRef} className={`${BurgerConstructorStyles.container}  `}>
       <section className={BurgerConstructorStyles.orderedItems}>
         <span className={BurgerConstructorStyles.itemBun}>
           {buns === null ? (
-            <ConstructorElement
-              text="Выберите булочку"
-              type="top"
-              thumbnail={emptyImg}
-              price={0}
-            />
+           <p className={`${BurgerConstructorStyles.placeholder} text text_type_main-medium`}>
+           Выберите булочку
+         </p>
           ) : (
             <ConstructorElement
               type="top"
@@ -91,7 +91,7 @@ const BurgerConstructor: FC = () => {
 
         <ul className={BurgerConstructorStyles.scroll}>
           {mainsAndSauces.length > 0 ? (
-            mainsAndSauces.map((ingredient: any, index: number) => {
+            mainsAndSauces.map((ingredient, index) => {
               return (
                 <MainsAndSauces
                   key={ingredient.id}
@@ -102,11 +102,9 @@ const BurgerConstructor: FC = () => {
             })
           ) : (
             <li className={BurgerConstructorStyles.item}>
-              <ConstructorElement
-                text="Выберите начинку и соус"
-                thumbnail={emptyImg}
-                price={0}
-              />
+              <p className={`${BurgerConstructorStyles.placeholder} text text_type_main-medium`}>
+            Выберите начинку и соус
+          </p>
             </li>
           )}
         </ul>
@@ -121,12 +119,9 @@ const BurgerConstructor: FC = () => {
               thumbnail={buns && buns.image_mobile}
             />
           ) : (
-            <ConstructorElement
-              text="Выберите булочку"
-              type="bottom"
-              thumbnail={emptyImg}
-              price={0}
-            />
+            <p className={`${BurgerConstructorStyles.placeholder} text text_type_main-medium`}>
+            Выберите булочку
+          </p>
           )}
         </span>
       </section>

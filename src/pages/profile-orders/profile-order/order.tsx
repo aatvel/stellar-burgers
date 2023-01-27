@@ -25,7 +25,7 @@ const Order: FC<IOrderListItem> = ({ order }) => {
     (state) => state.ingredients
   );
 
-  const orderIngredients = order.ingredients.map((id: string) =>
+  const orderIngredients = order.ingredients.map((id) =>
     data.find((ingredient: TItem) => ingredient._id === id)
   );
 
@@ -39,6 +39,14 @@ const Order: FC<IOrderListItem> = ({ order }) => {
   }
 
   return (
+    <Link
+    to={{
+      pathname: `/profile/orders/${order._id}`,
+    }}
+    className={styles.link}
+    state={{ background: location }}
+    onClick={handleClick}
+  >
     <div className={`${styles.container} p-6 mr-4`} >
       <div className={styles.description}>
         <div className={`${styles.number} text text_type_digits-default`}>
@@ -52,16 +60,9 @@ const Order: FC<IOrderListItem> = ({ order }) => {
       </div>
       <div className={styles.order}>
         <div className={`${styles.name} text text_type_main-medium`}>
-          <Link
-            to={{
-              pathname: `/profile/orders/${order._id}`,
-            }}
-            className={styles.link}
-            state={{ background: location }}
-            onClick={handleClick}
-          >
+
             {order.name}
-          </Link>
+
           {order.status === StatusCodes.done ? (
           <div className={` ${styles.done}text text_type_main-default `}>
             Выполнен
@@ -97,6 +98,7 @@ const Order: FC<IOrderListItem> = ({ order }) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 

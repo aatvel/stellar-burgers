@@ -7,7 +7,7 @@ type TDetailsState = {
     showModal: boolean
 }
 
-const initialState: TDetailsState = {
+export const initialState: TDetailsState = {
     ingredient: null,
     showModal: false
 }

@@ -3,22 +3,26 @@ import {
     WS_CONNECTION_SUCCESS,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_CLOSED,
-    WS_GET_MESSAGE
+    WS_GET_MESSAGE,
+    WS_SEND_MESSAGE
 } from './ws-actions';
 import { TWSActions } from './ws-actions';
 
 import { IWSMessage } from '../../utils/types';
+import { payload } from '../../utils/test-const';
 
 type TOrderListState = {
     connected: boolean;
     message: null | IWSMessage;
     error?: null | Event;
+    data: null | string
 };
 
-const initialState: TOrderListState = {
+export const initialState: TOrderListState = {
     connected: false,
     message: null,
     error: null,
+    data: null
 };
 
 export const wsReducer = (state = initialState, action: TWSActions) => {
@@ -41,8 +45,7 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
         case WS_CONNECTION_ERROR: {
             return {
                 ...state,
-                connected: false,
-                error: action.payload
+                connected: false
             };
         }
         case WS_CONNECTION_CLOSED: {
@@ -57,6 +60,12 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
                 message: { ...action.payload },
             };
         }
+        // case WS_SEND_MESSAGE: {
+        //     return {
+        //         ...state,
+        //         data: payload
+        //     }
+        // }
         default: {
             return state;
         }

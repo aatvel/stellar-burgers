@@ -20,7 +20,7 @@ type TLoginState = {
   isLoggedIn: boolean
 }
 
-const initialState: TLoginState = {
+export const initialState: TLoginState = {
   tokenUser: null,
   currentUser: null,
   loading: false,

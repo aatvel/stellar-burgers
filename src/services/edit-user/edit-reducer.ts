@@ -13,7 +13,7 @@ type TEditUserState = {
   error: boolean,
 }
 
-const initialState: TEditUserState = {
+export const initialState: TEditUserState = {
   userInfo: {},
   loading: false,
   error: false,

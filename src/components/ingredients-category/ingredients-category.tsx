@@ -19,7 +19,7 @@ const IngredientCategory: FC<ICategory> = ({ title, titleId, ingredients }) => {
         {title}
       </h3>
       <section className={categoryStyles.items}>
-        {orderedMains.map((ingredient:TItem) => (
+        {orderedMains.map((ingredient) => (
           <Ingredient ingredientData={ingredient} key={ingredient._id} />
         ))}
       </section>

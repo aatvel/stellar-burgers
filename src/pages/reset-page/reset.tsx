@@ -1,15 +1,14 @@
 import React, {  FC } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "../../utils/types";
 import { onResetStart } from "../../services/reset-password/reset-actions";
 
 const Reset: FC = ({}) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState<string>("");
   const [code, setCode] = useState<string>("");
 

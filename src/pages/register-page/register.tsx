@@ -7,7 +7,7 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "../../utils/types";
 import { useState, useEffect } from "react";
 import { onRegisterStart } from "../../services/register/register-actions";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
@@ -15,7 +15,7 @@ import { getCurrentUserStart } from "../../services/login/login-actions";
 
 
 const Register: FC = ({}) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const [name, setName] = useState<string>("");

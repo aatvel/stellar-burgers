@@ -10,7 +10,8 @@ type TRestoreState = {
   loading: boolean,
   error: boolean
 }
-const initialState: TRestoreState = {
+
+export const initialState: TRestoreState = {
   email: null,
   loading: false,
   error: false

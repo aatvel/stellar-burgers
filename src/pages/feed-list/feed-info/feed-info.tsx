@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import styles from "./feed-info.module.css";
 
-import { StatusCodes, useAppSelector } from "../../../utils/types";
+import { IWSMessage, StatusCodes, useAppSelector } from "../../../utils/types";
 
 const FeedInfo: FC = () => {
   const { message } = useAppSelector((s) => s.wsReducer);

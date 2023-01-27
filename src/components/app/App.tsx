@@ -5,7 +5,6 @@ import {
   Route,
   useLocation,
   useNavigate,
-  useParams,
 } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../utils/types";
 import appStyles from "./app.module.css";
@@ -25,7 +24,6 @@ import ProtectedRouteOrder from "../protected-route-order";
 import Register from "../../pages/register-page/register";
 import Reset from "../../pages/reset-page/reset";
 import Restore from "../../pages/restore-page/restore";
-import Orders from "../../pages/profile-orders/profile-orders";
 import ProfileOrders from "../../pages/profile-orders/profile-orders";
 import FeedList from "../../pages/feed-list/feed-list";
 import OrderPage from "../../pages/order-page/order-page";
